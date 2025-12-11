@@ -14,7 +14,7 @@ export default function Navbar() {
               ⚙️
             </div>
             <div className="leading-tight">
-              <h1 className="text-2xl font-bold text-gray-800 tracking-tight">PSME</h1>
+              <h1 className="text-2xl font-bold text-gray-800 tracking-tight">PCCI</h1>
               <span className="text-xs font-semibold text-gray-500 tracking-widest uppercase">Las Piñas City</span>
             </div>
           </div>
