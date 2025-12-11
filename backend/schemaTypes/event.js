@@ -45,6 +45,18 @@ export default defineType({
       type: 'image',
       options: { hotspot: true },
     }),
+    
+    // --- NEW FIELD ADDED HERE ---
+    defineField({
+      name: 'description',
+      title: 'Short Description',
+      description: 'This text will appear on the News Grid. Keep it short (2-3 sentences).',
+      type: 'text',
+      rows: 3,
+      validation: rule => rule.max(300).warning('Long descriptions may get cut off on the grid.')
+    }),
+    // ----------------------------
+
     defineField({
       name: 'body',
       title: 'Full Article Content',

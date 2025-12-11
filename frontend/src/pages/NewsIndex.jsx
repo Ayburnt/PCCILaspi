@@ -10,12 +10,13 @@ export default function NewsIndex() {
   const [events, setEvents] = useState([]);
 
   useEffect(() => {
-    // Fetch ALL events (Removed the [0...4] limit)
+    // 1. Added 'description' to the fetch query
     const query = `*[_type == "event"] | order(date desc) {
       title,
       date,
       category,
-      slug 
+      slug,
+      description
     }`;
 
     client.fetch(query)
@@ -52,12 +53,19 @@ export default function NewsIndex() {
                   {event.category || 'Press Release'}
                 </span>
                 
-                <h3 className="text-xl font-serif font-bold text-blue-950 mb-3 leading-tight line-clamp-4">
+                <h3 className="text-xl font-serif font-bold text-blue-950 mb-3 leading-tight line-clamp-3">
                   {event.title}
                 </h3>
+
+                {/* --- 2. ADDED DESCRIPTION WITH TRUNCATION --- */}
+                {/* line-clamp-3 means: "Show only 3 lines, then add ..." */}
+                <p className="text-gray-500 text-sm leading-relaxed line-clamp-3 mb-4">
+                    {event.description || "No description available."}
+                </p>
+                {/* --------------------------------------------- */}
               </div>
 
-              <div className="flex justify-between items-center mt-4 pt-4 border-t border-gray-100">
+              <div className="flex justify-between items-center mt-auto pt-4 border-t border-gray-100">
                  <span className="text-xs text-gray-400">{event.date}</span>
                  <div className="bg-blue-50 p-2 rounded-full group-hover:bg-blue-900 transition-colors">
                     <ArrowRight className="text-blue-900 w-4 h-4 group-hover:text-white transition" />
