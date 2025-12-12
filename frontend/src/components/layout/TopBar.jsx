@@ -2,7 +2,7 @@ import { Phone, Mail, Facebook, Linkedin } from 'lucide-react';
 
 export default function TopBar() {
   return (
-    <div className="bg-blue-900 text-white text-xs py-2">
+    <div className="bg-blue-900 text-white text-xs py-2 w-full relative z-50">
       <div className="max-w-7xl mx-auto px-4 flex justify-between items-center">
         <div className="flex gap-4">
           <span className="flex items-center gap-2"><Phone size={14} /> (02) 8-123-4567</span>

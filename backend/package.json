@@ -9,7 +9,8 @@
     "start": "sanity start",
     "build": "sanity build",
     "deploy": "sanity deploy",
-    "deploy-graphql": "sanity graphql deploy"
+    "deploy-graphql": "sanity graphql deploy",
+    "seed": "node scripts/seedMembers.js"
   },
   "keywords": [
     "sanity"
@@ -17,6 +18,7 @@
   "dependencies": {
     "@sanity/structure": "^2.36.2",
     "@sanity/vision": "^4.21.1",
+    "dotenv": "^17.2.3",
     "react": "^19.1",
     "react-dom": "^19.1",
     "sanity": "^4.21.1",
@@ -27,6 +29,7 @@
     "@types/memoize-one": "^4.1.1",
     "@types/prismjs": "^1.26.5",
     "@types/react": "^19.1",
+    "@types/react-icons": "^2.2.7",
     "eslint": "^9.28",
     "prettier": "^3.5",
     "typescript": "^5.8"

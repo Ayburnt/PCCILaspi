@@ -1,6 +1,6 @@
 // frontend/src/sanityClient.js
 import { createClient } from '@sanity/client'
-import imageUrlBuilder from '@sanity/image-url'
+import { createImageUrlBuilder } from '@sanity/image-url'
 
 // Paste your details here
 export const client = createClient({
@@ -10,7 +10,7 @@ export const client = createClient({
   apiVersion: '2023-05-03',
 })
 
-const builder = imageUrlBuilder(client);
+const builder = createImageUrlBuilder(client);
 export function urlFor(source) {
   return builder.image(source)
 }
