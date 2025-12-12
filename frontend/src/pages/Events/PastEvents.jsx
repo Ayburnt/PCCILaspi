@@ -54,7 +54,7 @@ export default function PastEvents() {
       <TopBar />
       <Navbar />
       {/* Modern Corporate Hero */}
-      <section className="relative bg-slate-900 py-20 px-4 overflow-hidden">
+      <section className="relative bg-slate-900 py-14 px-4 overflow-hidden">
         
         {/* Background Image with Overlay */}
         <div className="absolute inset-0 z-0">

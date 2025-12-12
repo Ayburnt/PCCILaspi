@@ -60,7 +60,7 @@ export default function UpcomingEvents() {
       <Navbar />
 
       {/* Hero / Next Event Highlight */}
-      <section className="relative bg-slate-800 py-20 px-4 overflow-hidden">
+      <section className="relative bg-slate-800 py-14 px-4 overflow-hidden">
         {/* Background Effects */}
         <div className="absolute inset-0 z-0">
           <div className="absolute inset-0 bg-gradient-to-r from-slate-900 via-slate-900 to-indigo-900/80"></div>
@@ -142,7 +142,7 @@ export default function UpcomingEvents() {
       </section>
 
       {/* Grid Schedule Section */}
-      <section className="py-24 px-4 bg-slate-50">
+      <section className="py-14 px-4 bg-slate-50">
         <div className="max-w-7xl mx-auto">
           <div className="flex items-center justify-between mb-12">
             <div>
@@ -247,31 +247,6 @@ export default function UpcomingEvents() {
         </div>
       </section>
 
-      {/* Newsletter CTA */}
-      <section className="py-20 bg-indigo-900 text-white relative overflow-hidden px-4">
-        {/* Decorative Circles */}
-        <div className="absolute top-0 right-0 -mr-20 -mt-20 w-80 h-80 bg-white opacity-5 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-0 left-0 -ml-20 -mb-20 w-80 h-80 bg-indigo-400 opacity-10 rounded-full blur-3xl"></div>
-
-        <div className="max-w-4xl mx-auto text-center relative z-10">
-          <Calendar size={56} className="mx-auto mb-6 text-indigo-300" />
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Stay Ahead of the Curve</h2>
-          <p className="text-indigo-100 text-lg mb-8 max-w-2xl mx-auto">
-            Members get priority access to tickets 48 hours before the general public. Don't miss out on high-demand events.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link
-              to="/join"
-              className="inline-flex items-center justify-center px-8 py-4 bg-white text-indigo-900 rounded-lg font-bold hover:bg-indigo-50 transition-all shadow-lg"
-            >
-              Become a Member
-            </Link>
-            <button className="inline-flex items-center justify-center px-8 py-4 bg-indigo-800 text-white border border-indigo-700 rounded-lg font-bold hover:bg-indigo-700 transition-all">
-              Subscribe to Calendar
-            </button>
-          </div>
-        </div>
-      </section>
 
       <Footer />
     </div>
