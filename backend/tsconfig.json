@@ -10,7 +10,9 @@
     "moduleDetection": "force",
     "isolatedModules": true,
     "jsx": "preserve",
-    "incremental": true
+    "incremental": true,
+    "noEmit": true,
+    "types": []
   },
   "include": ["**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules"]
