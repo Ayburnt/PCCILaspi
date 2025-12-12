@@ -11,6 +11,11 @@ import HowToBecomeMember from './pages/Membership/HowToBecomeMember';
 import WhyJoinUs from './pages/Membership/WhyJoinUs';
 import MemberProfile from './pages/Membership/MemberProfile';
 
+// Events Pages
+import UpcomingEvents from './pages/Events/UpcomingEvents';
+import PastEvents from './pages/Events/PastEvents';
+import EventPost from './pages/Events/EventPost';
+
 function AnimatedRoutes() {
   const location = useLocation();
 
@@ -29,6 +34,11 @@ function AnimatedRoutes() {
       <Route path="/member/:id" element={<MemberProfile />} />
       <Route path="/how-to-become-member" element={<HowToBecomeMember />} />
       <Route path="/why-join-us" element={<WhyJoinUs />} />
+
+      {/* Events Routes */}
+      <Route path="/events/upcoming" element={<UpcomingEvents />} />
+      <Route path="/events/past" element={<PastEvents />} />
+      <Route path="/events/:slug" element={<EventPost />} />
 
       {/* The Page showing ALL news */}
       <Route path="/news" element={<NewsIndex />} />

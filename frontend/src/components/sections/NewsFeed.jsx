@@ -1,81 +1,157 @@
 import { useEffect, useState } from 'react';
 import { client } from '../../sanityClient'; 
-import { ArrowRight } from 'lucide-react';
+import imageUrlBuilder from '@sanity/image-url'; 
+import { ArrowUpRight, Calendar, Image as ImageIcon } from 'lucide-react'; // Added Calendar & updated Arrow
 import { Link } from 'react-router-dom';
 
+// Configure the image builder
+const builder = imageUrlBuilder(client);
+
+function urlFor(source) {
+  return builder.image(source);
+}
+
+// Helper to format dates professionally (e.g., "Oct 24, 2024")
+const formatDate = (dateString) => {
+  if (!dateString) return '';
+  return new Date(dateString).toLocaleDateString('en-US', { 
+    month: 'short', 
+    day: 'numeric', 
+    year: 'numeric' 
+  });
+};
+
 export default function NewsFeed() {
-  const [events, setEvents] = useState([]);
+  const [news, setNews] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // 1. Added 'description' to the query so we can show the snippet
-    const query = `*[_type == "event"] | order(date desc) {
+    const query = `*[_type == "news"] | order(date desc) {
       title,
       date,
       category,
       slug,
-      description 
-    }[0...4]`; 
+      description,
+      image 
+    }[0...4]`;
 
     client.fetch(query)
-      .then((data) => setEvents(data))
-      .catch(console.error);
+      .then((data) => {
+        setNews(data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error(err);
+        setLoading(false);
+      });
   }, []);
 
   return (
-    <section id="news" className="py-20 bg-white">
-      <div className="max-w-7xl mx-auto px-4">
-        
-        {/* Header */}
-        <div className="flex flex-col md:flex-row justify-between items-end mb-4">
-            <h2 className="text-5xl font-serif font-bold text-gray-900">News</h2>
-            <Link to="/news" className="hidden md:block bg-blue-950 text-white px-6 py-3 rounded text-sm font-bold hover:bg-blue-900 transition">
-                View All News
+    <section id="news" className="py-5 mb-10  bg-gray-50/50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        {/* Header Section */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
+            <div>
+                <h2 className="text-4xl md:text-5xl font-bold text-slate-900 tracking-tight">
+                    Latest Updates
+                </h2>
+                <p className="mt-4 text-slate-500 max-w-2xl text-lg">
+                    Insights, announcements, and articles from our team.
+                </p>
+            </div>
+            <Link 
+                to="/news" 
+                className="hidden md:flex items-center gap-2 text-blue-950 font-semibold hover:text-blue-700 transition-colors group"
+            >
+                View All News 
+                <ArrowUpRight className="w-5 h-5 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-transform" />
             </Link>
         </div>
-        <div className="w-full h-px bg-gray-200 mb-10"></div>
 
-        {/* Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {events.map((event, index) => (
+        {/* News Grid */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+          
+          {/* Loading State */}
+          {loading && (
+             [...Array(4)].map((_, i) => (
+                <div key={i} className="animate-pulse bg-white rounded-2xl h-96 border border-gray-100" />
+             ))
+          )}
+
+          {!loading && news.map((item, index) => (
             <Link 
-              to={`/news/${event.slug?.current}`} 
+              to={`/news/${item.slug?.current}`} 
               key={index} 
-              className="bg-slate-50 p-6 rounded-lg flex flex-col justify-between hover:shadow-lg transition group border border-transparent hover:border-gray-200 h-full cursor-pointer"
+              className="group flex flex-col h-full bg-white rounded-2xl overflow-hidden border border-gray-100 hover:shadow-2xl hover:shadow-slate-200/50 hover:-translate-y-1 transition-all duration-300"
             >
-              <div>
-                <span className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2 block">
-                  {event.category || 'Press Release'}
-                </span>
+              {/* Image Container */}
+              <div className="relative h-56 overflow-hidden bg-slate-100">
+                {item.image ? (
+                  <img 
+                    src={urlFor(item.image).width(600).height(450).url()} 
+                    alt={item.title} 
+                    className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700 ease-out"
+                  />
+                ) : (
+                  <div className="w-full h-full flex items-center justify-center text-slate-300">
+                    <ImageIcon size={40} strokeWidth={1.5} />
+                  </div>
+                )}
                 
-                <h3 className="text-xl font-serif font-bold text-blue-950 mb-3 leading-tight line-clamp-3">
-                  {event.title}
-                </h3>
-
-                {/* --- 2. ADDED DESCRIPTION SNIPPET --- */}
-                {/* line-clamp-3 limits it to 3 lines just like your reference */}
-                <p className="text-gray-500 text-sm leading-relaxed line-clamp-3 mb-4">
-                    {event.description || "Click to read full details..."}
-                </p>
-                {/* ------------------------------------ */}
+                {/* Glassmorphism Category Tag */}
+                <div className="absolute top-4 left-4">
+                  <span className="bg-white/90 backdrop-blur-md text-slate-800 text-xs font-bold px-3 py-1.5 rounded-lg border border-white/20 shadow-sm uppercase tracking-wider">
+                    {item.category || 'News'}
+                  </span>
+                </div>
               </div>
 
-              <div className="flex justify-between items-center mt-auto pt-4 border-t border-gray-200/50">
-                 <span className="text-xs text-gray-400">{event.date}</span>
-                 <ArrowRight className="text-blue-950 w-5 h-5 transform group-hover:translate-x-1 transition" />
+              {/* Content Container */}
+              <div className="p-6 flex flex-col flex-1">
+                
+                {/* Date Row */}
+                <div className="flex items-center gap-2 text-xs font-medium text-slate-400 mb-3">
+                    <Calendar size={14} />
+                    <span>{formatDate(item.date)}</span>
+                </div>
+
+                <h3 className="text-lg font-bold text-slate-900 mb-3 leading-snug group-hover:text-blue-700 transition-colors">
+                  {item.title}
+                </h3>
+
+                <p className="text-slate-500 text-sm line-clamp-2 mb-6 flex-1">
+                    {item.description || "Read full details about this update..."}
+                </p>
+
+                {/* Footer Action */}
+                <div className="pt-4 border-t border-slate-100 flex items-center justify-between">
+                   <span className="text-sm font-semibold text-blue-950 group-hover:text-blue-700 transition-colors">
+                     Read Article
+                   </span>
+                   <div className="w-8 h-8 rounded-full bg-slate-50 flex items-center justify-center group-hover:bg-blue-50 group-hover:text-blue-600 transition-colors">
+                        <ArrowUpRight size={16} />
+                   </div>
+                </div>
               </div>
             </Link>
           ))}
 
-          {events.length === 0 && (
-            <div className="col-span-4 text-center py-10 text-gray-400 bg-slate-50 rounded">
-                Loading latest news...
+          {/* Empty State */}
+          {!loading && news.length === 0 && (
+            <div className="col-span-4 text-center py-24 bg-white rounded-2xl border border-dashed border-slate-200">
+                <div className="mx-auto w-16 h-16 bg-slate-50 rounded-full flex items-center justify-center mb-4 text-slate-400">
+                    <ImageIcon size={24} />
+                </div>
+                <h3 className="text-lg font-medium text-slate-900">No news found</h3>
+                <p className="text-slate-500 mt-1">Check back later for updates.</p>
             </div>
           )}
         </div>
         
-        {/* Mobile View All */}
-        <div className="mt-8 md:hidden text-center">
-            <Link to="/news" className="bg-blue-950 text-white px-6 py-3 rounded text-sm font-bold w-full block">
+        {/* Mobile View All Button (Only visible on small screens) */}
+        <div className="mt-10 md:hidden">
+             <Link to="/news" className="flex items-center justify-center w-full bg-white border border-slate-200 text-slate-900 px-6 py-4 rounded-xl font-bold shadow-sm active:scale-95 transition-transform">
                 View All News
             </Link>
         </div>

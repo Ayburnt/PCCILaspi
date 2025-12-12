@@ -1,9 +1,11 @@
 import {defineField, defineType} from 'sanity'
+import { HeartIcon } from '@sanity/icons'
 
 export default defineType({
   name: 'whyJoinUs',
   title: 'Why Join Us Content',
   type: 'document',
+  icon: HeartIcon,
   // @ts-expect-error Sanity allows this property for action control on singletons
   __experimental_actions: ['update', 'publish'],
   preview: {
