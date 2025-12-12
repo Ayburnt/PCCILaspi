@@ -6,6 +6,8 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [membershipOpen, setMembershipOpen] = useState(false); // For desktop dropdown
   const [mobileMembershipOpen, setMobileMembershipOpen] = useState(false); // For mobile dropdown
+  const [eventsOpen, setEventsOpen] = useState(false); // For desktop events dropdown
+  const [mobileEventsOpen, setMobileEventsOpen] = useState(false); // For mobile events dropdown
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -35,7 +37,7 @@ export default function Navbar() {
             <Link to="/" onClick={scrollToTop} className="hover:text-blue-900 transition">Home</Link>
             <a href="/#about" className="hover:text-blue-900 transition">About Us</a>
 
-            {/* Membership Dropdown - moved before News */}
+            {/* Membership Dropdown */}
             <div className="relative">
               <button
                 onClick={() => setMembershipOpen(!membershipOpen)}
@@ -52,7 +54,23 @@ export default function Navbar() {
               )}
             </div>
 
-            <a href="/#news" className="hover:text-blue-900 transition">News</a>
+            {/* Events Dropdown */}
+            <div className="relative">
+              <button
+                onClick={() => setEventsOpen(!eventsOpen)}
+                className="flex items-center hover:text-blue-900 transition"
+              >
+                EVENTS <ChevronDown size={16} className="ml-1"/>
+              </button>
+              {eventsOpen && (
+                <div className="absolute top-full left-0 mt-2 w-48 bg-white border border-gray-200 shadow-lg z-50">
+                  <Link to="/events/upcoming" className="block px-4 py-2 hover:bg-gray-100" onClick={() => setEventsOpen(false)}>Upcoming Events</Link>
+                  <Link to="/events/past" className="block px-4 py-2 hover:bg-gray-100" onClick={() => setEventsOpen(false)}>Past Events</Link>
+                </div>
+              )}
+            </div>
+
+            <a href="/news" className="hover:text-blue-900 transition">News</a>
 
             {/* Join Us Button */}
             <Link to="/join" onClick={scrollToTop} className="bg-blue-900 text-white px-5 py-2 rounded hover:bg-blue-800 transition">
@@ -75,7 +93,7 @@ export default function Navbar() {
           <Link to="/" className="block py-3 px-4 text-gray-700 border-b" onClick={scrollToTop}>Home</Link>
           <a href="/#about" className="block py-3 px-4 text-gray-700 border-b" onClick={() => setIsOpen(false)}>About Us</a>
 
-          {/* Mobile Membership Dropdown - moved before News */}
+          {/* Mobile Membership Dropdown */}
           <button
             className="w-full text-left flex justify-between items-center py-3 px-4 border-b text-gray-700 font-semibold"
             onClick={() => setMobileMembershipOpen(!mobileMembershipOpen)}
@@ -87,6 +105,20 @@ export default function Navbar() {
               <Link to="/members-directory" className="block py-2 px-4 hover:bg-gray-200" onClick={() => setIsOpen(false)}>Members Directory</Link>
               <Link to="/how-to-become-member" className="block py-2 px-4 hover:bg-gray-200" onClick={() => setIsOpen(false)}>How to Become a Member</Link>
               <Link to="/why-join-us" className="block py-2 px-4 hover:bg-gray-200" onClick={() => setIsOpen(false)}>Why Join Us</Link>
+            </div>
+          )}
+
+          {/* Mobile Events Dropdown */}
+          <button
+            className="w-full text-left flex justify-between items-center py-3 px-4 border-b text-gray-700 font-semibold"
+            onClick={() => setMobileEventsOpen(!mobileEventsOpen)}
+          >
+            EVENTS <ChevronDown size={16}/>
+          </button>
+          {mobileEventsOpen && (
+            <div className="pl-6 bg-gray-100">
+              <Link to="/events/upcoming" className="block py-2 px-4 hover:bg-gray-200" onClick={() => setIsOpen(false)}>Upcoming Events</Link>
+              <Link to="/events/past" className="block py-2 px-4 hover:bg-gray-200" onClick={() => setIsOpen(false)}>Past Events</Link>
             </div>
           )}
 

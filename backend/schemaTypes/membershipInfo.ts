@@ -1,9 +1,11 @@
 import { defineField, defineType } from 'sanity'
+import { DocumentIcon } from '@sanity/icons'
 
 export default defineType({
   name: 'membershipInfo',
   title: 'How to Become a Member Content',
   type: 'document',
+  icon: DocumentIcon,
 
   // Preview for editors
   preview: {

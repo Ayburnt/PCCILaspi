@@ -1,9 +1,11 @@
 import { defineField, defineType } from 'sanity'
+import { CalendarIcon } from '@sanity/icons'
 
 export default defineType({
   name: 'event',
-  title: 'News & Events',
+  title: 'Event Management',
   type: 'document',
+  icon: CalendarIcon,
   fields: [
     defineField({
       name: 'title',
@@ -28,16 +30,84 @@ export default defineType({
       options: { dateFormat: 'YYYY-MM-DD' }
     }),
     defineField({
+      name: 'eventType',
+      title: 'Event Type',
+      type: 'string',
+      options: {
+        list: [
+            { title: 'Upcoming', value: 'upcoming' },
+            { title: 'Past', value: 'past' },
+        ],
+      },
+      validation: rule => rule.required()
+    }),
+    defineField({
       name: 'category',
       title: 'Category',
       type: 'string',
       options: {
         list: [
-            { title: 'Press Release', value: 'Press Release' },
-            { title: 'Event', value: 'Event' },
-            { title: 'Advisory', value: 'Advisory' },
+            { title: 'Conference', value: 'Conference' },
+            { title: 'Expo', value: 'Expo' },
+            { title: 'Summit', value: 'Summit' },
+            { title: 'Gala', value: 'Gala' },
+            { title: 'Bootcamp', value: 'Bootcamp' },
+            { title: 'Masterclass', value: 'Masterclass' },
+            { title: 'Awards', value: 'Awards' },
+            { title: 'Competition', value: 'Competition' },
         ],
       },
+      validation: rule => rule.required()
+    }),
+    defineField({
+      name: 'time',
+      title: 'Event Time',
+      type: 'string',
+      description: 'Format: HH:MM - HH:MM (e.g., 18:00 - 22:00)'
+    }),
+    defineField({
+      name: 'location',
+      title: 'Location',
+      type: 'string',
+      validation: rule => rule.required()
+    }),
+    defineField({
+      name: 'attendees',
+      title: 'Number of Attendees',
+      type: 'number',
+      description: 'For past events: total attendees. For upcoming: spots available.'
+    }),
+    defineField({
+      name: 'highlights',
+      title: 'Event Highlights',
+      type: 'array',
+      of: [{type: 'string'}],
+      description: 'Key highlights or sessions at the event'
+    }),
+    defineField({
+      name: 'year',
+      title: 'Year',
+      type: 'string',
+      description: 'Year of the event (for past events)'
+    }),
+    defineField({
+      name: 'success',
+      title: 'Success Metric / Impact',
+      type: 'text',
+      rows: 3,
+      description: 'For past events: outcome or success metric. For upcoming: expected impact or goal.'
+    }),
+    defineField({
+      name: 'registrationOpen',
+      title: 'Registration Open',
+      type: 'boolean',
+      description: 'For upcoming events: is registration currently open?'
+    }),
+    defineField({
+      name: 'price',
+      title: 'Entry Fee',
+      type: 'string',
+      description: 'E.g., "₱2,500", "Free", "TBA"'
     }),
     defineField({
       name: 'image',
@@ -45,6 +115,7 @@ export default defineType({
       type: 'image',
       options: { hotspot: true },
     }),
+    
     
     // --- NEW FIELD ADDED HERE ---
     defineField({
