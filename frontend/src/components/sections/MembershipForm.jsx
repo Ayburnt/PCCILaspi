@@ -1,9 +1,30 @@
 import { useState } from 'react';
-import { Send, CheckCircle } from 'lucide-react';
+import { Send } from 'lucide-react';
+
+// --- Field Definitions for Selects/Radios (for cleaner code) ---
+const GENDERS = ['Female', 'Male', 'Prefer Not To Say'];
+const INDIVIDUAL_JOB_TITLES = ['Chairman', 'President', 'Vice-President', 'Director', 'Manager', 'Proprietor'];
+const COMPANY_CATEGORIES = [
+    { value: 'Micro', label: 'Micro (Less than P3M) - P1,500' },
+    { value: 'Small', label: 'Small (P3M - P15M) - P2,500' },
+    { value: 'Medium', label: 'Medium (P15M - P100M) - P5,000' },
+    { value: 'Large', label: 'Large (P100M+) - P10,000' }
+];
+const BUSINESS_ENTITIES = ['Corporation', 'Partnership', 'Cooperative', 'Sole Proprietorship', 'Others'];
+const INDUSTRIES = ['Agriculture', 'Food and Beverage', 'Furniture', 'Hospitality', 'Manufacturing', 'Education', 'Retail Store', 'Marketing Agency', 'Web/Software', 'Construction', 'Logistics', 'Utility', 'Grocery', 'Professional Services', 'Travel', 'Financial', 'Automotive', 'Fabrication', 'Beauty', 'Medical'];
+const COMMITTEES = ['Membership', 'Revenue Generation', 'Marketing', 'Events', 'Newsletter', 'HRD', 'Constitution', 'Research', 'Business Conference', 'Sports', 'Walk of Fame', 'CSR'];
+const ADVOCACIES = ['Education', 'Intl Biz Networking', 'MSME', 'Tourism', 'Environment', 'Legislation/Tax', 'Innovation/Tech', 'Youth', 'SDG', 'Safety', 'Fire Protection'];
+const SOURCES = ['Friends/Family', 'PCCI Member', 'Facebook', 'Advertisement', 'Online Search'];
 
 export default function MembershipForm() {
   const [formData, setFormData] = useState({
-    applicantType: 'New Applicant',
+    // Shared Field
+    applicantType: 'Individual Membership', // Changed default to one of the options
+    paymentRef: '',
+    source: '',
+    privacyConsent: false,
+
+    // Individual Membership Fields
     lastName: '',
     firstName: '',
     gender: '',
@@ -12,18 +33,40 @@ export default function MembershipForm() {
     companyName: '',
     companyAddress: '',
     jobTitle: '',
-    companyCategory: '',
+    companyCategory: '', // Asset-based fee determinant
     employeeCount: '',
     industry: '',
     committees: [],
     advocacies: [],
-    paymentRef: '',
-    source: '',
-    privacyConsent: false
+    
+    // Corporate Membership Fields (New)
+    businessEntity: '',
+    ownerPresidentName: '',
+    natureOfBusiness: '',
+    landlineNumber: '',
+    websiteUrl: '',
+    completeAddress: '',
+    socialMediaLinks: '',
+    
+    // Corporate Representatives
+    officialRepName: '',
+    officialRepPosition: '',
+    officialRepContact: '',
+    alternateRepName: '',
+    alternateRepPosition: '',
+    alternateRepContact: '',
+
+    // Document Uploads (Simulated - in a real app, these would be File objects)
+    businessDocuments: null,
+    governmentId: null,
+    companyLogo: null,
+    profilePicture: null
   });
 
+  const isIndividual = formData.applicantType === 'Individual Membership';
+
   const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
+    const { name, value, type, checked, files } = e.target;
     
     if (type === 'checkbox' && (name === 'committees' || name === 'advocacies')) {
       // Handle multi-select checkboxes
@@ -35,6 +78,9 @@ export default function MembershipForm() {
       setFormData({ ...formData, [name]: newList });
     } else if (type === 'checkbox' && name === 'privacyConsent') {
        setFormData({ ...formData, [name]: checked });
+    } else if (type === 'file') {
+      // Handle file inputs (storing the File object or just its name for simulation)
+      setFormData({ ...formData, [name]: files[0] }); 
     } else {
       setFormData({ ...formData, [name]: value });
     }
@@ -46,160 +92,292 @@ export default function MembershipForm() {
         alert("Please agree to the Data Privacy Notice.");
         return;
     }
-    // Here you would normally send this data to your backend or EmailJS
+    
+    // Basic validation based on membership type
+    if (isIndividual) {
+        if (!formData.lastName || !formData.companyName || !formData.email) {
+            alert("Please fill in all required Individual Membership fields.");
+            return;
+        }
+    } else { // Corporate
+        if (!formData.companyName || !formData.businessEntity || !formData.officialRepName) {
+            alert("Please fill in all required Corporate Membership fields.");
+            return;
+        }
+    }
+
+    // Here you would normally send this data to your backend
     console.log("Form Submitted:", formData);
     alert("Application Submitted! Please check your email for confirmation.");
   };
 
-  return (
-    <form onSubmit={handleSubmit} className="bg-white p-8 rounded-lg shadow-md border-t-4 border-blue-900 space-y-6">
-      
-      {/* 1. Applicant Type */}
-      <div>
-        <label className="block text-sm font-bold text-gray-700 mb-2">1. Applicant Status</label>
-        <div className="flex gap-4">
-          {['New Applicant', 'No (Current Member)'].map((opt) => (
-            <label key={opt} className="flex items-center gap-2 cursor-pointer">
-              <input 
-                type="radio" 
-                name="applicantType" 
-                value={opt}
-                checked={formData.applicantType === opt}
-                onChange={handleChange}
-                className="text-blue-900 focus:ring-blue-900"
-              />
-              <span className="text-gray-600">{opt}</span>
-            </label>
-          ))}
+  // --- Reusable Field Components for cleaner rendering ---
+
+  const Field = ({ label, name, type = 'text', required = false, children, ...props }) => (
+    <div>
+        <label className="block text-sm font-bold text-gray-700 mb-1">
+            {required && <span className="text-red-500 mr-1">*</span>}
+            {label}
+        </label>
+        {children || <input 
+            type={type} 
+            name={name} 
+            value={formData[name] || (type === 'file' ? '' : '')}
+            onChange={handleChange} 
+            required={required} 
+            className="w-full border p-2 rounded bg-white" 
+            {...props} 
+        />}
+    </div>
+  );
+
+  const CheckboxGroup = ({ label, name, options }) => (
+    <div>
+        <label className="block text-sm font-bold text-gray-700 mb-2">{label}</label>
+        <div className="grid grid-cols-2 gap-2 text-sm text-gray-600">
+            {options.map(opt => (
+                <label key={opt} className="flex items-center gap-2">
+                    <input 
+                        type="checkbox" 
+                        name={name} 
+                        value={opt} 
+                        checked={formData[name].includes(opt)}
+                        onChange={handleChange} 
+                    /> 
+                    {opt}
+                </label>
+            ))}
         </div>
+    </div>
+  );
+
+  const RadioGroup = ({ label, name, options, required=false }) => (
+      <div>
+          <label className="block text-sm font-bold text-gray-700 mb-2">
+              {required && <span className="text-red-500 mr-1">*</span>}
+              {label}
+          </label>
+          <div className="flex flex-wrap gap-4">
+              {options.map(opt => (
+                  <label key={opt} className="flex items-center gap-2 cursor-pointer">
+                      <input 
+                          type="radio" 
+                          name={name} 
+                          value={opt}
+                          checked={formData[name] === opt}
+                          onChange={handleChange}
+                          required={required}
+                          className="text-blue-900 focus:ring-blue-900"
+                      />
+                      <span className="text-gray-600">{opt}</span>
+                  </label>
+              ))}
+          </div>
       </div>
+  );
+
+
+  // --- Conditional Rendering Blocks ---
+  
+  const IndividualMembershipFields = () => (
+    <>
+      <h3 className="text-lg font-semibold text-blue-800 border-b pb-2">Applicant Information</h3>
 
       {/* 2 & 3 Name */}
       <div className="grid md:grid-cols-2 gap-4">
-        <div>
-          <label className="block text-sm font-bold text-gray-700 mb-1">2. Last Name</label>
-          <input required name="lastName" onChange={handleChange} className="w-full border p-2 rounded" />
-        </div>
-        <div>
-          <label className="block text-sm font-bold text-gray-700 mb-1">3. First Name</label>
-          <input required name="firstName" onChange={handleChange} className="w-full border p-2 rounded" />
-        </div>
+        <Field label="2. Last Name" name="lastName" required />
+        <Field label="3. First Name" name="firstName" required />
       </div>
 
       {/* 4. Gender */}
-      <div>
-        <label className="block text-sm font-bold text-gray-700 mb-2">4. Gender</label>
-        <div className="flex gap-4">
-            {['Female', 'Male', 'Prefer Not To Say'].map(g => (
-                <label key={g} className="flex items-center gap-2"><input type="radio" name="gender" value={g} onChange={handleChange} /> {g}</label>
-            ))}
-        </div>
-      </div>
+      <RadioGroup label="4. Gender" name="gender" options={GENDERS} />
 
       {/* 5 & 6 Contact */}
       <div className="grid md:grid-cols-2 gap-4">
-        <div>
-            <label className="block text-sm font-bold text-gray-700 mb-1">5. Email Address</label>
-            <input required type="email" name="email" onChange={handleChange} className="w-full border p-2 rounded" />
-        </div>
-        <div>
-            <label className="block text-sm font-bold text-gray-700 mb-1">6. Mobile Number</label>
-            <input required type="tel" name="mobile" onChange={handleChange} className="w-full border p-2 rounded" />
-        </div>
+        <Field label="5. Email Address" name="email" type="email" required />
+        <Field label="6. Mobile Number" name="mobile" type="tel" required />
       </div>
 
       <hr className="border-gray-200" />
 
+      <h3 className="text-lg font-semibold text-blue-800 border-b pb-2">Business/Company Information</h3>
+
       {/* 7 & 8 Company Info */}
-      <div>
-          <label className="block text-sm font-bold text-gray-700 mb-1">7. Company Name</label>
-          <input required name="companyName" onChange={handleChange} className="w-full border p-2 rounded" />
-      </div>
-      <div>
-          <label className="block text-sm font-bold text-gray-700 mb-1">8. Company Address</label>
-          <input required name="companyAddress" onChange={handleChange} className="w-full border p-2 rounded" />
-      </div>
+      <Field label="7. Company Name" name="companyName" required />
+      <Field label="8. Company Address" name="companyAddress" required />
 
       {/* 9. Job Title */}
-      <div>
-        <label className="block text-sm font-bold text-gray-700 mb-1">9. Job Title</label>
-        <select name="jobTitle" onChange={handleChange} className="w-full border p-2 rounded bg-white">
+      <Field label="9. Job Title" name="jobTitle">
+        <select name="jobTitle" value={formData.jobTitle} onChange={handleChange} className="w-full border p-2 rounded bg-white">
             <option value="">Select Job Title...</option>
-            {['Chairman', 'President', 'Vice-President', 'Director', 'Manager', 'Proprietor'].map(t => <option key={t} value={t}>{t}</option>)}
+            {INDIVIDUAL_JOB_TITLES.map(t => <option key={t} value={t}>{t}</option>)}
         </select>
-      </div>
+      </Field>
 
       {/* 10. Company Category */}
-      <div>
-        <label className="block text-sm font-bold text-gray-700 mb-1">10. Company Category - Asset (Determines Fee)</label>
-        <select required name="companyCategory" onChange={handleChange} className="w-full border p-2 rounded bg-white">
+      <Field label="10. Company Category - Asset (Determines Fee)" name="companyCategory" required>
+        <select required name="companyCategory" value={formData.companyCategory} onChange={handleChange} className="w-full border p-2 rounded bg-white">
             <option value="">Select Category...</option>
-            <option value="Micro">Micro (Less than P3M) - P1,500</option>
-            <option value="Small">Small (P3M - P15M) - P2,500</option>
-            <option value="Medium">Medium (P15M - P100M) - P5,000</option>
-            <option value="Large">Large (P100M+) - P10,000</option>
+            {COMPANY_CATEGORIES.map(c => <option key={c.value} value={c.value}>{c.label}</option>)}
         </select>
-      </div>
+      </Field>
 
       {/* 11 & 12 Employees & Industry */}
       <div className="grid md:grid-cols-2 gap-4">
-        <div>
-            <label className="block text-sm font-bold text-gray-700 mb-1">11. No. of Employees</label>
-            <input type="number" name="employeeCount" onChange={handleChange} className="w-full border p-2 rounded" />
-        </div>
-        <div>
-            <label className="block text-sm font-bold text-gray-700 mb-1">12. Industry</label>
-            <select name="industry" onChange={handleChange} className="w-full border p-2 rounded bg-white">
+        <Field label="11. No. of Employees" name="employeeCount" type="number" />
+        <Field label="12. Industry" name="industry">
+            <select name="industry" value={formData.industry} onChange={handleChange} className="w-full border p-2 rounded bg-white">
                 <option value="">Select Industry...</option>
-                {['Agriculture', 'Food and Beverage', 'Furniture', 'Hospitality', 'Manufacturing', 'Education', 'Retail Store', 'Marketing Agency', 'Web/Software', 'Construction', 'Logistics', 'Utility', 'Grocery', 'Professional Services', 'Travel', 'Financial', 'Automotive', 'Fabrication', 'Beauty', 'Medical'].map(i => <option key={i} value={i}>{i}</option>)}
+                {INDUSTRIES.map(i => <option key={i} value={i}>{i}</option>)}
             </select>
-        </div>
+        </Field>
       </div>
 
       {/* 13. Committees */}
-      <div>
-        <label className="block text-sm font-bold text-gray-700 mb-2">13. Committee Interested to Join</label>
-        <div className="grid grid-cols-2 gap-2 text-sm text-gray-600">
-            {['Membership', 'Revenue Generation', 'Marketing', 'Events', 'Newsletter', 'HRD', 'Constitution', 'Research', 'Business Conference', 'Sports', 'Walk of Fame', 'CSR'].map(c => (
-                <label key={c} className="flex items-center gap-2">
-                    <input type="checkbox" name="committees" value={c} onChange={handleChange} /> {c}
-                </label>
-            ))}
-        </div>
-      </div>
+      <CheckboxGroup label="13. Committee Interested to Join" name="committees" options={COMMITTEES} />
 
       {/* 14. Advocacy */}
-      <div>
-        <label className="block text-sm font-bold text-gray-700 mb-2">14. Advocacy Interested to Join</label>
-        <div className="grid grid-cols-2 gap-2 text-sm text-gray-600">
-            {['Education', 'Intl Biz Networking', 'MSME', 'Tourism', 'Environment', 'Legislation/Tax', 'Innovation/Tech', 'Youth', 'SDG', 'Safety', 'Fire Protection'].map(a => (
-                <label key={a} className="flex items-center gap-2">
-                    <input type="checkbox" name="advocacies" value={a} onChange={handleChange} /> {a}
-                </label>
-            ))}
+      <CheckboxGroup label="14. Advocacy Interested to Join" name="advocacies" options={ADVOCACIES} />
+    </>
+  );
+
+  const CorporateMembershipFields = () => (
+    <>
+      <h3 className="text-lg font-semibold text-blue-800 border-b pb-2">Business Information</h3>
+      
+      {/* Name and Entity */}
+      <div className="grid md:grid-cols-2 gap-4">
+        <Field label="Business/Company Name" name="companyName" required />
+        <Field label="Type of Business Entity" name="businessEntity">
+            <select required name="businessEntity" value={formData.businessEntity} onChange={handleChange} className="w-full border p-2 rounded bg-white">
+                <option value="">Select Entity...</option>
+                {BUSINESS_ENTITIES.map(e => <option key={e} value={e}>{e}</option>)}
+            </select>
+        </Field>
+      </div>
+
+      <Field label="Owner/President Name" name="ownerPresidentName" required />
+      
+      <div className="grid md:grid-cols-2 gap-4">
+        <Field label="Number of Employees" name="employeeCount" type="number" />
+        <Field label="Nature of Business (Industry)" name="industry">
+            <select name="industry" value={formData.industry} onChange={handleChange} className="w-full border p-2 rounded bg-white">
+                <option value="">Select Industry...</option>
+                {INDUSTRIES.map(i => <option key={i} value={i}>{i}</option>)}
+            </select>
+        </Field>
+      </div>
+      
+      <Field label="Nature of Business Operations (Brief Description)" name="natureOfBusiness">
+         <textarea name="natureOfBusiness" value={formData.natureOfBusiness} onChange={handleChange} rows="3" className="w-full border p-2 rounded"></textarea>
+      </Field>
+
+      <hr className="border-gray-200" />
+      <h3 className="text-lg font-semibold text-blue-800 border-b pb-2">Contact Information</h3>
+
+      <div className="grid md:grid-cols-2 gap-4">
+        <Field label="Email Address" name="email" type="email" required />
+        <Field label="Mobile Number" name="mobile" type="tel" required />
+        <Field label="Landline (Optional)" name="landlineNumber" type="tel" placeholder="Enter landline number" />
+        <Field label="Website URL (Optional)" name="websiteUrl" type="url" placeholder="https://example.com" />
+      </div>
+
+      <Field label="Complete Address" name="completeAddress" required placeholder="Enter complete address including city and postal code" />
+      <Field label="Social Media Links (Optional)" name="socialMediaLinks" placeholder="Facebook, LinkedIn, Instagram links" />
+
+
+      <hr className="border-gray-200" />
+      <h3 className="text-lg font-semibold text-blue-800 border-b pb-2">Authorized Representatives</h3>
+
+      {/* Official Representative */}
+      <div className="bg-blue-50 p-4 rounded-lg space-y-3">
+        <h4 className="font-semibold text-blue-900">Official Representative</h4>
+        <div className="grid md:grid-cols-3 gap-4">
+            <Field label="Full Name" name="officialRepName" required />
+            <Field label="Position" name="officialRepPosition" />
+            <Field label="Contact Number" name="officialRepContact" type="tel" />
+        </div>
+      </div>
+      
+      {/* Alternate Representative */}
+      <div className="bg-gray-50 p-4 rounded-lg space-y-3">
+        <h4 className="font-semibold text-gray-700">Alternate Representative (Optional)</h4>
+        <div className="grid md:grid-cols-3 gap-4">
+            <Field label="Full Name" name="alternateRepName" />
+            <Field label="Position" name="alternateRepPosition" />
+            <Field label="Contact Number" name="alternateRepContact" type="tel" />
         </div>
       </div>
 
-      {/* 15. Payment */}
+      <hr className="border-gray-200" />
+      <h3 className="text-lg font-semibold text-blue-800 border-b pb-2">Upload Your Documents (For Submission)</h3>
+      <p className="text-sm text-gray-600">Note: File upload is simulated. In a real app, this would handle file storage.</p>
+
+      <div className="grid md:grid-cols-2 gap-4">
+          <Field label="Business Documents" name="businessDocuments" type="file" helpText="Upload DTI/SEC registration, business permit, etc." />
+          <Field label="Government ID" name="governmentId" type="file" helpText="Upload a valid government-issued ID of the Official Representative" />
+          <Field label="Company Logo" name="companyLogo" type="file" />
+          <Field label="Profile Picture (2x2 ID)" name="profilePicture" type="file" helpText="Upload a professional 2x2 ID photo of the Official Representative" />
+      </div>
+
+    </>
+  );
+
+  return (
+    <form onSubmit={handleSubmit} className="bg-white p-8 rounded-lg shadow-xl border-t-4 border-blue-900 space-y-6">
+      
+      {/* 1. Applicant Type (Shared) */}
+      <RadioGroup 
+          label="1. Applicant Type" 
+          name="applicantType" 
+          options={['Individual Membership', 'Corporate Membership']} 
+          required 
+      />
+      
+      <hr className="border-gray-300" />
+
+      {/* Conditional Fields */}
+      {isIndividual ? <IndividualMembershipFields /> : <CorporateMembershipFields />}
+
+      <hr className="border-gray-300" />
+
+      {/* 15. Payment (Shared) */}
       <div className="bg-yellow-50 p-4 rounded border border-yellow-200">
-        <label className="block text-sm font-bold text-blue-900 mb-2">15. Payment Reference</label>
-        <p className="text-xs text-gray-600 mb-2">Please enter your GCash/Bank Reference Number and Amount Paid.</p>
-        <textarea name="paymentRef" onChange={handleChange} placeholder="Ref No: XXXXXX, Amount: PHP 1,500" className="w-full border p-2 rounded h-20"></textarea>
+        <label className="block text-sm font-bold text-blue-900 mb-2">
+            <span className="text-red-500 mr-1">*</span> 
+            {isIndividual ? '15. Payment Reference' : 'Payment Reference'}
+        </label>
+        <p className="text-xs text-gray-600 mb-2">Please enter your GCash/Bank Reference Number and Amount Paid. **Payment is required for processing.**</p>
+        <textarea 
+            name="paymentRef" 
+            value={formData.paymentRef}
+            onChange={handleChange} 
+            required
+            placeholder={`Ref No: XXXXXX, Amount: PHP ${isIndividual ? '1,500 - 10,000' : 'Your Corporate Fee'}`} 
+            className="w-full border p-2 rounded h-20"
+        ></textarea>
       </div>
 
-      {/* 16. Source */}
-      <div>
-        <label className="block text-sm font-bold text-gray-700 mb-1">16. How did you learn about us?</label>
-        <select name="source" onChange={handleChange} className="w-full border p-2 rounded bg-white">
+      {/* 16. Source (Shared) */}
+      <Field label={isIndividual ? '16. How did you learn about us?' : 'How did you learn about us?'} name="source">
+        <select name="source" value={formData.source} onChange={handleChange} className="w-full border p-2 rounded bg-white">
             <option value="">Select Option...</option>
-            {['Friends/Family', 'PCCI Member', 'Facebook', 'Advertisement', 'Online Search'].map(s => <option key={s} value={s}>{s}</option>)}
+            {SOURCES.map(s => <option key={s} value={s}>{s}</option>)}
         </select>
-      </div>
+      </Field>
 
-      {/* 17. Consent */}
-      <div className="flex items-start gap-3 p-4 bg-gray-50 rounded">
-        <input type="checkbox" name="privacyConsent" onChange={handleChange} className="mt-1" />
+      {/* 17. Consent (Shared) */}
+      <div className="flex items-start gap-3 p-4 bg-gray-50 rounded border">
+        <input 
+            type="checkbox" 
+            name="privacyConsent" 
+            checked={formData.privacyConsent}
+            onChange={handleChange} 
+            required
+            className="mt-1 w-4 h-4" 
+        />
         <p className="text-xs text-gray-600 leading-relaxed">
+            <span className="text-red-500 mr-1">*</span> 
             <strong>Data Privacy Notice:</strong> The data generated will be handled with strict confidentiality in accordance with RA 10173 (Data Privacy Act). By checking this box, you agree that PCCI Las Piñas can collect and process your responses.
         </p>
       </div>

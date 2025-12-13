@@ -8,6 +8,8 @@ export default function Navbar() {
   const [mobileMembershipOpen, setMobileMembershipOpen] = useState(false); // For mobile dropdown
   const [eventsOpen, setEventsOpen] = useState(false); // For desktop events dropdown
   const [mobileEventsOpen, setMobileEventsOpen] = useState(false); // For mobile events dropdown
+  const [aboutOpen, setAboutOpen] = useState(false); // For desktop about dropdown
+  const [mobileAboutOpen, setMobileAboutOpen] = useState(false); // For mobile about dropdown
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -48,12 +50,46 @@ export default function Navbar() {
             >
               Home
             </Link>
-            <a
-              href="/#about"
-              className="hover:text-blue-900 transition border-b-2 border-transparent hover:border-red-500"
-            >
-              About Us
-            </a>
+            {/* About Dropdown */}
+            <div className="relative">
+              <button
+                onClick={() => {
+                  setAboutOpen(!aboutOpen);
+                  setMembershipOpen(false);
+                  setEventsOpen(false);
+                }}
+                className={`flex items-center transition border-b-2 ${
+                  aboutOpen ? "border-red-500" : "border-transparent"
+                } hover:border-red-500`}
+              >
+                ABOUT US <ChevronDown size={16} className="ml-1" />
+              </button>
+              {aboutOpen && (
+                <div className="absolute top-full left-0 mt-2 w-48 bg-white border border-gray-200 shadow-lg z-50">
+                  <Link
+                    to="/about/about-us"
+                    className="block px-4 py-2 hover:bg-gray-100"
+                    onClick={() => setAboutOpen(false)}
+                  >
+                    About
+                  </Link>
+                  <Link
+                    to="/about/leadership"
+                    className="block px-4 py-2 hover:bg-gray-100"
+                    onClick={() => setAboutOpen(false)}
+                  >
+                    Leadership
+                  </Link>
+                  <Link
+                    to="/about/contact-us"
+                    className="block px-4 py-2 hover:bg-gray-100"
+                    onClick={() => setAboutOpen(false)}
+                  >
+                    Contact Us
+                  </Link>
+                </div>
+              )}
+            </div>
 
             {/* Membership Dropdown */}
             <div className="relative">
@@ -166,13 +202,39 @@ export default function Navbar() {
           >
             Home
           </Link>
-          <a
-            href="/#about"
-            className="block py-3 px-4 text-gray-700 border-b"
-            onClick={() => setIsOpen(false)}
+
+          {/* Mobile About Dropdown */}
+          <button
+            className="w-full text-left flex justify-between items-center py-3 px-4 border-b text-gray-700 font-semibold"
+            onClick={() => setMobileAboutOpen(!mobileAboutOpen)}
           >
-            About Us
-          </a>
+            ABOUT US <ChevronDown size={16} />
+          </button>
+          {mobileAboutOpen && (
+            <div className="pl-6 bg-gray-100">
+              <Link
+                to="/about/about-us"
+                className="block py-2 px-4 hover:bg-gray-200"
+                onClick={() => setIsOpen(false)}
+              >
+                About
+              </Link>
+              <Link
+                to="/about/leadership"
+                className="block py-2 px-4 hover:bg-gray-200"
+                onClick={() => setIsOpen(false)}
+              >
+                Leadership
+              </Link>
+              <Link
+                to="/about/contact-us"
+                className="block py-2 px-4 hover:bg-gray-200"
+                onClick={() => setIsOpen(false)}
+              >
+                Contact Us
+              </Link>
+            </div>
+          )}
 
           {/* Mobile Membership Dropdown */}
           <button

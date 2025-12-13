@@ -15,50 +15,77 @@ const whyJoinUsData = {
   
   // Hero Section
   heroBadgeText: 'WHY JOIN US?',
-  heroTitle: 'Powering Business',
-  heroHighlight: 'In The Financial Capital',
-  heroTagline: 'Connect with government leaders, influence policy, and expand your enterprise with PCCI Las Piñas.',
+  heroTitle: 'Grow Your Business with',
+  heroHighlight: 'PCCI Las Piñas',
+  heroTagline: 'Connect with government leaders, influence policy, and expand your enterprise through the premier business chamber in Las Piñas City.',
   heroCTAText: 'Become a Member',
   
-  // Core Pillars Section
+  // Core Pillars Section - Currently displayed as 3-column grid
   pillarsTitle: 'Why Join PCCI Las Piñas?',
-  pillarsDescription: 'We provide the ecosystem you need to thrive in the competitive Las Piñas landscape.',
+  pillarsDescription: 'Unlock the ecosystem you need to thrive in the competitive Las Piñas landscape.',
   corePillars: [
     {
       _type: 'pillar',
       _key: 'pillar1',
-      title: 'Extensive Network',
-      description: 'Access an elite circle of business professionals. We facilitate high-level networking and collaboration.',
+      title: 'Advocacy',
+      description: 'The PCCI Las Piñas Chapter actively advocates for policies that support business growth and sustainability. We work closely with local government to ensure business-friendly environments, addressing issues from taxation to infrastructure development.',
+      icon: 'Megaphone',
+      iconColor: 'text-red-500',
+      bgColor: 'bg-red-50',
+    },
+    {
+      _type: 'pillar',
+      _key: 'pillar2',
+      title: 'Networking Opportunities',
+      description: 'By becoming a member, you gain access to a network of local and national business leaders. This network facilitates potential partnerships, mentorship opportunities, and business referrals which can be pivotal for your business\'s growth.',
       icon: 'Network',
       iconColor: 'text-blue-600',
       bgColor: 'bg-blue-50',
     },
     {
       _type: 'pillar',
-      _key: 'pillar2',
-      title: 'Advocacy & Influence',
-      description: 'We are the voice of business. We represent your interests in policy discussions to foster a favorable economy.',
-      icon: 'Scale',
-      iconColor: 'text-indigo-600',
-      bgColor: 'bg-indigo-50',
-    },
-    {
-      _type: 'pillar',
       _key: 'pillar3',
-      title: 'Business Support',
-      description: 'Empower growth with advisory services, mentorship, and funding access to seize new opportunities.',
+      title: 'Educational Workshops',
+      description: 'We offer regular workshops, seminars, and training sessions aimed at enhancing your business acumen. Topics range from digital marketing to financial management, tailored to help you navigate the complexities of modern business operations.',
       icon: 'Lightbulb',
-      iconColor: 'text-amber-600',
+      iconColor: 'text-amber-500',
       bgColor: 'bg-amber-50',
     },
     {
       _type: 'pillar',
       _key: 'pillar4',
+      title: 'Business Development Services',
+      description: 'Our chapter provides direct support through business counseling, market research assistance, and introductions to potential investors or partners. This is designed to help members expand their market reach and operational capabilities.',
+      icon: 'Briefcase',
+      iconColor: 'text-emerald-600',
+      bgColor: 'bg-emerald-50',
+    },
+    {
+      _type: 'pillar',
+      _key: 'pillar5',
       title: 'Community Engagement',
-      description: 'Enhance your CSR footprint through our sustainable development and social welfare initiatives.',
+      description: 'Through various CSR initiatives, we strive to give back to the community of Las Piñas. Members can participate in or lead projects that range from environmental conservation to educational programs, enhancing your brand\'s image.',
       icon: 'Heart',
-      iconColor: 'text-teal-600',
-      bgColor: 'bg-teal-50',
+      iconColor: 'text-rose-500',
+      bgColor: 'bg-rose-50',
+    },
+    {
+      _type: 'pillar',
+      _key: 'pillar6',
+      title: 'Representation',
+      description: 'As a member, you\'ll have representation in higher echelons of business policy-making through PCCI\'s national and regional councils, giving you a voice where it counts.',
+      icon: 'Gavel',
+      iconColor: 'text-indigo-600',
+      bgColor: 'bg-indigo-50',
+    },
+    {
+      _type: 'pillar',
+      _key: 'pillar7',
+      title: 'Exclusive Member Benefits',
+      description: 'Enjoy discounts on products, services, and event participation through partnerships with various companies and service providers exclusive to PCCI members.',
+      icon: 'Gift',
+      iconColor: 'text-purple-600',
+      bgColor: 'bg-purple-50',
     },
   ],
   
@@ -136,10 +163,10 @@ const whyJoinUsData = {
   agenciesTitle: 'Productive Relationships With Agencies',
   agencies: ['DTI', 'DOLE', 'DSWD'],
   
-  // CTA Section
+  // Final CTA Section
   ctaTitle: 'Ready to Elevate Your Business?',
   ctaDescription: 'Join hundreds of successful businesses in Las Piñas. Your growth journey starts here.',
-  ctaButtonText: 'Apply for Membership',
+  ctaButtonText: 'Go to Membership Form',
 }
 
 async function seedWhyJoinUs() {

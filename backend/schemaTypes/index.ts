@@ -4,5 +4,13 @@ import news from "./news"
 import member from './member'
 import membershipInfo from './membershipInfo'
 import whyJoinUs from './whyJoinUs'
+import { leadershipBoard } from './leadership'
 
-export const schemaTypes = [event, news, member, membershipInfo, whyJoinUs]
+export const schemaTypes = [
+	event,
+	news,
+	member,
+	membershipInfo,
+	whyJoinUs,
+	leadershipBoard,
+]

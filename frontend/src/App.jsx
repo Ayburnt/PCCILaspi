@@ -16,6 +16,11 @@ import UpcomingEvents from './pages/Events/UpcomingEvents';
 import PastEvents from './pages/Events/PastEvents';
 import EventPost from './pages/Events/EventPost';
 
+// About Pages
+import AboutUs from './pages/About/AboutUs';
+import Leadership from './pages/About/Leadership';
+import ContactUs from './pages/About/ContactUs';
+
 function AnimatedRoutes() {
   const location = useLocation();
 
@@ -39,6 +44,11 @@ function AnimatedRoutes() {
       <Route path="/events/upcoming" element={<UpcomingEvents />} />
       <Route path="/events/past" element={<PastEvents />} />
       <Route path="/events/:slug" element={<EventPost />} />
+
+      {/* Events Routes */}
+      <Route path="/about/about-us" element={<AboutUs />} />
+      <Route path="/about/leadership" element={<Leadership />} />
+      <Route path="/about/contact-us" element={<ContactUs />} />
 
       {/* The Page showing ALL news */}
       <Route path="/news" element={<NewsIndex />} />

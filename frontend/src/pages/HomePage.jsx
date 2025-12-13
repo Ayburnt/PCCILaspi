@@ -4,6 +4,7 @@ import Footer from '../components/layout/Footer';
 import TopBar from '../components/layout/TopBar';
 import Hero from '../components/sections/Hero';
 import AboutSection from '../components/sections/AboutSection'; // <--- The new About Section
+import EventsFeed from '../components/sections/EventsFeed';
 import NewsFeed from '../components/sections/NewsFeed';
 import PromoPopup from '../components/sections/PromoPopup';
 
@@ -17,6 +18,8 @@ const HomePage = () => {
       
       {/* Replaced the old Benefits section with the new PCCI About info */}
       <AboutSection /> 
+      
+      <EventsFeed />
       
       <NewsFeed />
       

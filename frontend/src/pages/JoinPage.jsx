@@ -1,9 +1,19 @@
-import { useState } from 'react';
-import Navbar from '../components/layout/Navbar';
-import Footer from '../components/layout/Footer';
-import TopBar from '../components/layout/TopBar';
-import MembershipForm from '../components/sections/MembershipForm';
-import { CreditCard, Download, ArrowRight, Mail, ArrowLeft } from 'lucide-react';
+import { useState } from "react";
+import Navbar from "../components/layout/Navbar";
+import Footer from "../components/layout/Footer";
+import TopBar from "../components/layout/TopBar";
+import MembershipForm from "../components/sections/MembershipForm";
+import {
+  Download,
+  ArrowRight,
+  ArrowLeft,
+  Users,
+  Briefcase,
+  Globe,
+  Handshake,
+  CheckCircle,
+  Quote,
+} from "lucide-react";
 
 const JoinPage = () => {
   const [showForm, setShowForm] = useState(false);
@@ -13,142 +23,225 @@ const JoinPage = () => {
       <TopBar />
       <Navbar />
 
-      {/* Page Header */}
-      <div className="bg-blue-900 text-white py-16">
-        <div className="max-w-7xl mx-auto px-4 text-center">
-          <h1 className="text-4xl font-bold mb-4">Membership Application</h1>
-          <p className="text-blue-200 text-lg max-w-2xl mx-auto">
-            Join the business community of Las Piñas. Select your membership category below.
+      {/* ================= HERO SECTION WITH PHOTO BACKGROUND ================= */}
+      <div className="relative bg-blue-900 h-[400px] flex items-center justify-center overflow-hidden">
+        {/* Background Image */}
+        <div className="absolute inset-0 z-0">
+          <img
+            src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80"
+            alt="PCCI Manila Meeting"
+            className="w-full h-full object-cover opacity-40"
+          />
+          {/* Gradient Overlay */}
+          <div className="absolute inset-0 bg-gradient-to-r from-slate-900/95 to-blue-900/80" />
+        </div>
+
+        {/* Hero Content */}
+        <div className="relative z-10 max-w-4xl mx-auto px-4 text-center -mt-10">
+          <span className="inline-block py-1 px-3 rounded-full bg-blue-500/30 border border-blue-400 text-blue-100 text-sm font-semibold mb-4 backdrop-blur-sm">
+            Join the Premier Business Chamber
+          </span>
+          <h1 className="text-4xl md:text-6xl font-extrabold mb-6 leading-tight tracking-tight text-white">
+            Be a PCCI-Las Pinas <br className="hidden md:block" /> Member
+          </h1>
+          <p className="text-blue-100 text-base md:text-lg max-w-xl mx-auto leading-relaxed">
+            Connect with industry leaders, influence policy, and accelerate your
+            business growth.
           </p>
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 py-12">
-        <div className="grid md:grid-cols-3 gap-8">
-          
-          {/* LEFT COLUMN: Logic to switch between Info and Form */}
-          <div className="md:col-span-2 space-y-8">
-            
-            {showForm ? (
-              // ---------------- VIEW A: THE FORM ----------------
-              <div className="animate-fade-in-up">
-                <button 
-                  onClick={() => setShowForm(false)} 
-                  className="mb-4 text-gray-500 hover:text-blue-900 flex items-center gap-2 font-medium"
-                >
-                  <ArrowLeft size={18} /> Back to Instructions
-                </button>
-                <MembershipForm />
+      {/* ================= MAIN CONTENT CONTAINER ================= */}
+      {/* This container overlaps the hero section for a modern look */}
+      <div className="max-w-6xl mx-auto px-4 pb-20 relative z-20 -mt-20">
+        {/* VIEW TOGGLE LOGIC */}
+        {showForm ? (
+          /* ================= FORM VIEW ================= */
+          <div className="bg-white rounded-2xl shadow-xl p-6 md:p-10 animate-fade-in-up">
+            <button
+              onClick={() => setShowForm(false)}
+              className="group mb-8 text-gray-500 hover:text-blue-900 flex items-center gap-2 font-medium transition-colors"
+            >
+              <div className="p-2 bg-gray-100 rounded-full group-hover:bg-blue-100 transition-colors">
+                <ArrowLeft size={20} />
               </div>
-            ) : (
-              // ---------------- VIEW B: INSTRUCTIONS (Default) ----------------
-              <>
-                <section className="bg-white p-8 rounded-lg shadow-sm border-t-4 border-blue-900">
-                  <h2 className="text-2xl font-bold text-gray-800 mb-6">How to Join</h2>
-                  <div className="space-y-6">
-                    <div className="flex gap-4">
-                      <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center text-blue-900 font-bold shrink-0">1</div>
-                      <div>
-                        <h3 className="font-bold text-lg">Determine your Category</h3>
-                        <p className="text-gray-600">Check the fee table to see where your business classification falls (Micro to Large).</p>
-                      </div>
-                    </div>
-                    <div className="flex gap-4">
-                      <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center text-blue-900 font-bold shrink-0">2</div>
-                      <div>
-                        <h3 className="font-bold text-lg">Settle the Fee</h3>
-                        <p className="text-gray-600">Pay via Bank Deposit (Bank of Makati) or GCash.</p>
-                      </div>
-                    </div>
-                    <div className="flex gap-4">
-                      <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center text-blue-900 font-bold shrink-0">3</div>
-                      <div>
-                        <h3 className="font-bold text-lg">Request Invoice</h3>
-                        <p className="text-gray-600">Email your proof of payment to the secretariat to receive your official invoice.</p>
-                      </div>
-                    </div>
-                  </div>
+              Back to Overview
+            </button>
 
-                  <div className="mt-8 p-4 bg-blue-50 rounded border border-blue-200 flex items-center gap-3">
-                    <Mail className="text-blue-900" />
-                    <span className="text-blue-900 font-medium">For invoice requests, email: <span className="font-bold underline">secretariat@pccilaspinas.org</span></span>
-                  </div>
-                </section>
-
-                <section className="bg-white p-8 rounded-lg shadow-sm">
-                  <h3 className="text-xl font-bold text-gray-800 mb-4">Ready to apply?</h3>
-                  <div className="flex flex-wrap gap-4">
-                    <button 
-                      onClick={() => setShowForm(true)} 
-                      className="bg-blue-900 text-white px-6 py-3 rounded-lg font-bold hover:bg-blue-800 flex items-center gap-2"
-                    >
-                      Apply Online <ArrowRight size={18} />
-                    </button>
-                    
-                    {/* --- UPDATED BUTTON START --- */}
-                    <a 
-                      href="/membership-form.pdf" 
-                      download="PCCI-Membership-Form.pdf"
-                      className="border border-gray-300 text-gray-700 px-6 py-3 rounded-lg font-bold hover:bg-gray-50 flex items-center gap-2"
-                    >
-                      <Download size={18} /> Download Form
-                    </a>
-                    {/* --- UPDATED BUTTON END --- */}
-                  </div>
-                </section>
-              </>
-            )}
-
-          </div>
-
-          {/* RIGHT COLUMN: Fees & Bank Info */}
-          <div className="md:col-span-1">
-            <div className="bg-white p-6 rounded-lg shadow-md sticky top-24">
-              <h3 className="text-xl font-bold text-gray-900 mb-6 flex items-center gap-2">
-                <CreditCard className="text-yellow-500" /> Annual Membership Fees
-              </h3>
-              
-              <div className="space-y-0 mb-8 divide-y">
-                <div className="flex justify-between items-center py-3">
-                  <span className="text-gray-600 font-medium">Micro</span>
-                  <span className="font-bold text-gray-900">₱ 1,500.00</span>
-                </div>
-                <div className="flex justify-between items-center py-3">
-                  <span className="text-gray-600 font-medium">Small</span>
-                  <span className="font-bold text-gray-900">₱ 2,500.00</span>
-                </div>
-                <div className="flex justify-between items-center py-3">
-                  <span className="text-gray-600 font-medium">Medium</span>
-                  <span className="font-bold text-gray-900">₱ 5,000.00</span>
-                </div>
-                <div className="flex justify-between items-center py-3">
-                  <span className="text-gray-600 font-medium">Large</span>
-                  <span className="font-bold text-gray-900">₱ 10,000.00</span>
-                </div>
+            <div className="max-w-4xl mx-auto">
+              <div className="text-center mb-10">
+                <h2 className="text-3xl font-bold text-gray-900">
+                  Membership Application
+                </h2>
+                <p className="text-gray-500 mt-2">
+                  Please fill out the details below to begin your journey.
+                </p>
               </div>
-
-              <div className="bg-blue-50 p-4 rounded-lg space-y-4">
-                <div>
-                  <h4 className="font-bold text-blue-900 mb-1">GCASH Payment</h4>
-                  <p className="text-sm text-gray-600">Number: <span className="font-bold text-gray-900">0917 717 9658</span></p>
-                  <p className="text-sm text-gray-600">Name: <span className="font-bold text-gray-900">Jhie Fabellano</span></p>
-                </div>
-                <div className="border-t border-blue-200"></div>
-                <div>
-                  <h4 className="font-bold text-blue-900 mb-1">Bank Transfer</h4>
-                  <p className="text-sm text-gray-600 mb-1">Bank: <span className="font-bold text-gray-900">Bank of Makati (Las Piñas)</span></p>
-                  <p className="text-sm text-gray-600 mb-1">Acct No: <span className="font-bold text-gray-900">0561 3500 0058</span></p>
-                  <p className="text-sm text-gray-600 leading-tight">Name: <span className="font-bold text-gray-900">Philippine Chamber of Commerce and Industry – Las Pinas City Inc.</span></p>
-                </div>
-              </div>
-
-              <p className="text-xs text-gray-500 mt-4 text-center">
-                * Please send proof of payment to the email provided for invoicing.
-              </p>
+              <MembershipForm />
             </div>
           </div>
+        ) : (
+          /* ================= OVERVIEW VIEW ================= */
+          <div className="space-y-12">
+          {/* 1. APPLICATION PROCESS (MODERN OVERLAY STYLE) */}
+<section className="relative bg-white rounded-2xl shadow-2xl p-10 md:p-16 overflow-hidden">
 
+  {/* Soft background glow */}
+  <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-white to-indigo-100 opacity-70 pointer-events-none" />
+
+  <div className="relative z-10">
+    {/* Header */}
+    <div className="text-center max-w-3xl mx-auto mb-16">
+      <span className="inline-block mb-4 px-5 py-1.5 rounded-full bg-blue-100 text-blue-800 text-sm font-semibold tracking-wide">
+        Application Process
+      </span>
+      <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900 mb-4">
+        How to Become a PCCI-Manila Member
+      </h2>
+      <p className="text-gray-600 text-lg">
+        A clear, guided process designed for application.
+      </p>
+    </div>
+
+    {/* Steps */}
+    <div className="relative grid md:grid-cols-4 gap-10">
+
+      {/* MAIN PROGRESS LINE */}
+      <div className="hidden md:block absolute top-[30px] left-0 w-full h-[3px] bg-gradient-to-r from-blue-200 via-blue-500 to-indigo-400 rounded-full" />
+
+      {[
+        {
+          step: '01',
+          title: 'Submit Application',
+          desc: 'Complete the online membership form with your business details.',
+        },
+        {
+          step: '02',
+          title: 'Application Review',
+          desc: 'Our membership committee evaluates your submission.',
+        },
+        {
+          step: '03',
+          title: 'Payment Process',
+          desc: 'Receive your invoice and payment instructions.',
+        },
+        {
+          step: '04',
+          title: 'Welcome Onboard',
+          desc: 'Get your certificate and unlock member benefits.',
+        },
+      ].map((item, idx) => (
+        <div
+          key={idx}
+          className="relative flex flex-col items-center text-center"
+        >
+          {/* STEP NODE */}
+          <div className="relative z-10">
+            <div className="w-14 h-14 rounded-full bg-blue-900 text-white flex items-center justify-center font-bold text-lg shadow-xl ring-4 ring-white">
+              {item.step}
+            </div>
+
+            {/* Glow */}
+            <div className="absolute inset-0 rounded-full bg-blue-500/30 blur-xl -z-10" />
+          </div>
+
+          {/* CARD */}
+          <div className="mt-8 bg-white rounded-xl p-6 shadow-lg border border-gray-100 max-w-xs">
+            <h3 className="font-bold text-gray-900 mb-2 text-lg">
+              {item.title}
+            </h3>
+            <p className="text-sm text-gray-500 leading-relaxed">
+              {item.desc}
+            </p>
+          </div>
         </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+
+            <div className="grid lg:grid-cols-2 gap-8">
+              {/* 3. TESTIMONIALS */}
+              <section className="bg-white rounded-2xl shadow-md p-8 border-l-8 border-blue-900">
+                <div className="flex items-center gap-3 mb-6">
+                  <Quote className="text-blue-200 fill-current" size={40} />
+                  <h2 className="text-2xl font-bold text-gray-800">
+                    Member Stories
+                  </h2>
+                </div>
+
+                <div className="space-y-8">
+                  <div className="relative">
+                    <p className="text-gray-700 italic text-lg leading-relaxed mb-4">
+                      "Joining PCCI-Las Piñas was one of the best business
+                      decisions we've made. The connections have been
+                      invaluable."
+                    </p>
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center font-bold text-gray-500">
+                        MS
+                      </div>
+                      <div>
+                        <p className="font-bold text-gray-900">Maria Santos</p>
+                        <p className="text-xs text-gray-500 uppercase tracking-wide">
+                          CEO, TechVision Solutions
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <hr className="border-gray-100" />
+
+                  <div className="relative">
+                    <p className="text-gray-700 italic text-lg leading-relaxed mb-4">
+                      "As a small business, we weren’t sure if it would be worth
+                      it—but PCCI-Las Piñas proved its value many times over."
+                    </p>
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center font-bold text-gray-500">
+                        AR
+                      </div>
+                      <div>
+                        <p className="font-bold text-gray-900">Antonio Reyes</p>
+                        <p className="text-xs text-gray-500 uppercase tracking-wide">
+                          Founder, Green Earth
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              {/* 4. CALL TO ACTION CARD */}
+              <section className="bg-gradient-to-br from-blue-900 to-indigo-900 rounded-2xl shadow-xl p-8 text-white flex flex-col justify-center items-center text-center">
+                <CheckCircle size={48} className="text-blue-300 mb-6" />
+                <h2 className="text-3xl font-bold mb-4">Ready to Grow?</h2>
+                <p className="text-blue-100 mb-8 max-w-md">
+                  Take the first step toward expanding your network and securing
+                  your business future.
+                </p>
+
+                <div className="w-full space-y-4 max-w-xs">
+                  <button
+                    onClick={() => setShowForm(true)}
+                    className="w-full bg-white text-blue-900 px-6 py-4 rounded-xl font-bold hover:bg-blue-50 transition-all transform hover:scale-105 shadow-lg flex items-center justify-center gap-2"
+                  >
+                    Apply for Membership <ArrowRight size={20} />
+                  </button>
+
+                  <a
+                    href="/membership-form.pdf"
+                    download
+                    className="w-full border border-blue-400/50 bg-blue-800/50 backdrop-blur-sm px-6 py-4 rounded-xl font-semibold hover:bg-blue-800 transition-colors flex items-center justify-center gap-2 text-sm"
+                  >
+                    <Download size={18} /> Download PDF Form
+                  </a>
+                </div>
+              </section>
+            </div>
+          </div>
+        )}
       </div>
 
       <Footer />
