@@ -50,7 +50,7 @@ export default function ContactUs() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-20 font-sans selection:bg-blue-100 selection:text-blue-900">
+    <div className="min-h-screen bg-gray-100 font-sans selection:bg-blue-100 selection:text-blue-900">
       <TopBar />
       <Navbar />
 

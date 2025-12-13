@@ -87,10 +87,10 @@ export default function NewsFeed() {
             >
               {/* Image Container */}
               <div className="relative h-56 overflow-hidden bg-slate-100">
-                {item.image ? (
+                {item?.image?.asset ? (
                   <img 
                     src={urlFor(item.image).width(600).height(450).url()} 
-                    alt={item.title} 
+                    alt={item?.title || 'News Image'} 
                     className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700 ease-out"
                   />
                 ) : (
@@ -127,7 +127,7 @@ export default function NewsFeed() {
                 {/* Footer Action */}
                 <div className="pt-4 border-t border-slate-100 flex items-center justify-between">
                    <span className="text-sm font-semibold text-blue-950 group-hover:text-blue-700 transition-colors">
-                     Read Article
+                     Read More
                    </span>
                    <div className="w-8 h-8 rounded-full bg-slate-50 flex items-center justify-center group-hover:bg-blue-50 group-hover:text-blue-600 transition-colors">
                         <ArrowUpRight size={16} />

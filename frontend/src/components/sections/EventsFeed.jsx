@@ -51,7 +51,7 @@ export default function EventsFeed() {
   }, []);
 
   return (
-    <section id="events" className="py-16 mb-10 bg-white">
+    <section id="events" className="py-16 mb-5 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Header Section */}
@@ -103,13 +103,6 @@ export default function EventsFeed() {
                   </div>
                 )}
                 
-                {/* Glassmorphism Category Tag */}
-                <div className="absolute top-4 left-4">
-                  <span className="bg-white/90 backdrop-blur-md text-slate-800 text-xs font-bold px-3 py-1.5 rounded-lg border border-white/20 shadow-sm uppercase tracking-wider">
-                    {event.category || 'Event'}
-                  </span>
-                </div>
-
                 {/* Event Type Badge (Upcoming/Past) */}
                 {event.eventType && (
                   <div className="absolute top-4 right-4">
@@ -157,14 +150,7 @@ export default function EventsFeed() {
                     {event.description || "Learn more about this event..."}
                 </p>
 
-                {/* Price Tag */}
-                {event.price && (
-                  <div className="mb-4">
-                    <span className="inline-block bg-blue-50 text-blue-700 text-xs font-bold px-3 py-1.5 rounded-lg">
-                      {event.price}
-                    </span>
-                  </div>
-                )}
+               
 
                 {/* Footer Action */}
                 <div className="pt-4 border-t border-slate-100 flex items-center justify-between">

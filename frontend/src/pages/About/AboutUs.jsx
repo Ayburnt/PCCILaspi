@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import {
   Building2,
@@ -14,6 +14,7 @@ import {
 import Navbar from "../../components/layout/Navbar";
 import Footer from "../../components/layout/Footer";
 import TopBar from "../../components/layout/TopBar";
+import { client, urlFor } from "../../sanityClient";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -32,7 +33,90 @@ const itemVariants = {
   },
 };
 
+// Icon mapping for Lucide icons
+const iconMap = {
+  Users,
+  Scale,
+  Globe,
+  Building2,
+  TrendingUp,
+  Target,
+  Award,
+  ArrowRight,
+  Flag,
+};
+
 export default function AboutUs() {
+  const [content, setContent] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const query = `*[_type == "aboutUs"][0]{
+      whoWeAreTitle,
+      whoWeAreMainText,
+      whoWeAreDescriptionText,
+      whoWeAreImage {
+        asset -> {
+          _id,
+          url
+        },
+        hotspot,
+        crop
+      },
+      affiliationTitle,
+      affiliationText,
+      visionTitle,
+      visionStatement,
+      missionTitle,
+      missionStatement,
+      thrustsTitle,
+      thrustsSubtitle,
+      thrusts[]{
+        title,
+        description,
+        icon
+      },
+      heroBadgeText,
+      heroBackgroundImage {
+        asset -> {
+          _id,
+          url
+        },
+        hotspot,
+        crop
+      }
+    }`;
+
+    client
+      .fetch(query)
+      .then((data) => {
+        setContent(data);
+        setLoading(false);
+      })
+      .catch(() => setLoading(false));
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-slate-50">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
+          <p className="mt-4 text-slate-600">Loading...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (!content) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-slate-50">
+        <div className="text-center">
+          <p className="text-slate-600">No content available.</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-slate-50 font-sans">
       <TopBar />
@@ -42,7 +126,11 @@ export default function AboutUs() {
       <div className="relative h-[15vh] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img
-            src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop"
+            src={
+              content?.heroBackgroundImage
+                ? urlFor(content.heroBackgroundImage).url()
+                : "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop"
+            }
             alt="PCCI Las Piñas"
             className="w-full h-full object-cover"
           />
@@ -58,7 +146,7 @@ export default function AboutUs() {
           >
             <span className="inline-flex items-center gap-2 py-1 px-3 rounded-full bg-blue-500/20 border border-blue-400/30 backdrop-blur-md text-xs md:text-sm font-semibold tracking-wider mb-6 uppercase text-blue-200">
               <Building2 size={14} />
-              Las Piñas City Chapter
+              {content?.heroBadgeText || "Las Piñas City Chapter"}
             </span>
           </motion.div>
         </div>
@@ -76,41 +164,26 @@ export default function AboutUs() {
           >
             <motion.div variants={itemVariants}>
               <h4 className="text-blue-600 font-bold uppercase tracking-widest text-sm mb-2">
-                About Us
+                {content?.whoWeAreTitle || "About Us"}
               </h4>
               <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-6">
-                Who We Are
+                {content?.whoWeAreTitle || "Who We Are"}
               </h2>
               <div className="prose prose-lg text-slate-600">
                 <p className="mb-4">
-                  The{" "}
-                  <span className="font-semibold text-slate-900">
-                    Philippine Chamber of Commerce and Industry (PCCI) Las Piñas
-                    City, Inc.
-                  </span>{" "}
-                  is a non-stock, non-profit, non-government business
-                  organization.
+                  {content?.whoWeAreMainText}
                 </p>
                 <p className="mb-6">
-                  We are comprised of small, medium, and large enterprises
-                  representing various sectors of business, all working together
-                  to foster a healthier Philippine economy and improve the
-                  viability of business in the community.
+                  {content?.whoWeAreDescriptionText}
                 </p>
               </div>
 
               <div className="bg-slate-50 border-l-4 border-amber-400 p-6 rounded-r-lg mt-8">
                 <h3 className="text-lg font-bold text-slate-900 mb-2 flex items-center gap-2">
-                  <Award className="text-amber-500" size={20} /> Trusted
-                  Affiliation
+                  <Award className="text-amber-500" size={20} /> {content?.affiliationTitle || "Trusted Affiliation"}
                 </h3>
                 <p className="text-slate-600 text-sm">
-                  PCCI Las Piñas City Inc. is a proud affiliate organization of
-                  the national{" "}
-                  <span className="font-semibold">
-                    Philippine Chamber of Commerce and Industry (PCCI)
-                  </span>
-                  .
+                  {content?.affiliationText}
                 </p>
               </div>
             </motion.div>
@@ -118,7 +191,11 @@ export default function AboutUs() {
             <motion.div variants={itemVariants} className="relative">
               <div className="relative rounded-2xl overflow-hidden shadow-2xl">
                 <img
-                  src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?q=80&w=2032&auto=format&fit=crop"
+                  src={
+                    content?.whoWeAreImage
+                      ? urlFor(content.whoWeAreImage).url()
+                      : "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?q=80&w=2032&auto=format&fit=crop"
+                  }
                   alt="Business Meeting"
                   className="w-full h-auto object-cover"
                 />
@@ -149,15 +226,11 @@ export default function AboutUs() {
                     <Target size={22} />
                   </div>
                   <h3 className="text-xl md:text-2xl font-bold text-blue-950">
-                    Our Vision
+                    {content?.visionTitle || "Our Vision"}
                   </h3>
                 </div>
                 <p className="text-gray-700 leading-relaxed text-sm md:text-base">
-                  PCCI is the recognized voice of Philippine business among
-                  government and international institutions. As a proactive
-                  catalyst for development, it promotes globally competitive
-                  Philippine enterprises through strong partnerships with
-                  government, local chambers, and other business organizations.
+                  {content?.visionStatement}
                 </p>
               </div>
 
@@ -168,15 +241,11 @@ export default function AboutUs() {
                     <Flag size={22} />
                   </div>
                   <h3 className="text-xl md:text-2xl font-bold text-blue-950">
-                    Our Mission
+                    {content?.missionTitle || "Our Mission"}
                   </h3>
                 </div>
                 <p className="text-gray-700 leading-relaxed text-sm md:text-base">
-                  To provide focused advocacy for business growth and
-                  sustainable development by delivering essential business
-                  services that advance grassroots entrepreneurship, chamber
-                  development, international trade relations, business
-                  innovation, and operational efficiency.
+                  {content?.missionStatement}
                 </p>
               </div>
             </div>
@@ -195,64 +264,42 @@ export default function AboutUs() {
             className="text-center mb-16"
           >
             <h2 className="text-3xl md:text-5xl font-bold mb-6">
-              Organizational Thrusts
+              {content?.thrustsTitle || "Organizational Thrusts"}
             </h2>
             <p className="text-slate-300 max-w-2xl mx-auto text-lg">
-              To operationalize our MISSION and VISION, PCCI adopts the
-              following strategic thrusts:
+              {content?.thrustsSubtitle}
             </p>
           </motion.div>
 
           <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
-            {[
-              {
-                icon: Users,
-                title: "MSME Support",
-                description:
-                  "Steadfast support for the promotion and growth of micro, small and medium enterprises nationwide.",
-              },
-              {
-                icon: Scale,
-                title: "Policy Reform",
-                description:
-                  "Pioneer policy reform initiatives to improve the business climate and sustain socio-economic development.",
-              },
-              {
-                icon: Globe,
-                title: "Global Networking",
-                description:
-                  "Spearhead national and international networking through business matching, trade missions, and information sharing.",
-              },
-              {
-                icon: Building2,
-                title: "Capability Building",
-                description:
-                  "Support capability building for local chambers and industry associations.",
-              },
-            ].map((thrust, index) => {
-              const Icon = thrust.icon;
-              return (
-                <motion.div
-                  key={index}
-                  variants={itemVariants}
-                  className="bg-slate-800/50 backdrop-blur-sm p-8 rounded-xl border border-slate-700 hover:border-blue-500 hover:bg-slate-800 transition-all group"
-                >
-                  <div className="flex items-start gap-4">
-                    <div className="p-3 bg-blue-500/10 rounded-lg group-hover:bg-blue-500/20 transition-colors">
-                      <Icon className="w-8 h-8 text-blue-400" />
+            {content?.thrusts && content.thrusts.length > 0 ? (
+              content.thrusts.map((thrust, index) => {
+                const Icon = iconMap[thrust.icon] || Users;
+                return (
+                  <motion.div
+                    key={index}
+                    variants={itemVariants}
+                    className="bg-slate-800/50 backdrop-blur-sm p-8 rounded-xl border border-slate-700 hover:border-blue-500 hover:bg-slate-800 transition-all group"
+                  >
+                    <div className="flex items-start gap-4">
+                      <div className="p-3 bg-blue-500/10 rounded-lg group-hover:bg-blue-500/20 transition-colors">
+                        <Icon className="w-8 h-8 text-blue-400" />
+                      </div>
+                      <div>
+                        <h3 className="text-xl font-bold mb-3 text-white group-hover:text-blue-300 transition-colors">
+                          {thrust.title}
+                        </h3>
+                        <p className="text-slate-400 leading-relaxed">
+                          {thrust.description}
+                        </p>
+                      </div>
                     </div>
-                    <div>
-                      <h3 className="text-xl font-bold mb-3 text-white group-hover:text-blue-300 transition-colors">
-                        {thrust.title}
-                      </h3>
-                      <p className="text-slate-400 leading-relaxed">
-                        {thrust.description}
-                      </p>
-                    </div>
-                  </div>
-                </motion.div>
-              );
-            })}
+                  </motion.div>
+                );
+              })
+            ) : (
+              <p className="text-slate-400 col-span-full text-center py-8">Loading organizational thrusts...</p>
+            )}
           </div>
         </div>
       </div>
