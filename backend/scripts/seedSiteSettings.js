@@ -2,11 +2,11 @@ import 'dotenv/config'
 import { createClient } from '@sanity/client'
 
 const client = createClient({
-  projectId: '2svpsi6g',
-  dataset: 'production',
+  projectId: process.env.SANITY_PROJECT_ID,
+  dataset: process.env.SANITY_DATASET,
   useCdn: false,
   token: process.env.SANITY_TOKEN,
-  apiVersion: '2024-01-01',
+  apiVersion: process.env.SANITY_API_VERSION,
 })
 
 async function seedSiteSettings() {

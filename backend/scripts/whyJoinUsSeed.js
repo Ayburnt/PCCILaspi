@@ -2,11 +2,11 @@ const {createClient} = require('@sanity/client')
 require('dotenv').config()
 
 const client = createClient({
-  projectId: '2svpsi6g',
-  dataset: 'production',
+  projectId: process.env.SANITY_PROJECT_ID,
+  dataset: process.env.SANITY_DATASET,
   useCdn: false,
   token: process.env.SANITY_TOKEN,
-  apiVersion: '2023-05-03',
+  apiVersion: process.env.SANITY_API_VERSION,
 })
 
 const whyJoinUsData = {
