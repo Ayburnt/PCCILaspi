@@ -4,6 +4,7 @@ import HomePage from './pages/HomePage';
 import JoinPage from './pages/JoinPage';
 import NewsPost from './pages/NewsPost';
 import NewsIndex from './pages/NewsIndex';
+import useDynamicFavicon from './hooks/useDynamicFavicon';
 
 // Membership Pages
 import MembersDirectory from './pages/Membership/MembersDirectory';
@@ -23,6 +24,9 @@ import ContactUs from './pages/About/ContactUs';
 
 function AnimatedRoutes() {
   const location = useLocation();
+  
+  // Update favicon dynamically from Sanity
+  useDynamicFavicon();
 
   // Scroll to top on route change
   useEffect(() => {
