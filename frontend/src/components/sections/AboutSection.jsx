@@ -2,32 +2,26 @@ import { useEffect, useState } from 'react';
 import { Target, Flag, Zap, Users, Globe, BookOpen } from 'lucide-react';
 import { client } from '../../sanityClient';
 
-// Icon mapping for Lucide icons
+// Icon mapping: Ensure the keys match the strings selected in your Sanity Studio
 const iconMap = {
-  Users,
+  Users: Users,
   Scale: Zap,
-  Globe,
+  Globe: Globe,
   Building2: BookOpen,
   TrendingUp: Zap,
-  Target,
+  Target: Target,
   Award: Zap,
   ArrowRight: Zap,
-  Flag,
+  Flag: Flag,
 };
 
 export default function AboutSection() {
-  const [content, setContent] = useState(null);
+  const [thrusts, setThrusts] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    // 1. OPTIMIZATION: Only fetch the data we actually render (thrusts)
     const query = `*[_type == "aboutUs"][0]{
-      whoWeAreTitle,
-      whoWeAreMainText,
-      visionTitle,
-      visionStatement,
-      missionTitle,
-      missionStatement,
-      thrustsTitle,
       thrusts[]{
         title,
         description,
@@ -38,96 +32,70 @@ export default function AboutSection() {
     client
       .fetch(query)
       .then((data) => {
-        setContent(data);
+        // Safety check in case data is null
+        setThrusts(data?.thrusts || []);
         setLoading(false);
       })
       .catch((err) => {
-        console.error('Error fetching about content:', err);
+        console.error('Error fetching thrusts:', err);
         setLoading(false);
       });
   }, []);
 
   if (loading) {
     return (
-      <section id="about" className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="text-center">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
-            <p className="mt-4 text-slate-600">Loading...</p>
-          </div>
+      <section className="py-20 bg-gray-50">
+        <div className="flex justify-center items-center">
+          <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-blue-600"></div>
         </div>
       </section>
     );
   }
 
-  if (!content) {
+  // If no thrusts exist, return null or an empty fragment to avoid layout shifts
+  if (!thrusts || thrusts.length === 0) {
     return null;
   }
 
   return (
-    <section id="about" className="py-20 bg-white">
-      <div className="max-w-7xl mx-auto px-4">
+    <section id="about" className="py-16 bg-gray-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* 1. Header & Introduction */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <h2 className="text-4xl font-serif font-bold text-blue-950 mb-6">{content?.whoWeAreTitle || "About Us"}</h2>
-          <div className="w-24 h-1 bg-yellow-500 mx-auto mb-8"></div>
-          <p className="text-lg text-gray-600 leading-relaxed">
-            {content?.whoWeAreMainText}
-          </p>
+        {/* Optional: Section Header */}
+        <div className="text-center mb-12">
+          <h2 className="text-3xl font-bold text-slate-900 sm:text-4xl">Our Organizational Thrusts</h2>
+          <div className="mt-2 w-24 h-1 bg-blue-600 mx-auto rounded-full"></div>
         </div>
 
-        {/* 2. Vision & Mission Cards */}
-        <div className="grid md:grid-cols-2 gap-8 mb-20">
-          {/* Vision */}
-          <div className="bg-blue-50 p-8 rounded-lg border-l-8 border-blue-900 shadow-sm hover:shadow-md transition">
-            <div className="flex items-center gap-4 mb-4">
-              <div className="bg-blue-900 p-3 rounded-full text-white">
-                <Target size={24} />
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {thrusts.map((thrust, index) => {
+            // Fallback to Users icon if the sanity icon string doesn't match
+            const Icon = iconMap[thrust.icon] || Users;
+
+            return (
+              <div 
+                key={index} 
+                className="group relative bg-white rounded-xl p-6 h-full border border-slate-100 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1 overflow-hidden"
+              >
+                {/* 2. UI: Animated Top Gradient Border */}
+                <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 to-yellow-400 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
+                
+                {/* 3. UI: Styled Icon Container */}
+                <div className="w-14 h-14 rounded-lg bg-blue-50 flex items-center justify-center mb-6 group-hover:bg-blue-600 transition-colors duration-300">
+                  <Icon className="w-7 h-7 text-blue-600 group-hover:text-white transition-colors duration-300" />
+                </div>
+
+                {/* Content */}
+                <h3 className="text-xl font-bold text-slate-900 mb-3 group-hover:text-blue-700 transition-colors">
+                  {thrust.title}
+                </h3>
+                <p className="text-slate-600 leading-relaxed text-sm">
+                  {thrust.description}
+                </p>
               </div>
-              <h3 className="text-2xl font-bold text-blue-950">{content?.visionTitle || "Our Vision"}</h3>
-            </div>
-            <p className="text-gray-700 leading-relaxed">
-              {content?.visionStatement}
-            </p>
-          </div>
-
-          {/* Mission */}
-          <div className="bg-yellow-50 p-8 rounded-lg border-l-8 border-yellow-500 shadow-sm hover:shadow-md transition">
-            <div className="flex items-center gap-4 mb-4">
-              <div className="bg-yellow-500 p-3 rounded-full text-blue-950">
-                <Flag size={24} />
-              </div>
-              <h3 className="text-2xl font-bold text-blue-950">{content?.missionTitle || "Our Mission"}</h3>
-            </div>
-            <p className="text-gray-700 leading-relaxed">
-              {content?.missionStatement}
-            </p>
-          </div>
+            );
+          })}
         </div>
-
-        {/* 3. Organizational Thrusts */}
-        <div>
-          <h3 className="text-2xl font-bold text-center text-blue-950 mb-10">{content?.thrustsTitle || "Organizational Thrusts"}</h3>
-          
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {content?.thrusts && content.thrusts.length > 0 ? (
-              content.thrusts.map((thrust, index) => {
-                const Icon = iconMap[thrust.icon] || Users;
-                return (
-                  <div key={index} className="p-6 bg-white border border-gray-100 rounded-lg shadow-sm hover:shadow-lg transition hover:-translate-y-1">
-                    <Icon className="text-yellow-500 mb-4 w-8 h-8" />
-                    <h4 className="font-bold text-blue-900 mb-2">{thrust.title}</h4>
-                    <p className="text-sm text-gray-600">{thrust.description}</p>
-                  </div>
-                );
-              })
-            ) : (
-              <p className="text-gray-600 col-span-full text-center">No thrusts available.</p>
-            )}
-          </div>
-        </div>
-
       </div>
     </section>
   );

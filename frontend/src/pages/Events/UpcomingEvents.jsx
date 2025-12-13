@@ -60,7 +60,7 @@ export default function UpcomingEvents() {
       <Navbar />
 
       {/* Hero / Next Event Highlight */}
-      <section className="relative bg-slate-800 py-14 px-4 overflow-hidden">
+      <section className="relative bg-slate-800 py-8 px-4 overflow-hidden">
         {/* Background Effects */}
         <div className="absolute inset-0 z-0">
           <div className="absolute inset-0 bg-gradient-to-r from-slate-900 via-slate-900 to-indigo-900/80"></div>
@@ -73,72 +73,6 @@ export default function UpcomingEvents() {
           )}
         </div>
 
-        <div className="relative z-10 max-w-7xl mx-auto">
-          {loading ? (
-             <div className="h-64 flex items-center justify-center">
-                <div className="w-10 h-10 border-4 border-indigo-500 border-t-transparent rounded-full animate-spin"></div>
-             </div>
-          ) : featuredEvent && (
-            <div className="flex flex-col md:flex-row items-center gap-12">
-              <div className="flex-1 text-center md:text-left">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/20 border border-indigo-500/30 text-indigo-300 text-sm font-semibold mb-6">
-                  <Timer size={16} />
-                  <span>Next Event in {featuredEvent.daysUntil} Days</span>
-                </div>
-                <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight">
-                  {featuredEvent.title}
-                </h1>
-                <p className="text-lg text-slate-400 mb-8 max-w-xl">
-                  {featuredEvent.description}
-                </p>
-                <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
-                  <button className="bg-white text-indigo-900 px-8 py-3.5 rounded-lg font-bold hover:bg-indigo-50 transition-colors flex items-center justify-center gap-2">
-                    Register Now
-                    <ArrowRight size={18} />
-                  </button>
-                  <button className="px-8 py-3.5 rounded-lg font-semibold text-white border border-slate-600 hover:bg-white/5 transition-colors">
-                    View Details
-                  </button>
-                </div>
-              </div>
-
-              {/* Glass Card for Featured Event Details */}
-              <div className="w-full md:w-96 bg-white/5 backdrop-blur-md border border-white/10 p-6 rounded-2xl shadow-2xl">
-                 <div className="space-y-6">
-                    <div className="flex items-start gap-4">
-                       <div className="bg-indigo-600 p-3 rounded-lg text-white">
-                          <Calendar size={24} />
-                       </div>
-                       <div>
-                          <p className="text-slate-400 text-sm">Date</p>
-                          <p className="text-white font-semibold">
-                            {new Date(featuredEvent.date).toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })}
-                          </p>
-                       </div>
-                    </div>
-                    <div className="flex items-start gap-4">
-                       <div className="bg-indigo-600 p-3 rounded-lg text-white">
-                          <Clock size={24} />
-                       </div>
-                       <div>
-                          <p className="text-slate-400 text-sm">Time</p>
-                          <p className="text-white font-semibold">{featuredEvent.time || 'TBD'}</p>
-                       </div>
-                    </div>
-                    <div className="flex items-start gap-4">
-                       <div className="bg-indigo-600 p-3 rounded-lg text-white">
-                          <MapPin size={24} />
-                       </div>
-                       <div>
-                          <p className="text-slate-400 text-sm">Location</p>
-                          <p className="text-white font-semibold">{featuredEvent.location}</p>
-                       </div>
-                    </div>
-                 </div>
-              </div>
-            </div>
-          )}
-        </div>
       </section>
 
       {/* Grid Schedule Section */}
