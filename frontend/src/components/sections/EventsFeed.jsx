@@ -51,7 +51,7 @@ export default function EventsFeed() {
   }, []);
 
   return (
-    <section id="events" className="py-16 mb-5 bg-white">
+    <section id="events" className="py-14 mb-5 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Header Section */}

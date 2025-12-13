@@ -1,12 +1,23 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
 import TopBar from '../components/layout/TopBar';
 import Hero from '../components/sections/Hero';
-import AboutSection from '../components/sections/AboutSection'; // <--- The new About Section
+import AboutSection from '../components/sections/AboutSection';
 import EventsFeed from '../components/sections/EventsFeed';
 import NewsFeed from '../components/sections/NewsFeed';
 import PromoPopup from '../components/sections/PromoPopup';
+
+const scrollVariants = {
+  hidden: { opacity: 0, y: 50 },
+  visible: { opacity: 1, y: 0 }
+};
+
+const scrollTransition = {
+  duration: 0.6,
+  ease: 'easeOut'
+};
 
 const HomePage = () => {
   return (
@@ -15,19 +26,34 @@ const HomePage = () => {
       <Navbar />
       
       <Hero />
-      
-      {/* Replaced the old Benefits section with the new PCCI About info */}
+
       <AboutSection /> 
-      
-      <EventsFeed />
-      
-      <NewsFeed />
-      
+
+      {/* Animate on scroll */}
+      <motion.div
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.2 }}
+        variants={scrollVariants}
+        transition={scrollTransition}
+      >
+        <EventsFeed />
+      </motion.div>
+
+      <motion.div
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.2 }}
+        variants={scrollVariants}
+        transition={{ ...scrollTransition, delay: 0.2 }}
+      >
+        <NewsFeed />
+      </motion.div>
+
       <Footer />
       <PromoPopup />
     </div>
   );
 };
 
-// --- THIS LINE WAS MISSING OR BROKEN ---
 export default HomePage;

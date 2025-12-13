@@ -27,8 +27,11 @@ export default function EventPost() {
 
       <article className="max-w-4xl mx-auto px-4 py-12">
 
-        <Link to="/events/upcoming" className="text-blue-900 font-bold flex items-center gap-2 mb-8">
-          <ArrowLeft size={20} /> Back to Events
+        <Link 
+          to={event.eventType === 'past' ? '/events/past' : '/events/upcoming'} 
+          className="text-blue-900 font-bold flex items-center gap-2 mb-8"
+        >
+          <ArrowLeft size={20} /> Back to {event.eventType === 'past' ? 'Past' : 'Upcoming'} Events
         </Link>
 
         {/* Category + Date + Location */}
