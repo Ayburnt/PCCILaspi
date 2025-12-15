@@ -257,11 +257,11 @@ export default function MembersDirectory() {
                     <div className="flex justify-between items-start mb-4">
                       {/* Logo or Icon */}
                       {member.logo ? (
-                        <div className="h-12 w-12 rounded-lg overflow-hidden border border-slate-200 flex-shrink-0">
+                        <div className="h-12 w-12 rounded-lg overflow-hidden border border-slate-200 flex-shrink-0 bg-white">
                           <img 
                             src={urlFor(member.logo).width(100).height(100).url()} 
                             alt={`${member.company} logo`}
-                            className="w-full h-full object-cover"
+                            className="w-full h-full object-contain"
                           />
                         </div>
                       ) : (
