@@ -47,8 +47,8 @@ export default defineType({
       type: 'string',
       options: {
         list: [
+            { title: 'Zoom', value: 'Zoom' },
             { title: 'Conference', value: 'Conference' },
-            { title: 'Expo', value: 'Expo' },
             { title: 'Summit', value: 'Summit' },
             { title: 'Gala', value: 'Gala' },
             { title: 'Bootcamp', value: 'Bootcamp' },

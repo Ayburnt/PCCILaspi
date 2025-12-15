@@ -189,7 +189,7 @@ export default function NewsIndex() {
                   className="group flex flex-col h-full bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
                 >
                   {/* Image */}
-                  <div className="h-48 overflow-hidden relative bg-gray-100">
+                  <div className="h-78 overflow-hidden relative bg-gray-100">
                     {item.image?.asset?.url ? (
                       <img
                         src={item.image.asset.url}
