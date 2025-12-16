@@ -252,6 +252,13 @@ export default function Navbar() {
                 About
               </Link>
               <Link
+                to="/about/history"
+                className="block py-2 px-4 hover:bg-gray-200"
+                onClick={() => setIsOpen(false)}
+              >
+                History
+              </Link>
+              <Link
                 to="/about/leadership"
                 className="block py-2 px-4 hover:bg-gray-200"
                 onClick={() => setIsOpen(false)}
