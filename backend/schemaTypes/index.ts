@@ -9,6 +9,7 @@ import { leadershipBoard } from './leadership'
 import hero from './hero'
 import siteSettings from './siteSettings'
 import history from './history' 
+import partner from './partner'
 
 export const schemaTypes = [
     siteSettings,
@@ -16,6 +17,7 @@ export const schemaTypes = [
     aboutUs,
     history,
     leadershipBoard,
+	partner,
     event,
     news,
     member,
