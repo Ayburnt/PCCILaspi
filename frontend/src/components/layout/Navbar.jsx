@@ -61,12 +61,10 @@ export default function Navbar() {
             )}
             <div className="leading-tight">
               <h1 className="text-2xl font-bold text-gray-800 tracking-tight">
-                {settings?.organizationName || "PCCI"}
+                {settings?.organizationName || "PCCI -"} {settings?.organizationSubtitle || "Las Piñas"}
               </h1>
-              <span className="text-xs font-semibold text-gray-500 tracking-widest uppercase">
-                {settings?.organizationSubtitle || "Las Piñas City"}
-              </span>
             </div>
+
           </Link>
 
           {/* Desktop Links */}
