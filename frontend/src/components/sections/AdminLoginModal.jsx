@@ -16,7 +16,7 @@ const AdminLoginModal = ({ isOpen, onClose }) => {
     
     if(email && password) {
         // Change this URL to your deployed Studio URL later
-        window.open('http://localhost:3333', '_blank'); 
+        window.open('https://pccilaspi.sanity.studio/   ', '_blank'); 
         onClose();
     } else {
         alert("Please enter any email/password to proceed to the Studio.");

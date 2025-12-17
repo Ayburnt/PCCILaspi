@@ -21,6 +21,7 @@
     "@sanity/structure": "^2.36.2",
     "@sanity/vision": "^4.22.0",
     "dotenv": "^17.2.3",
+    "lucide-react": "^0.561.0",
     "nanoid": "^5.1.6",
     "react": "^19.1",
     "react-dom": "^19.1",

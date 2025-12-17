@@ -86,9 +86,8 @@ export default function Navbar() {
                   setMembershipOpen(false);
                   setEventsOpen(false);
                 }}
-                className={`flex items-center transition border-b-2 ${
-                  aboutOpen ? "border-red-500" : "border-transparent"
-                } hover:border-red-500`}
+                className={`flex items-center transition border-b-2 ${aboutOpen ? "border-red-500" : "border-transparent"
+                  } hover:border-red-500`}
               >
                 ABOUT US <ChevronDown size={16} className="ml-1" />
               </button>
@@ -100,6 +99,13 @@ export default function Navbar() {
                     onClick={() => setAboutOpen(false)}
                   >
                     About
+                  </Link>
+                  <Link
+                    to="/about/history"
+                    className="block px-4 py-2 hover:bg-gray-100"
+                    onClick={() => setAboutOpen(false)}
+                  >
+                    History
                   </Link>
                   <Link
                     to="/about/leadership"
@@ -126,9 +132,8 @@ export default function Navbar() {
                   setMembershipOpen(!membershipOpen);
                   setEventsOpen(false); // Close other dropdown
                 }}
-                className={`flex items-center transition border-b-2 ${
-                  membershipOpen ? "border-red-500" : "border-transparent"
-                } hover:border-red-500`}
+                className={`flex items-center transition border-b-2 ${membershipOpen ? "border-red-500" : "border-transparent"
+                  } hover:border-red-500`}
               >
                 MEMBERSHIP <ChevronDown size={16} className="ml-1" />
               </button>
@@ -166,9 +171,8 @@ export default function Navbar() {
                   setEventsOpen(!eventsOpen);
                   setMembershipOpen(false); // Close other dropdown
                 }}
-                className={`flex items-center transition border-b-2 ${
-                  eventsOpen ? "border-red-500" : "border-transparent"
-                } hover:border-red-500`}
+                className={`flex items-center transition border-b-2 ${eventsOpen ? "border-red-500" : "border-transparent"
+                  } hover:border-red-500`}
               >
                 EVENTS <ChevronDown size={16} className="ml-1" />
               </button>
@@ -246,6 +250,13 @@ export default function Navbar() {
                 onClick={() => setIsOpen(false)}
               >
                 About
+              </Link>
+              <Link
+                to="/about/history"
+                className="block py-2 px-4 hover:bg-gray-200"
+                onClick={() => setIsOpen(false)}
+              >
+                History
               </Link>
               <Link
                 to="/about/leadership"

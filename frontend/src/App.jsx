@@ -19,6 +19,7 @@ import EventPost from './pages/Events/EventPost';
 
 // About Pages
 import AboutUs from './pages/About/AboutUs';
+import History from './pages/About/History';
 import Leadership from './pages/About/Leadership';
 import ContactUs from './pages/About/ContactUs';
 
@@ -51,6 +52,7 @@ function AnimatedRoutes() {
 
       {/* Events Routes */}
       <Route path="/about/about-us" element={<AboutUs />} />
+      <Route path="about/history" element={<History/>}/>
       <Route path="/about/leadership" element={<Leadership />} />
       <Route path="/about/contact-us" element={<ContactUs />} />
 
