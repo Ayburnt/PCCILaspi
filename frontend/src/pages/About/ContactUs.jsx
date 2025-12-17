@@ -172,7 +172,7 @@ export default function ContactUs() {
                 disabled={isSubmitting || submitted}
                 className={`
                   w-full py-4 rounded-xl font-bold text-white flex items-center justify-center gap-2 transition-all duration-300
-                  ${submitted ? 'bg-green-600' : 'bg-blue-600 hover:bg-blue-700 hover:shadow-lg hover:shadow-blue-600/20'}
+                  ${submitted ? 'bg-green-700' : 'bg-green-700 hover:bg-green-700 hover:shadow-lg hover:shadow-green-600/20'}
                   ${isSubmitting ? 'opacity-70 cursor-wait' : ''}
                 `}
               >

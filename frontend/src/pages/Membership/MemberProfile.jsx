@@ -157,7 +157,7 @@ export default function MemberProfile() {
         <Navbar />
         <div className="max-w-7xl mx-auto px-4 py-20 flex justify-center items-center">
           <div className="text-center">
-            <Loader2 className="animate-spin text-blue-700 mx-auto mb-4" size={48} />
+            <Loader2 className="animate-spin text-green-700 mx-auto mb-4" size={48} />
             <p className="text-slate-600">Loading member profile...</p>
           </div>
         </div>
@@ -176,7 +176,7 @@ export default function MemberProfile() {
           <div className="bg-red-50 border border-red-200 rounded-lg p-8 text-center">
             <h2 className="text-2xl font-bold text-red-900 mb-2">Member Not Found</h2>
             <p className="text-red-700 mb-6">{error || 'This member profile could not be found.'}</p>
-            <Link to="/members-directory" className="inline-flex items-center text-blue-700 hover:text-blue-900 font-semibold">
+            <Link to="/members-directory" className="inline-flex items-center text-green-700 hover:text-green-900 font-semibold">
               <ArrowLeft size={20} className="mr-2" />
               Back to Directory
             </Link>
@@ -193,9 +193,9 @@ export default function MemberProfile() {
       <Navbar />
 
       {/* Hero Header Section */}
-      <div className="bg-gradient-to-r from-blue-900 to-blue-700 text-white py-12">
+      <div className="bg-gradient-to-r from-green-900 to-green-700 text-white py-12">
         <div className="max-w-7xl mx-auto px-4">
-          <Link to="/members-directory" className="inline-flex items-center text-blue-100 hover:text-white mb-6 transition-colors">
+          <Link to="/members-directory" className="inline-flex items-center text-green-100 hover:text-white mb-6 transition-colors">
             <ArrowLeft size={20} className="mr-2" />
             Back to Directory
           </Link>
@@ -224,7 +224,7 @@ export default function MemberProfile() {
                       />
                     </div>
                   ) : (
-                    <div className="w-24 h-24 bg-gradient-to-br from-blue-600 to-blue-800 rounded-2xl flex items-center justify-center text-white shadow-lg flex-shrink-0">
+                    <div className="w-24 h-24 bg-gradient-to-br from-green-600 to-green-800 rounded-2xl flex items-center justify-center text-white shadow-lg flex-shrink-0">
                       <Building2 size={48} strokeWidth={1.5} />
                     </div>
                   )}
@@ -233,7 +233,7 @@ export default function MemberProfile() {
                   <div className="flex-1">
                     <h1 className="text-3xl font-bold text-slate-900 mb-2">{member.company}</h1>
                     <div className="flex flex-wrap gap-3">
-                      <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-blue-100 text-blue-800 border border-blue-200">
+                      <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-green-100 text-green-800 border border-green-200">
                         {member.membershipType}
                       </span>
                       <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-slate-100 text-slate-700 border border-slate-200">
@@ -254,7 +254,7 @@ export default function MemberProfile() {
               {/* Key Representative */}
         <div className="bg-white rounded-2xl shadow-xl border border-slate-100 p-8">
           <h2 className="text-2xl font-bold text-slate-900 mb-6 flex items-center">
-            <User className="mr-3 text-blue-700" size={28} />
+            <User className="mr-3 text-green-700" size={28} />
             Key Representative
           </h2>
           <div className="flex items-center gap-6">
@@ -283,7 +283,7 @@ export default function MemberProfile() {
             {member.overview && (
               <div className="bg-white rounded-2xl shadow-xl border border-slate-100 p-8">
                 <h2 className="text-2xl font-bold text-slate-900 mb-4 flex items-center">
-                  <Briefcase className="mr-3 text-blue-700" size={28} />
+                  <Briefcase className="mr-3 text-green-700" size={28} />
                   Company Overview
                 </h2>
                 <p className="text-slate-600 leading-relaxed">{member.overview}</p>
@@ -293,13 +293,13 @@ export default function MemberProfile() {
             {/* Key Services */}
             <div className="bg-white rounded-2xl shadow-xl border border-slate-100 p-8">
               <h2 className="text-2xl font-bold text-slate-900 mb-6 flex items-center">
-                <Tag className="mr-3 text-blue-700" size={28} />
+                <Tag className="mr-3 text-green-700" size={28} />
                  Services
               </h2>
               <div className="grid md:grid-cols-2 gap-3">
                 {member.keyServices.map((service, index) => (
-                  <div key={index} className="flex items-center p-4 bg-gradient-to-r from-blue-50 to-slate-50 rounded-lg border border-blue-100">
-                    <div className="w-2 h-2 bg-blue-600 rounded-full mr-3"></div>
+                  <div key={index} className="flex items-center p-4 bg-gradient-to-r from-green-50 to-slate-50 rounded-lg border border-green-100">
+                    <div className="w-2 h-2 bg-green-600 rounded-full mr-3"></div>
                     <span className="text-slate-700 font-medium">{service}</span>
                   </div>
                 ))}
@@ -310,13 +310,13 @@ export default function MemberProfile() {
             {member.products && member.products.length > 0 && (
               <div className="bg-white rounded-2xl shadow-xl border border-slate-100 p-8">
                 <h2 className="text-2xl font-bold text-slate-900 mb-6 flex items-center">
-                  <Package className="mr-3 text-blue-700" size={28} />
+                  <Package className="mr-3 text-green-700" size={28} />
                   Products
                 </h2>
                 <div className="grid md:grid-cols-2 gap-3">
                   {member.products.map((product, index) => (
-                    <div key={index} className="flex items-center p-4 bg-gradient-to-r from-green-50 to-slate-50 rounded-lg border border-green-100">
-                      <div className="w-2 h-2 bg-green-600 rounded-full mr-3"></div>
+                    <div key={index} className="flex items-center p-4 bg-gradient-to-r from-emerald-50 to-slate-50 rounded-lg border border-emerald-100">
+                      <div className="w-2 h-2 bg-emerald-600 rounded-full mr-3"></div>
                       <span className="text-slate-700 font-medium">{product}</span>
                     </div>
                   ))}
@@ -330,14 +330,14 @@ export default function MemberProfile() {
           <div className="space-y-6">
             
             {/* Get in Touch Card */}
-            <div className="bg-gradient-to-br from-blue-900 to-blue-700 text-white rounded-2xl shadow-xl p-8">
+            <div className="bg-gradient-to-br from-green-900 to-green-700 text-white rounded-2xl shadow-xl p-8">
               <h2 className="text-2xl font-bold mb-2">Get in Touch</h2>
-              <p className="text-blue-100 text-sm mb-6">Ready to connect? Reach out to us through any of the channels below.</p>
+              <p className="text-green-100 text-sm mb-6">Ready to connect? Reach out to us through any of the channels below.</p>
               
               <div className="space-y-4">
                 <a 
                   href={`mailto:${member.email}`}
-                  className="block w-full bg-white text-blue-900 px-6 py-3 rounded-lg font-semibold hover:bg-blue-50 transition-all text-center shadow-lg"
+                  className="block w-full bg-white text-green-900 px-6 py-3 rounded-lg font-semibold hover:bg-green-50 transition-all text-center shadow-lg"
                 >
                   <Mail className="inline mr-2" size={18} />
                   Contact via Email
@@ -346,7 +346,7 @@ export default function MemberProfile() {
                 {member.phone && (
                   <a 
                     href={`tel:${member.phone}`}
-                    className="block w-full bg-blue-800 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-900 transition-all text-center border-2 border-white/20"
+                    className="block w-full bg-green-800 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-900 transition-all text-center border-2 border-white/20"
                   >
                     <Phone className="inline mr-2" size={18} />
                     Call Now
@@ -365,7 +365,7 @@ export default function MemberProfile() {
                     <Phone className="text-slate-400 mt-1 flex-shrink-0" size={18} />
                     <div className="ml-3">
                       <p className="text-xs text-slate-500 font-medium uppercase mb-1">Phone</p>
-                      <a href={`tel:${member.phone}`} className="text-slate-700 hover:text-blue-700 font-medium">
+                      <a href={`tel:${member.phone}`} className="text-slate-700 hover:text-green-700 font-medium">
                         {member.phone}
                       </a>
                     </div>
@@ -376,7 +376,7 @@ export default function MemberProfile() {
                   <Mail className="text-slate-400 mt-1 flex-shrink-0" size={18} />
                   <div className="ml-3">
                     <p className="text-xs text-slate-500 font-medium uppercase mb-1">Email</p>
-                    <a href={`mailto:${member.email}`} className="text-slate-700 hover:text-blue-700 font-medium break-all">
+                    <a href={`mailto:${member.email}`} className="text-slate-700 hover:text-green-700 font-medium break-all">
                       {member.email}
                     </a>
                   </div>
@@ -455,7 +455,7 @@ export default function MemberProfile() {
                         href={member.website.startsWith('http') ? member.website : `https://${member.website}`} 
                         target="_blank" 
                         rel="noopener noreferrer" 
-                        className="text-slate-700 hover:text-blue-700 font-medium break-all inline-flex items-center"
+                        className="text-slate-700 hover:text-green-700 font-medium break-all inline-flex items-center"
                       >
                         {member.website.replace(/^https?:\/\//, '')}
                         <ExternalLink size={14} className="ml-1" />
@@ -473,7 +473,7 @@ export default function MemberProfile() {
             {/* Location Card */}
             <div className="bg-white rounded-2xl shadow-xl border border-slate-100 p-6">
               <h3 className="text-lg font-bold text-slate-900 mb-4 flex items-center">
-                <MapPin className="mr-2 text-blue-700" size={20} />
+                <MapPin className="mr-2 text-green-700" size={20} />
                 Our Location
               </h3>
               <div className="space-y-4">
@@ -485,7 +485,7 @@ export default function MemberProfile() {
                   href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(member.location)}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center text-blue-700 hover:text-blue-900 font-semibold text-sm"
+                  className="inline-flex items-center text-green-700 hover:text-green-900 font-semibold text-sm"
                 >
                   <ExternalLink size={16} className="mr-2" />
                   View on Google Maps
@@ -497,7 +497,7 @@ export default function MemberProfile() {
             {member.businessHours && (
               <div className="bg-white rounded-2xl shadow-xl border border-slate-100 p-6">
                 <h3 className="text-lg font-bold text-slate-900 mb-4 flex items-center">
-                  <Clock className="mr-2 text-blue-700" size={20} />
+                  <Clock className="mr-2 text-green-700" size={20} />
                   Business Hours
                 </h3>
                 <div className="space-y-2">
@@ -519,12 +519,12 @@ export default function MemberProfile() {
         </div>
 
         {/* Bottom CTA */}
-        <div className="mt-12 bg-gradient-to-r from-blue-900 to-blue-700 rounded-2xl p-8 text-center text-white shadow-2xl">
+        <div className="mt-12 bg-gradient-to-r from-green-900 to-green-700 rounded-2xl p-8 text-center text-white shadow-2xl">
           <h2 className="text-2xl font-bold mb-3">Interested in Joining?</h2>
-          <p className="text-blue-100 mb-6">Become a member of PCCI Las Piñas and grow your business network</p>
+          <p className="text-green-100 mb-6">Become a member of PCCI Las Piñas and grow your business network</p>
           <Link 
             to="/join"
-            className="inline-block bg-white text-blue-900 px-8 py-3 rounded-lg font-bold hover:bg-blue-50 transition-all shadow-lg"
+            className="inline-block bg-white text-green-900 px-8 py-3 rounded-lg font-bold hover:bg-green-50 transition-all shadow-lg"
           >
             Become a Member
           </Link>

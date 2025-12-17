@@ -29,7 +29,7 @@ export default function EventPost() {
 
         <Link 
           to={event.eventType === 'past' ? '/events/past' : '/events/upcoming'} 
-          className="text-blue-900 font-bold flex items-center gap-2 mb-8"
+          className="text-black-900 font-bold flex items-center gap-2 mb-8"
         >
           <ArrowLeft size={20} /> Back to {event.eventType === 'past' ? 'Past' : 'Upcoming'} Events
         </Link>
@@ -37,7 +37,7 @@ export default function EventPost() {
         {/* Category + Date + Location */}
         <div className="flex flex-col gap-2 text-sm text-gray-500 mb-4 border-b pb-4">
           <div className="flex items-center gap-4 flex-wrap">
-            <span className="bg-blue-100 text-blue-900 px-2 py-1 rounded font-bold uppercase text-xs">
+            <span className="bg-blue-100 text-green-900 px-2 py-1 rounded font-bold uppercase text-xs">
               {event.category}
             </span>
             <span className="flex items-center gap-1">
@@ -57,7 +57,7 @@ export default function EventPost() {
         </div>
 
         {/* Title */}
-        <h1 className="text-3xl md:text-5xl font-serif font-bold text-blue-950 mb-8">
+        <h1 className="text-3xl md:text-5xl font-serif font-bold text-green-980 mb-8">
           {event.title}
         </h1>
 

@@ -24,7 +24,7 @@ const JoinPage = () => {
       <Navbar />
 
       {/* ================= HERO SECTION WITH PHOTO BACKGROUND ================= */}
-      <div className="relative bg-blue-900 h-[400px] flex items-center justify-center overflow-hidden">
+      <div className="relative bg-green-900 h-[400px] flex items-center justify-center overflow-hidden">
         {/* Background Image */}
         <div className="absolute inset-0 z-0">
           <img
@@ -33,18 +33,18 @@ const JoinPage = () => {
             className="w-full h-full object-cover opacity-40"
           />
           {/* Gradient Overlay */}
-          <div className="absolute inset-0 bg-gradient-to-r from-slate-900/95 to-blue-900/80" />
+          <div className="absolute inset-0 bg-gradient-to-r from-slate-900/95 to-green-900/80" />
         </div>
 
         {/* Hero Content */}
         <div className="relative z-10 max-w-4xl mx-auto px-4 text-center -mt-10">
-          <span className="inline-block py-1 px-3 rounded-full bg-blue-500/30 border border-blue-400 text-blue-100 text-sm font-semibold mb-4 backdrop-blur-sm">
+          <span className="inline-block py-1 px-3 rounded-full bg-green-500/30 border border-green-400 text-green-100 text-sm font-semibold mb-4 backdrop-blur-sm">
             Join the Premier Business Chamber
           </span>
           <h1 className="text-4xl md:text-6xl font-extrabold mb-6 leading-tight tracking-tight text-white">
             Be a PCCI-Las Pinas <br className="hidden md:block" /> Member
           </h1>
-          <p className="text-blue-100 text-base md:text-lg max-w-xl mx-auto leading-relaxed">
+          <p className="text-green-100 text-base md:text-lg max-w-xl mx-auto leading-relaxed">
             Connect with industry leaders, influence policy, and accelerate your
             business growth.
           </p>
@@ -60,9 +60,9 @@ const JoinPage = () => {
           <div className="bg-white rounded-2xl shadow-xl p-6 md:p-10 animate-fade-in-up">
             <button
               onClick={() => setShowForm(false)}
-              className="group mb-8 text-gray-500 hover:text-blue-900 flex items-center gap-2 font-medium transition-colors"
+              className="group mb-8 text-gray-500 hover:text-green-900 flex items-center gap-2 font-medium transition-colors"
             >
-              <div className="p-2 bg-gray-100 rounded-full group-hover:bg-blue-100 transition-colors">
+              <div className="p-2 bg-gray-100 rounded-full group-hover:bg-green-100 transition-colors">
                 <ArrowLeft size={20} />
               </div>
               Back to Overview
@@ -86,12 +86,12 @@ const JoinPage = () => {
             {/* 1. APPLICATION PROCESS (MODERN OVERLAY STYLE) */}
             <section className="relative bg-white rounded-2xl shadow-2xl p-10 md:p-16 overflow-hidden">
               {/* Soft background glow */}
-              <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-white to-indigo-100 opacity-70 pointer-events-none" />
+              <div className="absolute inset-0 bg-gradient-to-br from-green-50 via-white to-emerald-100 opacity-70 pointer-events-none" />
 
               <div className="relative z-10">
                 {/* Header */}
                 <div className="text-center max-w-3xl mx-auto mb-16">
-                  <span className="inline-block mb-4 px-5 py-1.5 rounded-full bg-blue-100 text-blue-800 text-sm font-semibold tracking-wide">
+                  <span className="inline-block mb-4 px-5 py-1.5 rounded-full bg-green-100 text-green-800 text-sm font-semibold tracking-wide">
                     Application Process
                   </span>
                   <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900 mb-4">
@@ -105,7 +105,7 @@ const JoinPage = () => {
                 {/* Steps */}
                 <div className="relative grid md:grid-cols-4 gap-10">
                   {/* MAIN PROGRESS LINE */}
-                  <div className="hidden md:block absolute top-[30px] left-0 w-full h-[3px] bg-gradient-to-r from-blue-200 via-blue-500 to-indigo-400 rounded-full" />
+                  <div className="hidden md:block absolute top-[30px] left-0 w-full h-[3px] bg-gradient-to-r from-green-200 via-green-500 to-emerald-400 rounded-full" />
 
                   {[
                     {
@@ -135,12 +135,12 @@ const JoinPage = () => {
                     >
                       {/* STEP NODE */}
                       <div className="relative z-10">
-                        <div className="w-14 h-14 rounded-full bg-blue-900 text-white flex items-center justify-center font-bold text-lg shadow-xl ring-4 ring-white">
+                        <div className="w-14 h-14 rounded-full bg-green-900 text-white flex items-center justify-center font-bold text-lg shadow-xl ring-4 ring-white">
                           {item.step}
                         </div>
 
                         {/* Glow */}
-                        <div className="absolute inset-0 rounded-full bg-blue-500/30 blur-xl -z-10" />
+                        <div className="absolute inset-0 rounded-full bg-green-500/30 blur-xl -z-10" />
                       </div>
 
                       {/* CARD */}
@@ -160,9 +160,9 @@ const JoinPage = () => {
 
             <div className="grid lg:grid-cols-2 gap-8">
               {/* 3. TESTIMONIALS */}
-              <section className="bg-white rounded-2xl shadow-md p-8 border-l-8 border-blue-900">
+              <section className="bg-white rounded-2xl shadow-md p-8 border-l-8 border-green-900">
                 <div className="flex items-center gap-3 mb-6">
-                  <Quote className="text-blue-200 fill-current" size={40} />
+                  <Quote className="text-green-200 fill-current" size={40} />
                   <h2 className="text-2xl font-bold text-gray-800">
                     Member Stories
                   </h2>
@@ -211,10 +211,10 @@ const JoinPage = () => {
               </section>
 
               {/* 4. CALL TO ACTION CARD */}
-              <section className="bg-gradient-to-br from-blue-900 to-indigo-900 rounded-2xl shadow-xl p-8 text-white flex flex-col justify-center items-center text-center">
-                <CheckCircle size={48} className="text-blue-300 mb-6" />
+              <section className="bg-gradient-to-br from-green-900 to-emerald-900 rounded-2xl shadow-xl p-8 text-white flex flex-col justify-center items-center text-center">
+                <CheckCircle size={48} className="text-green-300 mb-6" />
                 <h2 className="text-3xl font-bold mb-4">Ready to Grow?</h2>
-                <p className="text-blue-100 mb-8 max-w-md">
+                <p className="text-green-100 mb-8 max-w-md">
                   Take the first step toward expanding your network and securing
                   your business future.
                 </p>
@@ -222,7 +222,7 @@ const JoinPage = () => {
                 <div className="w-full space-y-4 max-w-xs">
                   <button
                     onClick={() => setShowForm(true)}
-                    className="w-full bg-white text-blue-900 px-6 py-4 rounded-xl font-bold hover:bg-blue-50 transition-all transform hover:scale-105 shadow-lg flex items-center justify-center gap-2"
+                    className="w-full bg-white text-green-900 px-6 py-4 rounded-xl font-bold hover:bg-green-50 transition-all transform hover:scale-105 shadow-lg flex items-center justify-center gap-2"
                   >
                     Apply for Membership <ArrowRight size={20} />
                   </button>
@@ -230,7 +230,7 @@ const JoinPage = () => {
                   <a
                     href="/membership-form.pdf"
                     download
-                    className="w-full border border-blue-400/50 bg-blue-800/50 backdrop-blur-sm px-6 py-4 rounded-xl font-semibold hover:bg-blue-800 transition-colors flex items-center justify-center gap-2 text-sm"
+                    className="w-full border border-green-400/50 bg-green-800/50 backdrop-blur-sm px-6 py-4 rounded-xl font-semibold hover:bg-green-800 transition-colors flex items-center justify-center gap-2 text-sm"
                   >
                     <Download size={18} /> Download PDF Form
                   </a>

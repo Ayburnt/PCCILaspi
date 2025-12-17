@@ -79,11 +79,11 @@ export default function HowToBecomeMember() {
   }, [content]);
 
   return (
-    <div className="min-h-screen font-sans selection:bg-amber-200 selection:text-slate-900">
+    <div className="min-h-screen font-sans selection:bg-green-200 selection:text-slate-900">
       <TopBar />
       <Navbar />
 
-      {/* GLOBAL BACKGROUND */}
+      {/* GLOBAL BACKGROUND - Preserved as requested */}
       <div
         className="fixed inset-0 z-0 w-full h-full bg-cover bg-center bg-no-repeat"
         style={{ backgroundImage: `url(${bgImage})` }}
@@ -96,14 +96,14 @@ export default function HowToBecomeMember() {
         {/* HERO SECTION */}
         <section className="pt-40 pb-16 px-4 sm:px-6 lg:px-8">
           <div className="max-w-7xl mx-auto text-center">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-amber-400 text-sm font-medium tracking-wider uppercase mb-8">
-              <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
-               How to Become a Member?
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-green-400 text-sm font-medium tracking-wider uppercase mb-8">
+              <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
+              How to Become a Member?
             </div>
 
             <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 tracking-tight leading-tight">
-              {content?.title || "Join the Business"} <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-200 to-amber-500">
+              {content?.title} <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-200 to-green-500">
                 {content?.tagline || "Elite of Las Pinas"}
               </span>
             </h1>
@@ -122,10 +122,10 @@ export default function HowToBecomeMember() {
                     .getElementById("application-section")
                     .scrollIntoView({ behavior: "smooth" })
                 }
-                className="flex items-center gap-2 px-8 py-4 bg-amber-500 hover:bg-amber-400 text-slate-900 rounded-lg font-bold transition-all shadow-[0_0_20px_rgba(245,158,11,0.3)]"
+                className="flex items-center gap-2 px-8 py-4 bg-green-600 hover:bg-green-700 text-white rounded-lg font-bold transition-all shadow-[0_0_20px_rgba(34,197,94,0.3)]"
               >
                 Start Application
-                <ChevronDown className="w-6 h-6 text-amber-900 animate-bounce" />
+                <ChevronDown className="w-6 h-6 text-white animate-bounce" />
               </button>
 
               {/* Download Requirements Button */}
@@ -144,7 +144,7 @@ export default function HowToBecomeMember() {
                 <h2 className="text-3xl font-bold text-white mb-2">
                   {content?.qualificationsTitle || "Membership Qualifications"}
                 </h2>
-                <div className="h-1 w-20 bg-amber-500 mx-auto rounded-full"></div>
+                <div className="h-1 w-20 bg-green-600 mx-auto rounded-full"></div>
               </div>
 
               <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -153,9 +153,9 @@ export default function HowToBecomeMember() {
                   return (
                     <div
                       key={idx}
-                      className="group p-6 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/5 hover:border-amber-500/30 transition-all duration-300"
+                      className="group p-6 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/5 hover:border-green-500/30 transition-all duration-300"
                     >
-                      <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center text-white mb-4 shadow-lg group-hover:scale-110 transition-transform">
+                      <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-green-400 to-green-600 flex items-center justify-center text-white mb-4 shadow-lg group-hover:scale-110 transition-transform">
                         <Icon size={24} />
                       </div>
                       <h3 className="text-xl font-bold text-white mb-2">
@@ -172,7 +172,7 @@ export default function HowToBecomeMember() {
           </div>
         </section>
 
-        {/* --- MAIN APPLICATION SECTION --- */}
+        {/* --- MAIN APPLICATION SECTION (Revised for Responsiveness) --- */}
         <section
           id="application-section"
           className="py-20 px-4 sm:px-6 lg:px-8"
@@ -183,7 +183,7 @@ export default function HowToBecomeMember() {
               <h2 className="text-4xl font-bold text-white mb-4">
                 {content?.processTitle || (
                   <>
-                    Application <span className="text-amber-400">Process</span>
+                    Application <span className="text-green-400">Process</span>
                   </>
                 )}
               </h2>
@@ -194,17 +194,17 @@ export default function HowToBecomeMember() {
               </p>
             </div>
 
-            {/* THE GRID: Requirements (Left) & Redirect Card (Right) */}
-            <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+            {/* THE FLEX CONTAINER: Left (Requirements & Bank) and Right (Ready to Apply) */}
+            <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 items-start">
               
-              {/* LEFT COLUMN: Requirements & Bank Info */}
-              <div className="lg:col-span-5 w-full sticky top-24 space-y-6">
+              {/* LEFT COLUMN: Requirements & Bank Info (5/12 width on desktop) */}
+              <div className="lg:w-5/12 w-full space-y-6">
                 
                 {/* Requirements Card */}
                 <div className="bg-slate-800/60 backdrop-blur-md border border-white/10 rounded-2xl p-8 shadow-xl">
                   <div className="flex items-center justify-between mb-8 pb-4 border-b border-white/10">
                     <h3 className="text-xl font-bold text-white flex items-center gap-3">
-                      <FileText className="text-amber-400" size={24} />{" "}
+                      <FileText className="text-green-400" size={24} />{" "}
                       {content?.requirementsTitle || "Documentary Requirements"}
                     </h3>
                   </div>
@@ -227,38 +227,38 @@ export default function HowToBecomeMember() {
                   </div>
 
                   <div className="mt-8 pt-6 border-t border-white/10">
-                     {content?.requirementsNote && (
+                      {content?.requirementsNote && (
                       <p className="text-sm text-slate-400 italic">
-                        <Info size={16} className="inline mr-1 text-amber-500"/>
+                        <Info size={16} className="inline mr-1 text-green-500"/>
                         {content.requirementsNote}
                       </p>
-                     )}
+                      )}
                   </div>
                 </div>
 
-                {/* Bank Details Mini Card */}
+                {/* Bank Details Mini Card (Always before the Ready to Apply card) */}
                 <div className="bg-gradient-to-br from-slate-900 to-slate-800 rounded-2xl p-6 border border-white/10 shadow-xl">
-                    <h4 className="text-amber-400 font-bold uppercase tracking-wider text-xs mb-4">{content?.bankDetailsTitle || "Bank Details for Payment"}</h4>
+                    <h4 className="text-green-400 font-bold uppercase tracking-wider text-xs mb-4">{content?.bankDetailsTitle || "Bank Details for Payment"}</h4>
                     <div className="space-y-4">
                         <div>
                             <p className="text-xs text-slate-500 uppercase">Bank Name</p>
-                        <p className="text-white font-semibold">{content?.bankName || "Banco de Oro (BDO)"}</p>
-                        <p className="text-xs text-slate-400">{content?.bankBranch || "Arnaiz San Lorenzo Branch"}</p>
+                            <p className="text-white font-semibold">{content?.bankName || "Banco de Oro (BDO)"}</p>
+                            <p className="text-xs text-slate-400">{content?.bankBranch || "Arnaiz San Lorenzo Branch"}</p>
                         </div>
                         <div>
                             <p className="text-xs text-slate-500 uppercase">Account Name</p>
-                        <p className="text-white font-semibold text-sm">{content?.accountName || "Philippine Chamber of Commerce and Industry – Makati City, Inc."}</p>
+                            <p className="text-white font-semibold text-sm">{content?.accountName || "Philippine Chamber of Commerce and Industry – Makati City, Inc."}</p>
                         </div>
                     </div>
                 </div>
 
               </div>
 
-              {/* RIGHT COLUMN: REPLACED FORM WITH CALL TO ACTION */}
-              <div className="lg:col-span-7 w-full">
-                <div className="bg-white p-8 md:p-12 rounded-2xl shadow-2xl border-t-4 border-amber-500 flex flex-col items-center text-center space-y-6">
+              {/* RIGHT COLUMN: READY TO APPLY CARD (7/12 width on desktop) */}
+              <div className="lg:w-7/12 w-full">
+                <div className="bg-white p-8 md:p-12 rounded-2xl shadow-2xl border-t-4 border-green-500 flex flex-col items-center text-center space-y-6">
                   
-                  <div className="w-20 h-20 bg-amber-100 rounded-full flex items-center justify-center text-amber-600 mb-2">
+                  <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center text-green-600 mb-2">
                     <FileText size={40} />
                   </div>
 
@@ -274,7 +274,7 @@ export default function HowToBecomeMember() {
                     {/* Make sure '/join' matches the route in your App.js for the JoinPage component */}
                     <Link 
                       to="/join" 
-                      className="group w-full bg-amber-500 hover:bg-amber-400 text-slate-900 py-4 font-bold uppercase rounded-xl transition-all shadow-lg hover:shadow-amber-500/25 flex items-center justify-center gap-3 text-lg"
+                      className="group w-full bg-green-500 hover:bg-green-400 text-white py-4 font-bold uppercase rounded-xl transition-all shadow-lg hover:shadow-green-500/25 flex items-center justify-center gap-3 text-lg"
                     >
                       Proceed to Application 
                       <ArrowRight className="group-hover:translate-x-1 transition-transform" />

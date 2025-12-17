@@ -172,7 +172,7 @@ export default function MembersDirectory() {
       
       {/* Hero Section */}
       <div className="bg-slate-900 text-white py-20 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-slate-900 to-blue-900 opacity-90"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-slate-900 to-green-900 opacity-90"></div>
         <div className="max-w-7xl mx-auto px-4 text-center relative z-10">
           <h1 className="text-4xl md:text-5xl font-bold mb-4 tracking-tight">Members Directory</h1>
           <p className="text-lg md:text-xl text-slate-300 max-w-2xl mx-auto font-light">
@@ -187,23 +187,23 @@ export default function MembersDirectory() {
           <div className="grid md:grid-cols-2 gap-4">
             {/* Search Bar */}
             <div className="relative group">
-              <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-slate-400 group-focus-within:text-blue-600 transition-colors" size={20} />
+              <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-slate-400 group-focus-within:text-green-600 transition-colors" size={20} />
               <input
                 type="text"
                 placeholder="Search by company, service, or keyword..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-12 pr-4 py-3 border border-slate-200 rounded-md focus:ring-2 focus:ring-blue-600 focus:border-transparent transition-all outline-none text-slate-700 placeholder-slate-400"
+                className="w-full pl-12 pr-4 py-3 border border-slate-200 rounded-md focus:ring-2 focus:ring-green-600 focus:border-transparent transition-all outline-none text-slate-700 placeholder-slate-400"
               />
             </div>
 
             {/* Category Filter */}
             <div className="relative group">
-              <Briefcase className="absolute left-4 top-1/2 transform -translate-y-1/2 text-slate-400 group-focus-within:text-blue-600 transition-colors" size={20} />
+              <Briefcase className="absolute left-4 top-1/2 transform -translate-y-1/2 text-slate-400 group-focus-within:text-green-600 transition-colors" size={20} />
               <select
                 value={selectedCategory}
                 onChange={(e) => setSelectedCategory(e.target.value)}
-                className="w-full pl-12 pr-4 py-3 border border-slate-200 rounded-md focus:ring-2 focus:ring-blue-600 focus:border-transparent appearance-none bg-white cursor-pointer outline-none text-slate-700"
+                className="w-full pl-12 pr-4 py-3 border border-slate-200 rounded-md focus:ring-2 focus:ring-green-600 focus:border-transparent appearance-none bg-white cursor-pointer outline-none text-slate-700"
               >
                 {categories.map(category => (
                   <option key={category} value={category}>{category}</option>
@@ -223,7 +223,7 @@ export default function MembersDirectory() {
       {loading && (
         <div className="max-w-7xl mx-auto px-4 pb-20 flex justify-center items-center py-20">
           <div className="text-center">
-            <Loader2 className="animate-spin text-blue-700 mx-auto mb-4" size={48} />
+            <Loader2 className="animate-spin text-green-700 mx-auto mb-4" size={48} />
             <p className="text-slate-600">Loading members...</p>
           </div>
         </div>
@@ -247,10 +247,10 @@ export default function MembersDirectory() {
               const memberId = member._id || member.id;
               
               return (
-                <div key={memberId} className="group bg-white rounded-lg border border-slate-200 hover:border-blue-300 hover:shadow-xl transition-all duration-300 flex flex-col h-full overflow-hidden relative">
+                <div key={memberId} className="group bg-white rounded-lg border border-slate-200 hover:border-green-300 hover:shadow-xl transition-all duration-300 flex flex-col h-full overflow-hidden relative">
                   
                   {/* Top Accent Line */}
-                  <div className={`h-1 w-full ${isIndividual ? 'bg-emerald-500' : 'bg-blue-800'}`}></div>
+                  <div className={`h-1 w-full ${isIndividual ? 'bg-emerald-500' : 'bg-green-800'}`}></div>
 
                   {/* Card Header */}
                   <div className="p-6 pb-2">
@@ -268,7 +268,7 @@ export default function MembersDirectory() {
                         <div className={`h-12 w-12 rounded-lg flex items-center justify-center border transition-colors duration-300 ${
                           isIndividual 
                             ? 'bg-emerald-50 border-emerald-100 text-emerald-700 group-hover:bg-emerald-100' 
-                            : 'bg-slate-50 border-slate-100 text-slate-700 group-hover:bg-blue-50 group-hover:text-blue-700'
+                            : 'bg-slate-50 border-slate-100 text-slate-700 group-hover:bg-green-50 group-hover:text-green-700'
                         }`}>
                           {isIndividual ? <User size={24} strokeWidth={1.5} /> : <Building2 size={24} strokeWidth={1.5} />}
                         </div>
@@ -279,10 +279,10 @@ export default function MembersDirectory() {
                   </div>
                   
                   <div className="min-h-[3.5rem]">
-                    <h3 className="text-lg font-bold text-slate-900 leading-tight group-hover:text-blue-800 transition-colors">
+                    <h3 className="text-lg font-bold text-slate-900 leading-tight group-hover:text-green-800 transition-colors">
                       {member.company}
                     </h3>
-                    <p className={`text-xs font-medium mt-1 ${isIndividual ? 'text-emerald-600' : 'text-blue-600'}`}>
+                    <p className={`text-xs font-medium mt-1 ${isIndividual ? 'text-emerald-600' : 'text-green-600'}`}>
                       {member.membershipType}
                     </p>
                   </div>
@@ -324,7 +324,7 @@ export default function MembersDirectory() {
                 <div className="px-6 py-4 bg-slate-50 border-t border-slate-100 flex justify-between items-center mt-auto">
                   <a 
                     href={`mailto:${member.email}`} 
-                    className="flex items-center text-sm font-semibold text-slate-500 hover:text-blue-700 transition-colors"
+                    className="flex items-center text-sm font-semibold text-slate-500 hover:text-green-700 transition-colors"
                   >
                     <Mail size={16} className="mr-2" />
                     Contact
@@ -336,7 +336,7 @@ export default function MembersDirectory() {
                         href={`https://${member.website}`} 
                         target="_blank" 
                         rel="noopener noreferrer"
-                        className="text-slate-400 hover:text-blue-700 transition-colors"
+                        className="text-slate-400 hover:text-green-700 transition-colors"
                         title="Visit Website"
                       >
                         <Globe size={18} strokeWidth={1.5} />
@@ -345,7 +345,7 @@ export default function MembersDirectory() {
                     <div className="h-4 w-px bg-slate-300 mx-1"></div>
                     <Link 
                       to={`/member/${memberId}`}
-                      className="text-sm font-semibold text-blue-700 hover:text-blue-900 flex items-center group/btn"
+                      className="text-sm font-semibold text-green-700 hover:text-green-900 flex items-center group/btn"
                     >
                       View Profile
                       <ArrowUpRight size={14} className="ml-1 opacity-0 -translate-x-2 group-hover/btn:opacity-100 group-hover/btn:translate-x-0 transition-all duration-300" />

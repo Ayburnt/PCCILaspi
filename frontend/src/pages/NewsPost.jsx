@@ -27,13 +27,13 @@ export default function NewsPost() {
 
       <article className="max-w-4xl mx-auto px-4 py-12">
 
-        <Link to="/news" className="text-blue-900 font-bold flex items-center gap-2 mb-8">
+        <Link to="/news" className="text-black-900 font-bold flex items-center gap-2 mb-8">
           <ArrowLeft size={20} /> Back to News
         </Link>
 
         {/* Category + Date */}
         <div className="flex items-center gap-4 text-sm text-gray-500 mb-4 border-b pb-4">
-            <span className="bg-blue-100 text-blue-900 px-2 py-1 rounded font-bold uppercase text-xs">
+            <span className="bg-blue-100 text-green-900 px-2 py-1 rounded font-bold uppercase text-xs">
                 {post.category}
             </span>
             <span className="flex items-center gap-1">
@@ -42,7 +42,7 @@ export default function NewsPost() {
         </div>
 
         {/* Title */}
-        <h1 className="text-3xl md:text-5xl font-serif font-bold text-blue-950 mb-8">
+        <h1 className="text-3xl md:text-5xl font-serif font-bold text-black-950 mb-8">
           {post.title}
         </h1>
 

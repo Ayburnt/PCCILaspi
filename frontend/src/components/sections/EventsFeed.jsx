@@ -66,7 +66,7 @@ export default function EventsFeed() {
             </div>
             <Link 
                 to="/events/upcoming" 
-                className="hidden md:flex items-center gap-2 text-blue-950 font-semibold hover:text-blue-700 transition-colors group"
+                className="hidden md:flex items-center gap-2 text-blue-950 font-semibold hover:text-green-700 transition-colors group"
             >
                 View All Events 
                 <ArrowUpRight className="w-5 h-5 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-transform" />
@@ -134,7 +134,7 @@ export default function EventsFeed() {
                     )}
                 </div>
 
-                <h3 className="text-lg font-bold text-slate-900 mb-3 leading-snug group-hover:text-blue-700 transition-colors">
+                <h3 className="text-lg font-bold text-slate-900 mb-3 leading-snug group-hover:text-green-900 transition-colors">
                   {event.title}
                 </h3>
 
@@ -154,10 +154,10 @@ export default function EventsFeed() {
 
                 {/* Footer Action */}
                 <div className="pt-4 border-t border-slate-100 flex items-center justify-between">
-                   <span className="text-sm font-semibold text-blue-950 group-hover:text-blue-700 transition-colors">
+                   <span className="text-sm font-semibold text-blue-950 group-hover:text-green-700 transition-colors">
                      View Details
                    </span>
-                   <div className="w-8 h-8 rounded-full bg-slate-50 flex items-center justify-center group-hover:bg-blue-50 group-hover:text-blue-600 transition-colors">
+                   <div className="w-8 h-8 rounded-full bg-slate-50 flex items-center justify-center group-hover:bg-green-50 group-hover:text-green-600 transition-colors">
                         <ArrowUpRight size={16} />
                    </div>
                 </div>

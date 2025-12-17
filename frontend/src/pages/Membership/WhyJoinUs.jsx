@@ -119,7 +119,7 @@ export default function WhyJoinUs() {
     return (
       <div className="min-h-screen flex items-center justify-center bg-slate-50">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-600 mx-auto"></div>
           <p className="mt-4 text-slate-600">Loading...</p>
         </div>
       </div>
@@ -136,58 +136,7 @@ export default function WhyJoinUs() {
     );
   }
   
-  // Fallback benefits if needed (kept for backward compatibility)
-  const benefits = [
-    {
-      title: "Advocacy",
-      description: "The PCCI Las Piñas Chapter actively advocates for policies that support business growth and sustainability. We work closely with local government to ensure business-friendly environments, addressing issues from taxation to infrastructure development.",
-      icon: Megaphone,
-      color: "text-red-500",
-      bg: "bg-red-50"
-    },
-    {
-      title: "Networking Opportunities",
-      description: "By becoming a member, you gain access to a network of local and national business leaders. This network facilitates potential partnerships, mentorship opportunities, and business referrals which can be pivotal for your business’s growth.",
-      icon: Network,
-      color: "text-blue-600",
-      bg: "bg-blue-50"
-    },
-    {
-      title: "Educational Workshops",
-      description: "We offer regular workshops, seminars, and training sessions aimed at enhancing your business acumen. Topics range from digital marketing to financial management, tailored to help you navigate the complexities of modern business operations.",
-      icon: Lightbulb,
-      color: "text-amber-500",
-      bg: "bg-amber-50"
-    },
-    {
-      title: "Business Development Services",
-      description: "Our chapter provides direct support through business counseling, market research assistance, and introductions to potential investors or partners. This is designed to help members expand their market reach and operational capabilities.",
-      icon: Briefcase,
-      color: "text-emerald-600",
-      bg: "bg-emerald-50"
-    },
-    {
-      title: "Community Engagement",
-      description: "Through various CSR initiatives, we strive to give back to the community of Las Piñas. Members can participate in or lead projects that range from environmental conservation to educational programs, enhancing your brand’s image.",
-      icon: Heart,
-      color: "text-rose-500",
-      bg: "bg-rose-50"
-    },
-    {
-      title: "Representation",
-      description: "As a member, you’ll have representation in higher echelons of business policy-making through PCCI’s national and regional councils, giving you a voice where it counts.",
-      icon: Gavel,
-      color: "text-indigo-600",
-      bg: "bg-indigo-50"
-    },
-    {
-      title: "Exclusive Member Benefits",
-      description: "Enjoy discounts on products, services, and event participation through partnerships with various companies and service providers exclusive to PCCI members.",
-      icon: Gift,
-      color: "text-purple-600",
-      bg: "bg-purple-50"
-    }
-  ];
+ 
 
   return (
     <div className="min-h-screen bg-slate-50 font-sans">
@@ -203,7 +152,7 @@ export default function WhyJoinUs() {
             alt="Las Pinas City" 
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-slate-900/95 to-blue-900/80" />
+          <div className="absolute inset-0 bg-gradient-to-r from-slate-900/95 to-green-900/80" />
         </div>
 
         {/* Hero Content */}
@@ -214,22 +163,22 @@ export default function WhyJoinUs() {
             transition={{ duration: 0.8 }}
             className="max-w-4xl mx-auto"
           >
-            <span className="inline-block py-1 px-3 rounded-full bg-white/10 border border-white/20 backdrop-blur-md text-xs md:text-sm font-semibold tracking-wider mb-6 uppercase text-blue-200">
+            <span className="inline-block py-1 px-3 rounded-full bg-white/10 border border-white/20 backdrop-blur-md text-xs md:text-sm font-semibold tracking-wider mb-6 uppercase text-green-200">
               {pageData.heroBadgeText || 'WHY JOIN US?'}
             </span>
             <h1 className="text-4xl md:text-6xl font-extrabold mb-6 leading-tight tracking-tight">
-              {pageData.heroTitle || 'Grow Your Business with'} <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-200 to-amber-200">
+              {pageData.heroTitle} <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-200 to-amber-200">
                 {pageData.heroHighlight || 'PCCI Las Piñas'}
               </span>
             </h1>
             <p className="text-lg md:text-xl text-slate-300 mx-auto mb-10 font-light leading-relaxed">
-              {pageData.heroTagline || 'We are pleased to extend an invitation for you to join the Philippine Chamber of Commerce and Industry (PCCI) Las Piñas City Chapter.'}
+              {pageData.heroTagline }
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link 
                 to="/membership-form" 
-                className="group bg-blue-600 text-white px-8 py-4 rounded-lg font-bold text-lg hover:bg-blue-500 transition-all shadow-lg hover:shadow-blue-500/30 flex items-center justify-center gap-2"
+                className="group bg-green-600 text-white px-8 py-4 rounded-lg font-bold text-lg hover:bg-green-500 transition-all shadow-lg hover:shadow-green-500/30 flex items-center justify-center gap-2"
               >
                 {pageData.heroCTAText || 'Go to Membership Form'}
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
@@ -261,8 +210,8 @@ export default function WhyJoinUs() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {(pageData.corePillars || benefits).map((benefit, index) => {
               const Icon = iconMap[benefit.icon] || benefit.icon || Network;
-              const iconColor = benefit.iconColor || benefit.color || 'text-blue-600';
-              const bgColor = benefit.bgColor || benefit.bg || 'bg-blue-50';
+              const iconColor = benefit.iconColor || benefit.color || 'text-green-600';
+              const bgColor = benefit.bgColor || benefit.bg || 'bg-green-50';
               
               return (
                 <motion.div 
@@ -283,7 +232,7 @@ export default function WhyJoinUs() {
                   
                   {/* Content */}
                   <div className="flex-1">
-                    <h3 className="text-xl font-bold text-slate-900 mb-3 group-hover:text-blue-800 transition-colors">
+                    <h3 className="text-xl font-bold text-slate-900 mb-3 group-hover:text-green-800 transition-colors">
                       {benefit.title}
                     </h3>
                     <p className="text-slate-500 text-sm leading-relaxed">
@@ -300,7 +249,7 @@ export default function WhyJoinUs() {
       {/* --- CLOSING LETTER SECTION --- */}
       <div className="py-24 bg-slate-900 text-white relative overflow-hidden">
         {/* Decorative background elements */}
-        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-blue-600/20 rounded-full blur-[120px] pointer-events-none" />
+        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-green-600/20 rounded-full blur-[120px] pointer-events-none" />
         <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-amber-500/10 rounded-full blur-[100px] pointer-events-none" />
 
         <div className="container mx-auto px-6 relative z-10">
@@ -356,7 +305,7 @@ export default function WhyJoinUs() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link 
                 to="/membership-form" 
-                className="bg-blue-600 text-white px-10 py-4 rounded-lg font-bold hover:bg-blue-700 shadow-xl shadow-blue-200 transition-all flex items-center justify-center gap-2"
+                className="bg-green-600 text-white px-10 py-4 rounded-lg font-bold hover:bg-green-700 shadow-xl shadow-green-200 transition-all flex items-center justify-center gap-2"
               >
                 {pageData.ctaButtonText || 'Go to Membership Form'}
                 <ArrowRight size={20} />
@@ -369,4 +318,4 @@ export default function WhyJoinUs() {
       <Footer />
     </div>
   );
-}
+} 

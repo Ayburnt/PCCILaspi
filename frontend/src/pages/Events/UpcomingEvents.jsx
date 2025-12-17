@@ -64,7 +64,7 @@ export default function UpcomingEvents() {
       <section className="relative bg-slate-800 py-8 px-4 overflow-hidden">
         {/* Background Effects */}
         <div className="absolute inset-0 z-0">
-          <div className="absolute inset-0 bg-gradient-to-r from-slate-900 via-slate-900 to-indigo-900/80"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-slate-900 via-slate-900 to-green-900/80"></div>
           {featuredEvent && (
             <img 
               src={featuredEvent.image?.asset?.url || 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&q=80'} 
@@ -90,7 +90,7 @@ export default function UpcomingEvents() {
           {/* 1. LOADING STATE */}
           {loading && (
              <div className="flex justify-center py-20">
-                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
+                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-600"></div>
              </div>
           )}
 
@@ -106,7 +106,7 @@ export default function UpcomingEvents() {
               </p>
               <Link 
                 to="/events/past"
-                className="px-6 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-lg transition-colors"
+                className="px-6 py-2.5 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-lg transition-colors"
               >
                 See Past Events
               </Link>
@@ -120,7 +120,7 @@ export default function UpcomingEvents() {
                 <Link
                   key={event._id}
                   to={`/events/${event.slug?.current || event._id}`}
-                  className="group bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-2xl hover:border-indigo-100 transition-all duration-300 flex flex-col overflow-hidden"
+                  className="group bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-2xl hover:border-green-100 transition-all duration-300 flex flex-col overflow-hidden"
                 >
                   
                   {/* Image & Date Header */}
@@ -134,7 +134,7 @@ export default function UpcomingEvents() {
                     
                     {/* Floating Date Badge */}
                     <div className="absolute top-4 left-4 z-20 bg-white/95 backdrop-blur rounded-lg shadow-lg p-2 text-center min-w-[64px]">
-                      <span className="block text-xs font-bold text-indigo-600 uppercase tracking-wider">
+                      <span className="block text-xs font-bold text-green-600 uppercase tracking-wider">
                         {new Date(event.date).toLocaleDateString('en-US', { month: 'short' })}
                       </span>
                       <span className="block text-2xl font-extrabold text-slate-900 leading-none">
@@ -153,7 +153,7 @@ export default function UpcomingEvents() {
                   {/* Content Body */}
                   <div className="p-6 flex flex-col flex-1">
                     <div className="mb-4">
-                      <h3 className="text-xl font-bold text-slate-900 mb-2 group-hover:text-indigo-600 transition-colors line-clamp-2">
+                      <h3 className="text-xl font-bold text-slate-900 mb-2 group-hover:text-green-600 transition-colors line-clamp-2">
                         {event.title}
                       </h3>
                       <p className="text-slate-600 text-sm line-clamp-3">
@@ -164,15 +164,15 @@ export default function UpcomingEvents() {
                     {/* Info Row */}
                     <div className="space-y-2 mb-6 pt-4 border-t border-slate-100">
                       <div className="flex items-center text-sm text-slate-500 gap-3">
-                          <Clock size={16} className="text-indigo-500" />
+                          <Clock size={16} className="text-green-500" />
                           {event.time}
                       </div>
                       <div className="flex items-center text-sm text-slate-500 gap-3">
-                          <MapPin size={16} className="text-indigo-500" />
+                          <MapPin size={16} className="text-green-500" />
                           <span className="truncate">{event.location}</span>
                       </div>
                       <div className="flex items-center text-sm text-slate-500 gap-3">
-                          <Users size={16} className="text-indigo-500" />
+                          <Users size={16} className="text-green-500" />
                           {event.attendees} Spots Left
                       </div>
                     </div>
@@ -188,7 +188,7 @@ export default function UpcomingEvents() {
                         disabled={!event.registrationOpen}
                         className={`px-5 py-2.5 rounded-lg text-sm font-semibold transition-all flex items-center gap-2 ${
                           event.registrationOpen 
-                            ? 'bg-slate-900 text-white hover:bg-indigo-600 shadow-lg shadow-indigo-200' 
+                            ? 'bg-slate-900 text-white hover:bg-green-600 shadow-lg shadow-green-200' 
                             : 'bg-slate-100 text-slate-400 cursor-not-allowed'
                         }`}
                       >

@@ -206,7 +206,7 @@ export default function Navbar() {
             <Link
               to="/join"
               onClick={scrollToTop}
-              className="bg-blue-900 text-white px-5 py-2 rounded hover:bg-blue-800 transition"
+              className="bg-[#328E6E] text-white px-5 py-2 rounded hover:bg-[#005f4d] transition"
             >
               Join Us
             </Link>
