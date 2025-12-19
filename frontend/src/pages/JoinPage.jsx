@@ -95,7 +95,7 @@ const JoinPage = () => {
                     Application Process
                   </span>
                   <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900 mb-4">
-                    How to Become a PCCI-Manila Member
+                    How to Become a PCCI-Las Piñas Member
                   </h2>
                   <p className="text-gray-600 text-lg">
                     A clear, guided process designed for application.

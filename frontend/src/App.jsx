@@ -1,27 +1,27 @@
-import React, { useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
-import HomePage from './pages/HomePage';
-import JoinPage from './pages/JoinPage';
-import NewsPost from './pages/NewsPost';
-import NewsIndex from './pages/NewsIndex';
-import useDynamicFavicon from './hooks/useDynamicFavicon';
+import React, { useEffect } from "react";
+import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
+import HomePage from "./pages/HomePage";
+import JoinPage from "./pages/JoinPage";
+import NewsPost from "./pages/NewsPost";
+import NewsIndex from "./pages/NewsIndex";
+import useDynamicFavicon from "./hooks/useDynamicFavicon";
 
 // Membership Pages
-import MembersDirectory from './pages/Membership/MembersDirectory';
-import HowToBecomeMember from './pages/Membership/HowToBecomeMember';
-import WhyJoinUs from './pages/Membership/WhyJoinUs';
-import MemberProfile from './pages/Membership/MemberProfile';
+import MembersDirectory from "./pages/Membership/MembersDirectory";
+import HowToBecomeMember from "./pages/Membership/HowToBecomeMember";
+import WhyJoinUs from "./pages/Membership/WhyJoinUs";
+import MemberProfile from "./pages/Membership/MemberProfile";
 
 // Events Pages
-import UpcomingEvents from './pages/Events/UpcomingEvents';
-import PastEvents from './pages/Events/PastEvents';
-import EventPost from './pages/Events/EventPost';
+import UpcomingEvents from "./pages/Events/UpcomingEvents";
+import PastEvents from "./pages/Events/PastEvents";
+import EventPost from "./pages/Events/EventPost";
 
 // About Pages
-import AboutUs from './pages/About/AboutUs';
-import History from './pages/About/History';
-import Leadership from './pages/About/Leadership';
-import ContactUs from './pages/About/ContactUs';
+import AboutUs from "./pages/About/AboutUs";
+import History from "./pages/About/History";
+import Leadership from "./pages/About/Leadership";
+import ContactUs from "./pages/About/ContactUs";
 
 // Programs Pages
 import Programs from './pages/Programs/Programs';
@@ -30,13 +30,11 @@ import Services from './pages/Programs/Services';
 
 function AnimatedRoutes() {
   const location = useLocation();
-  
-  // Update favicon dynamically from Sanity
+
   useDynamicFavicon();
 
-  // Scroll to top on route change
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }, [location.pathname]);
 
   return (
@@ -46,7 +44,7 @@ function AnimatedRoutes() {
 
       {/* Membership Routes */}
       <Route path="/members-directory" element={<MembersDirectory />} />
-      <Route path="/member/:id" element={<MemberProfile />} />
+      <Route path="/member/:slug" element={<MemberProfile />} />
       <Route path="/how-to-become-member" element={<HowToBecomeMember />} />
       <Route path="/why-join-us" element={<WhyJoinUs />} />
 
@@ -55,32 +53,23 @@ function AnimatedRoutes() {
       <Route path="/events/past" element={<PastEvents />} />
       <Route path="/events/:slug" element={<EventPost />} />
 
-      {/* Programs Routes */}
-      <Route path="/programs" element={<Programs />} />
-      <Route path="/programs/advocacy" element={<Advocacy />} />
-      <Route path="/programs/services" element={<Services />} />
-
-      {/* About Routes */}
+      {/* Events Routes */}
       <Route path="/about/about-us" element={<AboutUs />} />
-      <Route path="about/history" element={<History/>}/>
+      <Route path="/about/history" element={<History />} />
       <Route path="/about/leadership" element={<Leadership />} />
       <Route path="/about/contact-us" element={<ContactUs />} />
 
-      {/* The Page showing ALL news */}
+      {/* News */}
       <Route path="/news" element={<NewsIndex />} />
-
-      {/* The Page showing ONE specific article */}
       <Route path="/news/:slug" element={<NewsPost />} />
     </Routes>
   );
 }
 
-function App() {
+export default function App() {
   return (
     <Router>
       <AnimatedRoutes />
     </Router>
   );
 }
-
-export default App;
