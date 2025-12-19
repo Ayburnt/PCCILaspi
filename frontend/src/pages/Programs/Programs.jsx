@@ -86,7 +86,7 @@ const journey = [
 
 export default function Programs() {
   return (
-    <div className="bg-[#fcfcfc] min-h-screen text-slate-900 font-sans">
+    <div className="bg-[#fcfcfc] min-h-screen text-slate-900">
       <TopBar />
       <Navbar />
 
@@ -98,10 +98,10 @@ export default function Programs() {
           <div className="flex items-center gap-2 text-yellow-500 text-[10px] md:text-xs font-bold uppercase tracking-[0.2em] mb-4">
             <Award size={16} /> Official Programs
           </div>
-          <h1 className="text-2xl md:text-4xl font-bold font-serif text-white max-w-4xl leading-tight">
+          <h1 className="text-2xl md:text-4xl font-bold text-white max-w-4xl leading-tight">
             Advancing the Interests of Las Piñas City
           </h1>
-          <p className="mt-6 md:mt-8 text-sm md:text-base text-green-50/80 max-w-3xl font-sans leading-relaxed border-l-4 border-yellow-500 pl-4 md:pl-6">
+          <p className="mt-6 md:mt-8 text-sm md:text-base text-green-50/80 max-w-3xl  leading-relaxed border-l-4 border-yellow-500 pl-4 md:pl-6">
             The PCCI-Las Piñas provides structured support programs designed to
             foster a competitive, sustainable, and socially responsible business
             community.
@@ -127,10 +127,10 @@ export default function Programs() {
                     <Icon size={24} />
                   </div>
                   <div>
-                    <h3 className="text-lg md:text-xl font-bold text-slate-900 font-serif mb-2 tracking-tight">
+                    <h3 className="text-lg md:text-xl font-bold text-slate-900 mb-2 tracking-tight">
                       {track.title}
                     </h3>
-                    <p className="text-sm text-slate-600 leading-relaxed font-sans">
+                    <p className="text-sm text-slate-600 leading-relaxed ">
                       {track.description}
                     </p>
                   </div>
@@ -150,7 +150,7 @@ export default function Programs() {
             <p className="uppercase text-[10px] font-bold tracking-[0.2em] text-[#155333] mb-2">
               Chamber Performance
             </p>
-            <h2 className="text-2xl md:text-3xl font-bold font-serif tracking-tight text-slate-900 mb-6">
+            <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-slate-900 mb-6">
               Strategic Impact Data
             </h2>
 
@@ -176,7 +176,7 @@ export default function Programs() {
             </div>
 
             <div className="mt-8 p-4 bg-slate-50 border-l-4 border-slate-300">
-              <p className="text-[10px] md:text-xs text-slate-500 font-sans leading-relaxed">
+              <p className="text-[10px] md:text-xs text-slate-500 leading-relaxed">
                 * Figures based on the 2024 Annual Secretary’s Report. Verified
                 by the PCCI-NCR Membership Committee.
               </p>
@@ -186,7 +186,7 @@ export default function Programs() {
           {/* Implementation Roadmap */}
           <div className="lg:col-span-7 order-1 lg:order-2">
             <div className="mb-8">
-              <h3 className="text-2xl md:text-3xl font-bold font-serif tracking-tight text-slate-900">
+              <h3 className="text-2xl md:text-3xl font-bold tracking-tight text-slate-900">
                 Service Implementation Roadmap
               </h3>
               <div className="h-1 w-20 bg-yellow-500 mt-2"></div>
@@ -203,14 +203,14 @@ export default function Programs() {
                   key={step.title}
                   className="flex gap-4 md:gap-6 p-5 md:p-6 bg-white border border-gray-100 hover:border-gray-300 transition-all shadow-sm"
                 >
-                  <div className="text-2xl md:text-3xl font-bold text-slate-200 font-serif italic shrink-0">
+                  <div className="text-2xl md:text-3xl font-bold text-slate-200 italic shrink-0">
                     0{idx + 1}
                   </div>
                   <div>
                     <h4 className="text-base md:text-lg font-bold text-slate-900 uppercase tracking-wide">
                       {step.title}
                     </h4>
-                    <p className="mt-1 text-xs md:text-sm text-slate-600 leading-relaxed font-sans">
+                    <p className="mt-1 text-xs md:text-sm text-slate-600 leading-relaxed">
                       {step.text}
                     </p>
                   </div>
@@ -225,7 +225,7 @@ export default function Programs() {
       <div className="bg-[#f1f1f1] py-12 border-t border-gray-200">
         <div className="max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center md:items-start justify-between gap-8 text-center md:text-left">
           <div className="max-w-md">
-            <h4 className="text-xl font-bold font-serif text-[#155333]">
+            <h4 className="text-xl font-bold text-[#155333]">
               Collaborate with the Chamber
             </h4>
             <p className="text-slate-600 text-sm mt-1">

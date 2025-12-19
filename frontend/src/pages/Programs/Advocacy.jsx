@@ -79,11 +79,11 @@ export default function Advocacy() {
             PCCI-Las Piñas Advocacy
           </div>
 
-          <h1 className="text-3xl md:text-4xl font-bold font-serif text-white max-w-4xl leading-tight">
+          <h1 className="text-3xl md:text-4xl font-bold text-white max-w-4xl leading-tight">
             Driving Change Together
           </h1>
 
-          <p className="mt-6 md:mt-8 text-sm md:text-lg text-green-50/80 max-w-3xl font-sans leading-relaxed italic border-l-4 border-yellow-500 pl-4 md:pl-6">
+          <p className="mt-6 md:mt-8 text-sm md:text-lg text-green-50/80 max-w-3xl leading-relaxed italic border-l-4 border-yellow-500 pl-4 md:pl-6">
             "Provide a high-level summary or mission statement that defines the
             organization's purpose and its commitment to the stakeholders or
             community it serves."
@@ -110,7 +110,7 @@ export default function Advocacy() {
                 <h3 className="text-lg md:text-xl font-bold text-emerald-900 mb-4 uppercase tracking-tight">
                   {pillar.title}
                 </h3>
-                <p className="text-sm text-slate-600 leading-[1.6] font-sans">
+                <p className="text-sm text-slate-600 leading-[1.6] ">
                   {pillar.description}
                 </p>
               </div>
@@ -125,7 +125,7 @@ export default function Advocacy() {
               Sectoral Representation
             </h2>
             <div className="h-1 w-16 bg-emerald-800 mt-4"></div>
-            <p className="mt-6 text-slate-600 max-w-2xl font-sans text-sm md:text-base">
+            <p className="mt-6 text-slate-600 max-w-2xl text-sm md:text-base">
               Our advocacy initiatives span across diverse economic pillars,
               ensuring comprehensive support for every facet of the Las Piñas
               business landscape.
@@ -136,7 +136,7 @@ export default function Advocacy() {
             {sectoralMandate.map((column, idx) => (
               <ul key={idx} className="space-y-4">
                 {column.map((item) => (
-                  <li key={item} className="flex items-center gap-3 text-slate-700 font-sans font-medium text-sm md:text-base">
+                  <li key={item} className="flex items-center gap-3 text-slate-700 font-medium text-sm md:text-base">
                     <div className="w-1.5 h-1.5 bg-yellow-600 rotate-45 shrink-0"></div>
                     {item}
                   </li>
@@ -161,13 +161,13 @@ export default function Advocacy() {
                 className="flex flex-col lg:flex-row lg:items-center justify-between p-6 md:p-8 border-b border-slate-100 last:border-0 hover:bg-slate-50 transition-colors"
               >
                 <div className="max-w-2xl mb-6 lg:mb-0">
-                  <span className="text-[10px] font-bold uppercase tracking-widest text-emerald-700 font-sans border border-emerald-200 px-2 py-0.5 rounded">
+                  <span className="text-[10px] font-bold uppercase tracking-widest text-emerald-700 border border-emerald-200 px-2 py-0.5 rounded">
                     {item.status}
                   </span>
                   <h4 className="text-lg md:text-xl font-bold text-slate-900 mt-2">
                     {item.title}
                   </h4>
-                  <p className="text-slate-600 mt-1 font-sans text-sm md:text-base">
+                  <p className="text-slate-600 mt-1 text-sm md:text-base">
                     {item.description}
                   </p>
                 </div>
@@ -186,14 +186,14 @@ export default function Advocacy() {
             <h3 className="text-xl md:text-2xl font-bold text-slate-900">
               Policy Dialogue Participation
             </h3>
-            <p className="mt-4 text-slate-600 font-sans leading-relaxed text-sm md:text-base grow">
+            <p className="mt-4 text-slate-600 leading-relaxed text-sm md:text-base grow">
               PCCI-Las Piñas members are invited to participate in technical
               working groups and public hearings. Your industry insights are
               vital for formulating effective policy responses.
             </p>
             <a
               href="#"
-              className="mt-6 inline-block bg-emerald-800 text-white text-center px-8 py-3 font-sans font-bold text-xs md:text-sm uppercase tracking-widest hover:bg-emerald-900 transition shadow-md"
+              className="mt-6 inline-block bg-emerald-800 text-white text-center px-8 py-3 font-bold text-xs md:text-sm uppercase tracking-widest hover:bg-emerald-900 transition shadow-md"
             >
               Apply for Committee
             </a>
@@ -203,13 +203,13 @@ export default function Advocacy() {
             <h3 className="text-xl md:text-2xl font-bold text-slate-900">
               Regulatory Updates
             </h3>
-            <p className="mt-4 text-slate-600 font-sans leading-relaxed text-sm md:text-base grow">
+            <p className="mt-4 text-slate-600 leading-relaxed text-sm md:text-base grow">
               Stay informed on the latest circulars from the DTI, BIR, and Local Government
               Unit mandates affecting your corporate operations.
             </p>
             <a
               href="#"
-              className="mt-6 inline-block border-2 border-slate-900 text-slate-900 text-center px-8 py-3 font-sans font-bold text-xs md:text-sm uppercase tracking-widest hover:bg-slate-900 hover:text-white transition"
+              className="mt-6 inline-block border-2 border-slate-900 text-slate-900 text-center px-8 py-3 font-bold text-xs md:text-sm uppercase tracking-widest hover:bg-slate-900 hover:text-white transition"
             >
               Subscribe to Briefings
             </a>

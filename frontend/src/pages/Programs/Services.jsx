@@ -75,11 +75,11 @@ export default function Services() {
             <Landmark size={16} /> PCCI-Las Piñas Services
           </div>
 
-          <h1 className="text-2xl md:text-4xl font-bold font-serif text-white max-w-4xl leading-tight">
+          <h1 className="text-2xl md:text-4xl font-bold text-white max-w-4xl leading-tight">
             Services & Support Programs
           </h1>
 
-          <p className="mt-6 md:mt-8 text-sm md:text-base text-green-50/80 max-w-3xl font-sans leading-relaxed border-l-4 border-yellow-500 pl-4 md:pl-6">
+          <p className="mt-6 md:mt-8 text-sm md:text-base text-green-50/80 max-w-3xl leading-relaxed border-l-4 border-yellow-500 pl-4 md:pl-6">
             PCCI-Las Piñas serves as the primary conduit for business growth in
             the city, providing a structured framework of services designed to
             empower enterprises and elevate local competitiveness.
@@ -125,7 +125,7 @@ export default function Services() {
           <div className="bg-[#155333] p-8 md:p-12 text-white shadow-xl relative overflow-hidden order-2 lg:order-1">
             <div className="absolute top-0 right-0 w-24 h-24 bg-white/5 -mr-12 -mt-12 rotate-45 hidden md:block" />
 
-            <h2 className="text-xl md:text-2xl font-bold font-serif mb-6 flex items-center gap-3">
+            <h2 className="text-xl md:text-2xl font-bold mb-6 flex items-center gap-3">
               <FileText className="text-yellow-500" />
               Institutional Mandate
             </h2>
@@ -158,7 +158,7 @@ export default function Services() {
       {/* 4. FORMAL FOOTER BANNER */}
       <div className="bg-slate-50 border-t border-gray-200 py-12">
         <div className="max-w-6xl mx-auto px-6 text-center">
-          <h4 className="text-base md:text-lg font-bold font-serif text-[#155333] mb-4 md:mb-2 italic">
+          <h4 className="text-base md:text-lg font-bold  text-[#155333] mb-4 md:mb-2 italic">
             "Building a Dynamic Business Community for a Prosperous Las Piñas."
           </h4>
           <p className="text-xs md:text-sm text-slate-500 max-w-2xl mx-auto leading-relaxed">

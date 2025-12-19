@@ -1,11 +1,6 @@
-// backend/schemas/partner.js
-
 export default {
-  // The name of the document type (used in GROQ queries, like *[_type == "partner"])
   name: 'partner',
-  // The user-friendly title that appears in the Sanity Studio sidebar
   title: 'Partner Logo',
-  // The type of document
   type: 'document',
   fields: [
     {
@@ -29,7 +24,7 @@ export default {
       name: 'website',
       title: 'Website URL',
       type: 'url',
-      description: 'Public website or profile page for this partner.',
+      description: 'Public website or profile page for this partner (any URL).',
       validation: (Rule) => Rule.uri({ allowRelative: false, scheme: ['http', 'https'] }),
     },
     {

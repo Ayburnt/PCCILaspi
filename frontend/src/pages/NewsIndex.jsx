@@ -75,7 +75,7 @@ export default function NewsIndex() {
           <div className="flex items-center gap-2 text-yellow-500 text-xs font-bold uppercase tracking-[0.2em] mb-3">
             <FileText size={14} /> PCCI-Las Piñas Media Bulletin
           </div>
-          <h1 className="text-4xl font-bold font-serif text-white tracking-tight">
+          <h1 className="text-4xl font-bold  text-white tracking-tight mb-6">
             News, Announcements & Bulletins
           </h1>
           <p className="mt-4 text-green-100/70 max-w-2xl text-sm leading-relaxed border-l-4 border-yellow-500 pl-4 italic">

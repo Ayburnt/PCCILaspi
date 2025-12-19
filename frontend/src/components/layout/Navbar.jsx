@@ -176,7 +176,7 @@ export default function Navbar() {
               <button
                 onClick={() => {
                   setMembershipOpen(!membershipOpen);
-                  setEventsOpen(false); // Close other dropdown
+                  setEventsOpen(false); 
                   setProgramsOpen(false);
                   setAboutOpen(false);
                 }}
