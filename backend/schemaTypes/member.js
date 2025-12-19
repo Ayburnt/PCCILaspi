@@ -26,6 +26,17 @@ export default defineType({
       validation: (rule) => rule.required(),
     }),
     defineField({
+      name: 'slug',
+      title: 'Slug',
+      type: 'slug',
+      description: 'URL identifier for this member',
+      options: {
+        source: 'company',
+        maxLength: 96,
+      },
+      validation: (rule) => rule.required(),
+    }),
+    defineField({
       name: 'membershipType',
       title: 'Membership Type',
       type: 'string',

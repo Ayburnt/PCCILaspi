@@ -26,6 +26,13 @@ export default {
       validation: Rule => Rule.required(),
     },
     {
+      name: 'website',
+      title: 'Website URL',
+      type: 'url',
+      description: 'Public website or profile page for this partner.',
+      validation: (Rule) => Rule.uri({ allowRelative: false, scheme: ['http', 'https'] }),
+    },
+    {
       name: 'sortOrder',
       title: 'Sort Order',
       type: 'number',

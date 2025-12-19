@@ -11,7 +11,8 @@ const Partnership = () => {
     useEffect(() => {
         const query = `*[_type == "partner"] | order(sortOrder asc) {
             name,
-            "logoUrl": logo.asset->url
+            "logoUrl": logo.asset->url,
+            website
         }`;
 
         client 
@@ -79,19 +80,34 @@ const Partnership = () => {
 
                 {/* Scrolling Track */}
                 <div className="flex w-max animate-scroll-left hover:[animation-play-state:paused]">
-                    {marqueeList.map((partner, index) => (
-                        <div
-                            key={`${partner.name}-${index}`}
-                            className="mx-4 md:mx-6 w-[160px] h-[90px] md:w-[200px] md:h-[110px] bg-white rounded-xl border border-slate-200 shadow-sm flex items-center justify-center p-6 transition-all duration-300 hover:border-green-200 hover:shadow-lg hover:shadow-green-100 hover:-translate-y-1 relative group/card"
-                        >
-                            <img
-                                src={partner.logoUrl}
-                                alt={partner.name}
-                                // REMOVED: filter grayscale and opacity-60
-                                className="max-w-full max-h-full object-contain transition-all duration-500 transform group-hover/card:scale-110"
-                            />
-                        </div>
-                    ))}
+                    {marqueeList.map((partner, index) => {
+                        const card = (
+                            <div
+                                className="mx-4 md:mx-6 w-[160px] h-[90px] md:w-[200px] md:h-[110px] bg-white rounded-xl border border-slate-200 shadow-sm flex items-center justify-center p-6 transition-all duration-300 hover:border-green-200 hover:shadow-lg hover:shadow-green-100 hover:-translate-y-1 relative group/card"
+                            >
+                                <img
+                                    src={partner.logoUrl}
+                                    alt={partner.name}
+                                    className="max-w-full max-h-full object-contain transition-all duration-500 transform group-hover/card:scale-110"
+                                />
+                            </div>
+                        );
+
+                        return partner.website ? (
+                            <a
+                                key={`${partner.name}-${index}`}
+                                href={partner.website}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                title={partner.name}
+                                aria-label={partner.name}
+                            >
+                                {card}
+                            </a>
+                        ) : (
+                            <div key={`${partner.name}-${index}`}>{card}</div>
+                        );
+                    })}
                 </div>
             </div>
 

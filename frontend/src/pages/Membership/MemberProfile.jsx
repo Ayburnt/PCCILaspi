@@ -140,13 +140,7 @@ export default function MemberProfile() {
     const fetchMember = async () => {
       try {
         setLoading(true);
-
-        // ✅ slug OR _id (fallback)
-        const query = `*[
-          _type == "member" &&
-          status == "active" &&
-          (slug.current == $key || _id == $key)
-        ][0]{
+        const query = `*[_type == "member" && slug.current == $slug][0] {
           _id,
           company,
           membershipType,
@@ -184,7 +178,7 @@ export default function MemberProfile() {
           }
         }`;
 
-        const data = await client.fetch(query, { key: slug });
+        const data = await client.fetch(query, { slug });
 
         if (data) {
           setMember(data);

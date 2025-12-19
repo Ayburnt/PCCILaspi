@@ -18,6 +18,42 @@ export default defineType({
     },
   },
   fields: [
+
+     // === HERO SECTION ===
+    defineField({
+      name: 'heroBadgeText',
+      title: 'Hero Badge Text',
+      type: 'string',
+      initialValue: 'Las Piñas City Chapter',
+    }),
+    defineField({
+      name: 'heroHeadingMain',
+      title: 'Hero Heading - Main Text',
+      type: 'string',
+      initialValue: 'Empowering Business,',
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'heroHeadingHighlight',
+      title: 'Hero Heading - Highlighted Text',
+      type: 'string',
+      initialValue: 'Building Community.',
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'heroSubheading',
+      title: 'Hero Subheading',
+      type: 'text',
+      rows: 2,
+      initialValue: 'We are the voice of business in Las Piñas, dedicated to fostering economic growth and sustainable development.',
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'heroBackgroundImage',
+      title: 'Hero Background Image',
+      type: 'image',
+      options: { hotspot: true },
+    }),
     // === WHO WE ARE SECTION ===
     defineField({
       name: 'whoWeAreTitle',
@@ -164,18 +200,6 @@ export default defineType({
       validation: (Rule) => Rule.min(1).warning('Add at least one thrust'),
     }),
 
-    // === HERO SECTION ===
-    defineField({
-      name: 'heroBadgeText',
-      title: 'Hero Badge Text',
-      type: 'string',
-      initialValue: 'Las Piñas City Chapter',
-    }),
-    defineField({
-      name: 'heroBackgroundImage',
-      title: 'Hero Background Image',
-      type: 'image',
-      options: { hotspot: true },
-    }),
+   
   ],
 })
