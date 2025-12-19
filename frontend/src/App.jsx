@@ -53,7 +53,12 @@ function AnimatedRoutes() {
       <Route path="/events/past" element={<PastEvents />} />
       <Route path="/events/:slug" element={<EventPost />} />
 
-      {/* Events Routes */}
+      {/* Programs Routes */}
+      <Route path="/programs" element={<Programs />} />
+      <Route path="/programs/advocacy" element={<Advocacy />} />
+      <Route path="/programs/services" element={<Services />} />
+
+      {/* About Routes */}
       <Route path="/about/about-us" element={<AboutUs />} />
       <Route path="/about/history" element={<History />} />
       <Route path="/about/leadership" element={<Leadership />} />
