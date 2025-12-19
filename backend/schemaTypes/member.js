@@ -13,18 +13,6 @@ export default defineType({
       type: 'string',
       validation: (rule) => rule.required(),
     }),
-    // FIXED: Changed definefiled to defineField and added type: 'slug'
-    defineField({
-      name: 'slug',
-      title: 'Slug',
-      type: 'slug',
-      description: 'Click "Generate" to create a unique URL based on the company name',
-      options: {
-        source: 'company',
-        maxLength: 96,
-      },
-      validation: (rule) => rule.required(),
-    }),
     defineField({
       name: 'slug',
       title: 'Slug',
