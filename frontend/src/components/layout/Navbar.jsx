@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Menu, X, ChevronDown } from "lucide-react";
 import { Link } from "react-router-dom";
 import { client, urlFor } from "../../sanityClient";
+import { UserCircle } from "lucide-react";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -30,7 +31,7 @@ export default function Navbar() {
     client
       .fetch(query)
       .then((data) => setSettings(data))
-      .catch((err) => console.error('Error fetching site settings:', err));
+      .catch((err) => console.error("Error fetching site settings:", err));
   }, []);
 
   const scrollToTop = () => {
@@ -61,7 +62,7 @@ export default function Navbar() {
                 className="w-12 h-12 rounded-full border-2 border-yellow-500 shadow-sm object-cover"
               />
             )}
-             <div className="leading-tight">
+            <div className="leading-tight">
               <h1 className="text-2xl font-bold text-gray-800 tracking-tight">
                 {settings?.organizationName || "PCCI"}
               </h1>
@@ -69,7 +70,6 @@ export default function Navbar() {
                 {settings?.organizationSubtitle || "Las Piñas City"}
               </span>
             </div>
-
           </Link>
 
           {/* Desktop Links */}
@@ -90,8 +90,9 @@ export default function Navbar() {
                   setEventsOpen(false);
                   setProgramsOpen(false);
                 }}
-                className={`flex items-center transition border-b-2 ${aboutOpen ? "border-red-500" : "border-transparent"
-                  } hover:border-red-500`}
+                className={`flex items-center transition border-b-2 ${
+                  aboutOpen ? "border-red-500" : "border-transparent"
+                } hover:border-red-500`}
               >
                 ABOUT US <ChevronDown size={16} className="ml-1" />
               </button>
@@ -180,8 +181,9 @@ export default function Navbar() {
                   setProgramsOpen(false);
                   setAboutOpen(false);
                 }}
-                className={`flex items-center transition border-b-2 ${membershipOpen ? "border-red-500" : "border-transparent"
-                  } hover:border-red-500`}
+                className={`flex items-center transition border-b-2 ${
+                  membershipOpen ? "border-red-500" : "border-transparent"
+                } hover:border-red-500`}
               >
                 MEMBERSHIP <ChevronDown size={16} className="ml-1" />
               </button>
@@ -221,8 +223,9 @@ export default function Navbar() {
                   setProgramsOpen(false);
                   setAboutOpen(false);
                 }}
-                className={`flex items-center transition border-b-2 ${eventsOpen ? "border-red-500" : "border-transparent"
-                  } hover:border-red-500`}
+                className={`flex items-center transition border-b-2 ${
+                  eventsOpen ? "border-red-500" : "border-transparent"
+                } hover:border-red-500`}
               >
                 EVENTS <ChevronDown size={16} className="ml-1" />
               </button>
@@ -253,13 +256,30 @@ export default function Navbar() {
               News
             </a>
 
-            <Link
-              to="/join"
-              onClick={scrollToTop}
-              className="bg-[#328E6E] text-white px-5 py-2 rounded hover:bg-[#005f4d] transition"
-            >
-              Join Us
-            </Link>
+            <div className="flex items-center gap-3 ml-4">
+              {/* Join Us – Primary CTA */}
+              <Link
+                to="/join"
+                onClick={scrollToTop}
+                className="bg-[#328E6E] text-white px-5 py-2 rounded-md hover:bg-[#005f4d] transition shadow-sm"
+              >
+                Join Us
+              </Link>
+              {/* Admin Login (icon only) */}
+<Link
+  to="/admin/login"
+  onClick={() => {
+    setAboutOpen(false);
+    setMembershipOpen(false);
+    setEventsOpen(false);
+  }}
+  className="p-2 rounded-full hover:bg-gray-100 transition flex items-center justify-center text-gray-600 hover:text-gray-900"
+  aria-label="Admin Login"
+  title="Admin Login"
+>
+  <UserCircle size={20} />
+</Link>
+            </div>
           </div>
 
           {/* Mobile Toggle */}
@@ -451,6 +471,13 @@ export default function Navbar() {
             onClick={scrollToTop}
           >
             Join Us
+          </Link>
+          <Link
+            to="/admin/login"
+            className="block py-3 px-4 text-blue-900 font-bold bg-blue-50"
+            onClick={scrollToTop}
+          >
+            Log In
           </Link>
         </div>
       )}
