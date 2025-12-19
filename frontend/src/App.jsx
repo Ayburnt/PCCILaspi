@@ -6,6 +6,7 @@ import NewsPost from "./pages/NewsPost";
 import NewsIndex from "./pages/NewsIndex";
 import useDynamicFavicon from "./hooks/useDynamicFavicon";
 
+
 // Membership Pages
 import MembersDirectory from "./pages/Membership/MembersDirectory";
 import HowToBecomeMember from "./pages/Membership/HowToBecomeMember";
@@ -23,6 +24,11 @@ import History from "./pages/About/History";
 import Leadership from "./pages/About/Leadership";
 import ContactUs from "./pages/About/ContactUs";
 
+// Programs Pages
+import Programs from './pages/Programs/Programs';
+import Advocacy from './pages/Programs/Advocacy';
+import Services from './pages/Programs/Services';
+
 function AnimatedRoutes() {
   const location = useLocation();
 
@@ -37,6 +43,8 @@ function AnimatedRoutes() {
       <Route path="/" element={<HomePage />} />
       <Route path="/join" element={<JoinPage />} />
 
+      {/* Admin Routes */}
+
       {/* Membership Routes */}
       <Route path="/members-directory" element={<MembersDirectory />} />
       <Route path="/member/:slug" element={<MemberProfile />} />
@@ -47,6 +55,11 @@ function AnimatedRoutes() {
       <Route path="/events/upcoming" element={<UpcomingEvents />} />
       <Route path="/events/past" element={<PastEvents />} />
       <Route path="/events/:slug" element={<EventPost />} />
+
+      {/* Programs Routes */}
+      <Route path="/programs" element={<Programs />} />
+      <Route path="/programs/advocacy" element={<Advocacy />} />
+      <Route path="/programs/services" element={<Services />} />
 
       {/* About Routes */}
       <Route path="/about/about-us" element={<AboutUs />} />

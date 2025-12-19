@@ -6,7 +6,9 @@ import { client, urlFor } from "../../sanityClient";
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [membershipOpen, setMembershipOpen] = useState(false);
+  const [programsOpen, setProgramsOpen] = useState(false);
   const [mobileMembershipOpen, setMobileMembershipOpen] = useState(false);
+  const [mobileProgramsOpen, setMobileProgramsOpen] = useState(false);
   const [eventsOpen, setEventsOpen] = useState(false);
   const [mobileEventsOpen, setMobileEventsOpen] = useState(false);
   const [aboutOpen, setAboutOpen] = useState(false);
@@ -28,7 +30,7 @@ export default function Navbar() {
     client
       .fetch(query)
       .then((data) => setSettings(data))
-      .catch((err) => console.error('Error fetching site settings:', err));
+      .catch((err) => console.error("Error fetching site settings:", err));
   }, []);
 
   const scrollToTop = () => {
@@ -59,7 +61,7 @@ export default function Navbar() {
                 className="w-12 h-12 rounded-full border-2 border-yellow-500 shadow-sm object-cover"
               />
             )}
-             <div className="leading-tight">
+            <div className="leading-tight">
               <h1 className="text-2xl font-bold text-gray-800 tracking-tight">
                 {settings?.organizationName || "PCCI"}
               </h1>
@@ -67,7 +69,6 @@ export default function Navbar() {
                 {settings?.organizationSubtitle || "Las Piñas City"}
               </span>
             </div>
-
           </Link>
 
           {/* Desktop Links */}
@@ -86,9 +87,11 @@ export default function Navbar() {
                   setAboutOpen(!aboutOpen);
                   setMembershipOpen(false);
                   setEventsOpen(false);
+                  setProgramsOpen(false);
                 }}
-                className={`flex items-center transition border-b-2 ${aboutOpen ? "border-red-500" : "border-transparent"
-                  } hover:border-red-500`}
+                className={`flex items-center transition border-b-2 ${
+                  aboutOpen ? "border-red-500" : "border-transparent"
+                } hover:border-red-500`}
               >
                 ABOUT US <ChevronDown size={16} className="ml-1" />
               </button>
@@ -126,15 +129,60 @@ export default function Navbar() {
               )}
             </div>
 
+            {/* Programs Dropdown */}
+            <div className="relative">
+              <button
+                onClick={() => {
+                  setProgramsOpen(!programsOpen);
+                  setAboutOpen(false);
+                  setMembershipOpen(false);
+                  setEventsOpen(false);
+                }}
+                className={`flex items-center transition border-b-2 ${
+                  programsOpen ? "border-red-500" : "border-transparent"
+                } hover:border-red-500`}
+              >
+                PROGRAMS <ChevronDown size={16} className="ml-1" />
+              </button>
+              {programsOpen && (
+                <div className="absolute top-full left-0 mt-2 w-48 bg-white border border-gray-200 shadow-lg z-50">
+                  <Link
+                    to="/programs"
+                    className="block px-4 py-2 hover:bg-gray-100"
+                    onClick={() => setProgramsOpen(false)}
+                  >
+                    Programs
+                  </Link>
+                  <Link
+                    to="/programs/advocacy"
+                    className="block px-4 py-2 hover:bg-gray-100"
+                    onClick={() => setProgramsOpen(false)}
+                  >
+                    Advocacy
+                  </Link>
+                  <Link
+                    to="/programs/services"
+                    className="block px-4 py-2 hover:bg-gray-100"
+                    onClick={() => setProgramsOpen(false)}
+                  >
+                    Services
+                  </Link>
+                </div>
+              )}
+            </div>
+
             {/* Membership Dropdown */}
             <div className="relative">
               <button
                 onClick={() => {
                   setMembershipOpen(!membershipOpen);
-                  setEventsOpen(false); // Close other dropdown
+                  setEventsOpen(false);
+                  setProgramsOpen(false);
+                  setAboutOpen(false);
                 }}
-                className={`flex items-center transition border-b-2 ${membershipOpen ? "border-red-500" : "border-transparent"
-                  } hover:border-red-500`}
+                className={`flex items-center transition border-b-2 ${
+                  membershipOpen ? "border-red-500" : "border-transparent"
+                } hover:border-red-500`}
               >
                 MEMBERSHIP <ChevronDown size={16} className="ml-1" />
               </button>
@@ -171,9 +219,12 @@ export default function Navbar() {
                 onClick={() => {
                   setEventsOpen(!eventsOpen);
                   setMembershipOpen(false); // Close other dropdown
+                  setProgramsOpen(false);
+                  setAboutOpen(false);
                 }}
-                className={`flex items-center transition border-b-2 ${eventsOpen ? "border-red-500" : "border-transparent"
-                  } hover:border-red-500`}
+                className={`flex items-center transition border-b-2 ${
+                  eventsOpen ? "border-red-500" : "border-transparent"
+                } hover:border-red-500`}
               >
                 EVENTS <ChevronDown size={16} className="ml-1" />
               </button>
@@ -204,13 +255,16 @@ export default function Navbar() {
               News
             </a>
 
-            <Link
-              to="/join"
-              onClick={scrollToTop}
-              className="bg-[#328E6E] text-white px-5 py-2 rounded hover:bg-[#005f4d] transition"
-            >
-              Join Us
-            </Link>
+            <div className="flex items-center gap-3 ml-4">
+              {/* Join Us – Primary CTA */}
+              <Link
+                to="/join"
+                onClick={scrollToTop}
+                className="bg-[#328E6E] text-white px-5 py-2 rounded-md hover:bg-[#005f4d] transition shadow-sm"
+              >
+                Join Us
+              </Link>
+            </div>
           </div>
 
           {/* Mobile Toggle */}
@@ -230,16 +284,21 @@ export default function Navbar() {
         <div className="md:hidden bg-gray-50 border-t">
           <Link
             to="/"
-            className="block py-3 px-4 text-gray-700 border-b"
+            className="block py-3 px-4 text-gray-700 border-b font-semibold"
             onClick={scrollToTop}
           >
-            Home
+            HOME
           </Link>
 
           {/* Mobile About Dropdown */}
           <button
             className="w-full text-left flex justify-between items-center py-3 px-4 border-b text-gray-700 font-semibold"
-            onClick={() => setMobileAboutOpen(!mobileAboutOpen)}
+            onClick={() => {
+              setMobileAboutOpen(!mobileAboutOpen);
+              setMobileProgramsOpen(false);
+              setMobileMembershipOpen(false);
+              setMobileEventsOpen(false);
+            }}
           >
             ABOUT US <ChevronDown size={16} />
           </button>
@@ -276,10 +335,53 @@ export default function Navbar() {
             </div>
           )}
 
+          {/* Mobile Programs Dropdown */}
+          <button
+            className="w-full text-left flex justify-between items-center py-3 px-4 border-b text-gray-700 font-semibold"
+            onClick={() => {
+              setMobileProgramsOpen(!mobileProgramsOpen);
+              setMobileAboutOpen(false);
+              setMobileMembershipOpen(false);
+              setMobileEventsOpen(false);
+            }}
+          >
+            PROGRAMS <ChevronDown size={16} />
+          </button>
+          {mobileProgramsOpen && (
+            <div className="pl-6 bg-gray-100">
+              <Link
+                to="/programs"
+                className="block py-2 px-4 hover:bg-gray-200"
+                onClick={() => setIsOpen(false)}
+              >
+                Programs
+              </Link>
+              <Link
+                to="/programs/advocacy"
+                className="block py-2 px-4 hover:bg-gray-200"
+                onClick={() => setIsOpen(false)}
+              >
+                Advocacy
+              </Link>
+              <Link
+                to="/programs/services"
+                className="block py-2 px-4 hover:bg-gray-200"
+                onClick={() => setIsOpen(false)}
+              >
+                Services
+              </Link>
+            </div>
+          )}
+
           {/* Mobile Membership Dropdown */}
           <button
             className="w-full text-left flex justify-between items-center py-3 px-4 border-b text-gray-700 font-semibold"
-            onClick={() => setMobileMembershipOpen(!mobileMembershipOpen)}
+            onClick={() => {
+              setMobileMembershipOpen(!mobileMembershipOpen);
+              setMobileProgramsOpen(false);
+              setMobileAboutOpen(false);
+              setMobileEventsOpen(false);
+            }}
           >
             MEMBERSHIP <ChevronDown size={16} />
           </button>
@@ -312,7 +414,12 @@ export default function Navbar() {
           {/* Mobile Events Dropdown */}
           <button
             className="w-full text-left flex justify-between items-center py-3 px-4 border-b text-gray-700 font-semibold"
-            onClick={() => setMobileEventsOpen(!mobileEventsOpen)}
+            onClick={() => {
+              setMobileEventsOpen(!mobileEventsOpen);
+              setMobileProgramsOpen(false);
+              setMobileMembershipOpen(false);
+              setMobileAboutOpen(false);
+            }}
           >
             EVENTS <ChevronDown size={16} />
           </button>
@@ -336,11 +443,11 @@ export default function Navbar() {
           )}
 
           <a
-            href="/#news"
-            className="block py-3 px-4 text-gray-700 border-b"
+            href="/news"
+            className="block py-3 px-4 text-gray-700 border-b font-semibold"
             onClick={() => setIsOpen(false)}
           >
-            News
+            NEWS
           </a>
 
           <Link
