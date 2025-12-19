@@ -155,7 +155,7 @@ export default function HistoryPage() {
       <Navbar />
 
       {/* 1. HERO SECTION: Immersive & Corporate Green */}
-      <div className="relative h-[55vh] min-h-[450px] flex items-center justify-center overflow-hidden">
+      <div className="relative h-[45vh] min-h-[350px] flex items-center justify-center overflow-hidden">
         {/* Background Image with Parallax feel */}
         <div className="absolute inset-0 z-0">
           <img
@@ -167,7 +167,7 @@ export default function HistoryPage() {
           <div className="absolute inset-0 bg-gradient-to-r from-slate-950/90 via-green-900/80 to-emerald-900/60" />
         </div>
 
-        <div className="relative z-10 container mx-auto px-6 mt-16 text-center">
+        <div className="relative z-10 container mx-auto px-6 mt-2 text-center">
           <motion.div
             initial="hidden"
             animate="visible"
@@ -181,7 +181,7 @@ export default function HistoryPage() {
               </span>
             </motion.div>
             
-            <motion.h1 variants={fadeInUp} className="text-4xl md:text-6xl font-extrabold text-white tracking-tight leading-tight mb-6 drop-shadow-lg">
+            <motion.h1 variants={fadeInUp} className="text-3xl md:text-5xl font-extrabold text-white tracking-tight leading-tight mb-6 drop-shadow-lg">
               {content?.heroTitle || "A Proud History of Service and Growth"}
             </motion.h1>
 

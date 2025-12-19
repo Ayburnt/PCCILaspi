@@ -60,6 +60,9 @@ export default function AboutUs() {
       thrustsSubtitle,
       thrusts[]{ title, description, icon },
       heroBadgeText,
+      heroHeadingMain,
+      heroHeadingHighlight,
+      heroSubheading,
       heroBackgroundImage { asset -> { _id, url }, hotspot, crop }
     }`;
 
@@ -84,7 +87,7 @@ export default function AboutUs() {
       <Navbar />
 
       {/* 1. HERO SECTION: Immersive & Corporate Green */}
-      <div className="relative h-[60vh] min-h-[500px] flex items-center justify-center overflow-hidden">
+      <div className="relative h-[45vh] min-h-[350px] flex items-center justify-center overflow-hidden">
         {/* Background Image with Parallax feel */}
         <div className="absolute inset-0 z-0">
           <img
@@ -97,7 +100,7 @@ export default function AboutUs() {
           <div className="absolute inset-0 bg-gradient-to-r from-gray-900/90 via-[#155333]/80 to-[#155333]/60" />
         </div>
 
-        <div className="relative z-10 container mx-auto px-6 mt-16 text-center">
+        <div className="relative z-10 container mx-auto px-6 mt-2 text-center">
           <motion.div
             initial="hidden"
             animate="visible"
@@ -107,20 +110,20 @@ export default function AboutUs() {
             <motion.div variants={fadeInUp} className="flex justify-center mb-6">
               <span className="inline-flex items-center gap-2 py-1.5 px-4 rounded-full bg-white/10 border border-white/20 backdrop-blur-md text-sm font-medium text-white shadow-sm">
                 <Building2 size={16} className="text-yellow-400" />
-                {content?.heroBadgeText || "Las Piñas City Chapter"}
+                {content?.heroBadgeText }
               </span>
             </motion.div>
             
-            <motion.h1 variants={fadeInUp} className="text-4xl md:text-6xl font-extrabold text-white tracking-tight leading-tight mb-6 drop-shadow-lg">
-              Empowering Business,<br/>
+            <motion.h1 variants={fadeInUp} className="text-3xl md:text-5xl font-extrabold text-white tracking-tight leading-tight mb-6 drop-shadow-lg">
+              {content?.heroHeadingMain}<br/>
               {/* Text Highlight: Light Green to White */}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-300 to-white">
-                Building Community.
+                {content?.heroHeadingHighlight}
               </span>
             </motion.h1>
 
             <motion.p variants={fadeInUp} className="text-lg text-gray-200 max-w-2xl mx-auto leading-relaxed">
-              We are the voice of business in Las Piñas, dedicated to fostering economic growth and sustainable development.
+              {content?.heroSubheading}
             </motion.p>
           </motion.div>
         </div>
