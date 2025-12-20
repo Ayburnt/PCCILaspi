@@ -36,6 +36,10 @@ export default defineConfig({
                     S.listItem()
                       .title('Our History')
                       .child(S.document().schemaType('historyPage').documentId('historyPage')), 
+// backend/sanity.config.ts - Update the advocacy section
+S.listItem()
+  .title('Advocacy Page')
+  .child(S.document().schemaType('advocacyPage').documentId('advocacyPage')),
                     S.listItem()
                       .title('Leadership Board')
                       .child(S.document().schemaType('leadershipBoard').documentId('leadershipBoard')),
@@ -50,8 +54,11 @@ export default defineConfig({
             
             S.divider(),
             
-            // Events & News Section
-            S.documentTypeListItem('event').title('Event Management'),
+            // Programs Section
+            S.documentTypeListItem('advocacyPage').title('Advocacy Programs'),
+            
+            S.divider(),
+            
             S.documentTypeListItem('news').title('News Management'),
             
             // --- NEW PARTNERSHIP ENTRY ---

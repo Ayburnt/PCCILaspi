@@ -90,24 +90,46 @@ export default function Programs() {
       <TopBar />
       <Navbar />
 
-      {/* 1. INSTITUTIONAL HERO SECTION */}
-      <div className="relative bg-[#155333] border-b-4 border-yellow-500 overflow-hidden">
-        <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]" />
+      {/* HEADER SECTION: Formal Government/Corporate Style */}
+      <header className="bg-[#1a4031] text-white pt-16 pb-20 relative overflow-hidden">
+        {/* Background Pattern for Texture */}
+        <div className="absolute inset-0 opacity-10 pointer-events-none">
+          <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <pattern
+                id="grid"
+                width="40"
+                height="40"
+                patternUnits="userSpaceOnUse"
+              >
+                <path
+                  d="M 40 0 L 0 0 0 40"
+                  fill="none"
+                  stroke="white"
+                  strokeWidth="1"
+                />
+              </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#grid)" />
+          </svg>
+        </div>
 
-        <div className="max-w-6xl mx-auto px-6 pt-16 md:pt-20 pb-12 md:pb-16 relative z-10">
-          <div className="flex items-center gap-2 text-yellow-500 text-[10px] md:text-xs font-bold uppercase tracking-[0.2em] mb-4">
-            <Award size={16} /> Official Programs
+        <div className="max-w-6xl mx-auto px-6 relative z-10">
+          <div className="flex items-center gap-3 mb-4">
+            <div className="bg-yellow-500 w-1.5 h-8"></div>
+            <span className="uppercase tracking-widest text-xs md:text-sm font-bold text-yellow-500">
+              Official Programs
+            </span>
           </div>
-          <h1 className="text-2xl md:text-4xl font-bold text-white max-w-4xl leading-tight">
+          <h1 className="text-3xl md:text-5xl font-bold tracking-tight mb-4">
             Advancing the Interests of Las Piñas City
           </h1>
-          <p className="mt-6 md:mt-8 text-sm md:text-base text-green-50/80 max-w-3xl  leading-relaxed border-l-4 border-yellow-500 pl-4 md:pl-6">
-            The PCCI-Las Piñas provides structured support programs designed to
-            foster a competitive, sustainable, and socially responsible business
+          <p className="text-base md:text-xl text-slate-200 font-light max-w-3xl">
+            Supports a competitive, sustainable, and responsible business
             community.
           </p>
         </div>
-      </div>
+      </header>
 
       <div className="max-w-6xl mx-auto px-6 pb-20">
         {/* 2. PROGRAM TRACKS */}
@@ -235,7 +257,7 @@ export default function Programs() {
           </div>
           <div className="flex flex-col sm:flex-row gap-4 w-full md:w-auto">
             <button className="w-full md:w-auto px-6 py-3 bg-[#155333] text-white text-[10px] md:text-xs font-bold uppercase tracking-widest hover:bg-slate-800 transition">
-              Contact 
+              Contact
             </button>
             <button className="w-full md:w-auto px-6 py-3 border border-[#155333] text-[#155333] text-[10px] md:text-xs font-bold uppercase tracking-widest hover:bg-white transition">
               View FAQ

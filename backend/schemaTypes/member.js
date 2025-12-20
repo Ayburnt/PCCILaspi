@@ -53,6 +53,7 @@ export default defineType({
           { title: 'Logistics', value: 'Logistics' },
           { title: 'Other', value: 'Other' },
         ],
+        
       },
       validation: (rule) => rule.required(),
     }),

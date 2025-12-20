@@ -17,37 +17,43 @@ import Footer from "../../components/layout/Footer";
 const services = [
   {
     name: "Enterprise Development & Skills Upgrading",
-    detail: "Elevating local competitiveness through professional training, advisory services, and one-on-one mentorship programs for SMEs.",
+    detail:
+      "Elevating local competitiveness through professional training, advisory services, and one-on-one mentorship programs for SMEs.",
     icon: Briefcase,
     category: "Development",
   },
   {
     name: "Investment Promotion & Referrals",
-    detail: "Organizing outbound and inbound trade missions, collateral development, and business referral services to strengthen local investment.",
+    detail:
+      "Organizing outbound and inbound trade missions, collateral development, and business referral services to strengthen local investment.",
     icon: TrendingUp,
     category: "Growth",
   },
   {
     name: "Trade Promotion & Matchmaking",
-    detail: "Physical and virtual trade fairs, B2B matchmaking, and e-commerce platform implementation for wider market access.",
+    detail:
+      "Physical and virtual trade fairs, B2B matchmaking, and e-commerce platform implementation for wider market access.",
     icon: Globe,
     category: "Trade",
   },
   {
     name: "Information & Communication (IEC)",
-    detail: "Providing industry forums, conferences, and publications while managing a robust members' database and digital platform engagement.",
+    detail:
+      "Providing industry forums, conferences, and publications while managing a robust members' database and digital platform engagement.",
     icon: Info,
     category: "Advocacy",
   },
   {
     name: "Corporate Social Responsibility (CSR)",
-    detail: "Empowering specific sectors and local communities through dedicated social initiatives and community development endeavors.",
+    detail:
+      "Empowering specific sectors and local communities through dedicated social initiatives and community development endeavors.",
     icon: HeartHandshake,
     category: "Community",
   },
   {
     name: "Other Auxiliary Services",
-    detail: "Business research, industry studies, awards and recognition, dispute resolution, and intellectual property registration assistance.",
+    detail:
+      "Business research, industry studies, awards and recognition, dispute resolution, and intellectual property registration assistance.",
     icon: PlusCircle,
     category: "Support",
   },
@@ -66,26 +72,45 @@ export default function Services() {
       <TopBar />
       <Navbar />
 
-      {/* 1. INSTITUTIONAL HERO SECTION */}
-      <div className="relative bg-[#155333] border-b-4 border-yellow-500 overflow-hidden">
-        <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]" />
+      {/* HEADER SECTION: Formal Government/Corporate Style */}
+      <header className="bg-[#1a4031] text-white pt-16 pb-20 relative overflow-hidden">
+        {/* Background Pattern for Texture */}
+        <div className="absolute inset-0 opacity-10 pointer-events-none">
+          <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <pattern
+                id="grid"
+                width="40"
+                height="40"
+                patternUnits="userSpaceOnUse"
+              >
+                <path
+                  d="M 40 0 L 0 0 0 40"
+                  fill="none"
+                  stroke="white"
+                  strokeWidth="1"
+                />
+              </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#grid)" />
+          </svg>
+        </div>
 
-        <div className="max-w-6xl mx-auto px-6 pt-16 md:pt-20 pb-12 md:pb-16 relative z-10">
-          <div className="flex items-center gap-2 text-yellow-500 text-[10px] md:text-xs font-bold uppercase tracking-[0.2em] mb-4">
-            <Landmark size={16} /> PCCI-Las Piñas Services
+        <div className="max-w-6xl mx-auto px-6 relative z-10">
+          <div className="flex items-center gap-3 mb-4">
+            <div className="bg-yellow-500 w-1.5 h-8"></div>
+            <span className="uppercase tracking-widest text-xs md:text-sm font-bold text-yellow-500">
+              PCCI-Las Piñas Services
+            </span>
           </div>
-
-          <h1 className="text-2xl md:text-4xl font-bold text-white max-w-4xl leading-tight">
-            Services & Support Programs
+          <h1 className="text-3xl md:text-5xl font-bold tracking-tight mb-4">
+            Services & Projects
           </h1>
-
-          <p className="mt-6 md:mt-8 text-sm md:text-base text-green-50/80 max-w-3xl leading-relaxed border-l-4 border-yellow-500 pl-4 md:pl-6">
-            PCCI-Las Piñas serves as the primary conduit for business growth in
-            the city, providing a structured framework of services designed to
-            empower enterprises and elevate local competitiveness.
+          <p className="text-base md:text-xl text-slate-200 font-light max-w-3xl">
+            PCCI-Las Piñas drives business growth and competitiveness.
           </p>
         </div>
-      </div>
+      </header>
 
       <div className="max-w-6xl mx-auto px-6 py-8 md:py-12">
         {/* 2. SERVICES CATALOG GRID */}
@@ -112,8 +137,6 @@ export default function Services() {
                 <p className="text-sm text-slate-600 leading-relaxed mb-6 ">
                   {service.detail}
                 </p>
-
-              
               </div>
             );
           })}
@@ -136,7 +159,10 @@ export default function Services() {
             </p>
             <ul className="space-y-4">
               {assurances.map((item) => (
-                <li key={item} className="flex items-start gap-3 text-xs md:text-sm">
+                <li
+                  key={item}
+                  className="flex items-start gap-3 text-xs md:text-sm"
+                >
                   <div className="mt-1.5 w-1.5 h-1.5 bg-yellow-500 shrink-0" />
                   <span className="text-green-50">{item}</span>
                 </li>
