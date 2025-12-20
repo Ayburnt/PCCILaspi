@@ -45,22 +45,22 @@ const programTracks = [
 const impactSignals = [
   {
     label: "Active Members",
-    value: "500+",
+    value: "",
     detail: "Businesses represented in Las Piñas",
   },
   {
     label: "LGU Resolutions",
-    value: "12",
+    value: "",
     detail: "Advocacy papers submitted in 2024",
   },
   {
     label: "Network Reach",
-    value: "Regional",
+    value: "",
     detail: "Affiliated with PCCI National & NCR",
   },
   {
     label: "Trade Volume",
-    value: "₱12M+",
+    value: "",
     detail: "Facilitated through chamber trade fairs",
   },
 ];

@@ -47,14 +47,17 @@ export default defineType({
       type: 'string',
       options: {
         list: [
-            { title: 'Zoom', value: 'Zoom' },
             { title: 'Conference', value: 'Conference' },
+            { title: 'Turnover Ceremony', value: 'Turnover Ceremony' },
             { title: 'Summit', value: 'Summit' },
             { title: 'Gala', value: 'Gala' },
             { title: 'Bootcamp', value: 'Bootcamp' },
             { title: 'Masterclass', value: 'Masterclass' },
             { title: 'Awards', value: 'Awards' },
             { title: 'Competition', value: 'Competition' },
+            { title: 'Workshop', value: 'Workshop' },
+            { title: 'Webinar', value: 'Webinar' },
+            { title: 'Networking', value: 'Networking' },
         ],
       },
       validation: rule => rule.required()

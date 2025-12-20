@@ -148,7 +148,7 @@ export default function PastEvents() {
                       </h3>
 
                       <div className="flex flex-wrap gap-2 mb-6">
-                        {event.highlights.map((highlight, i) => (
+                        {event.highlights?.map((highlight, i) => (
                           <span key={i} className="px-2 py-1 bg-slate-50 text-slate-600 text-[11px] font-bold border border-slate-200 rounded uppercase">
                             {highlight}
                           </span>
