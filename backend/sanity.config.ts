@@ -1,8 +1,8 @@
-import { defineConfig } from 'sanity'
-import { structureTool } from 'sanity/structure'
-import { visionTool } from '@sanity/vision'
-import { colorInput } from '@sanity/color-input'
-import { schemaTypes } from './schemaTypes'
+import {defineConfig} from 'sanity'
+import {structureTool} from 'sanity/structure'
+import {visionTool} from '@sanity/vision'
+import {colorInput} from '@sanity/color-input'
+import {schemaTypes} from './schemaTypes'
 
 export default defineConfig({
   name: 'default',
@@ -25,7 +25,11 @@ export default defineConfig({
                   .items([
                     S.listItem()
                       .title('Site Settings')
-                      .child(S.document().schemaType('siteSettings').documentId('siteSettings-singleton')),
+                      .child(
+                        S.document()
+                          .schemaType('siteSettings')
+                          .documentId('siteSettings-singleton'),
+                      ),
                     S.divider(),
                     S.listItem()
                       .title('Banner Section')
@@ -41,11 +45,18 @@ export default defineConfig({
                       .title('Advocacy Page')
                       .child(S.document().schemaType('advocacyPage').documentId('advocacyPage')),
                     S.listItem()
+                      .title('Services Page')
+                      .child(S.document().schemaType('servicesPage').documentId('servicesPage')),
+                    S.listItem()
                       .title('Leadership Board')
-                      .child(S.document().schemaType('leadershipBoard').documentId('leadershipBoard')),
+                      .child(
+                        S.document().schemaType('leadershipBoard').documentId('leadershipBoard'),
+                      ),
                     S.listItem()
                       .title('How to Become a Member')
-                      .child(S.document().schemaType('membershipInfo').documentId('membershipInfo')),
+                      .child(
+                        S.document().schemaType('membershipInfo').documentId('membershipInfo'),
+                      ),
                     S.listItem()
                       .title('Why Join Us')
                       .child(S.document().schemaType('whyJoinUs').documentId('whyJoinUs')),

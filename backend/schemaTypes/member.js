@@ -1,5 +1,5 @@
-import { defineField, defineType } from 'sanity'
-import { UsersIcon } from '@sanity/icons'
+import {defineField, defineType} from 'sanity'
+import {UsersIcon} from '@sanity/icons'
 
 export default defineType({
   name: 'member',
@@ -31,8 +31,8 @@ export default defineType({
       type: 'string',
       options: {
         list: [
-          { title: 'Corporate Membership', value: 'Corporate Membership' },
-          { title: 'Individual Membership', value: 'Individual Membership' },
+          {title: 'Corporate Membership', value: 'Corporate Membership'},
+          {title: 'Individual Membership', value: 'Individual Membership'},
         ],
       },
       validation: (rule) => rule.required(),
@@ -43,17 +43,16 @@ export default defineType({
       type: 'string',
       options: {
         list: [
-          { title: 'Custom House Brokers', value: 'Custom House Brokers' },
-          { title: 'Construction', value: 'Construction' },
-          { title: 'Consulting', value: 'Consulting' },
-          { title: 'Manufacturing', value: 'Manufacturing' },
-          { title: 'Retail', value: 'Retail' },
-          { title: 'Technology', value: 'Technology' },
-          { title: 'Food & Beverage', value: 'Food & Beverage' },
-          { title: 'Logistics', value: 'Logistics' },
-          { title: 'Other', value: 'Other' },
+          {title: 'Custom House Brokers', value: 'Custom House Brokers'},
+          {title: 'Construction', value: 'Construction'},
+          {title: 'Consulting', value: 'Consulting'},
+          {title: 'Manufacturing', value: 'Manufacturing'},
+          {title: 'Retail', value: 'Retail'},
+          {title: 'Technology', value: 'Technology'},
+          {title: 'Food & Beverage', value: 'Food & Beverage'},
+          {title: 'Logistics', value: 'Logistics'},
+          {title: 'Other', value: 'Other'},
         ],
-        
       },
       validation: (rule) => rule.required(),
     }),
@@ -75,7 +74,7 @@ export default defineType({
       name: 'logo',
       title: 'Company Logo',
       type: 'image',
-      options: { hotspot: true },
+      options: {hotspot: true},
     }),
     defineField({
       name: 'location',
@@ -105,14 +104,14 @@ export default defineType({
       name: 'keyServices',
       title: 'Services',
       type: 'array',
-      of: [{ type: 'string' }],
+      of: [{type: 'string'}],
       validation: (rule) => rule.required().min(1),
     }),
     defineField({
       name: 'products',
       title: 'Products',
       type: 'array',
-      of: [{ type: 'string' }],
+      of: [{type: 'string'}],
       description: 'List of products offered by the company',
     }),
     defineField({
@@ -126,11 +125,11 @@ export default defineType({
       title: 'Social Media Links',
       type: 'object',
       fields: [
-        { name: 'facebook', title: 'Facebook', type: 'url' },
-        { name: 'linkedin', title: 'LinkedIn', type: 'url' },
-        { name: 'instagram', title: 'Instagram', type: 'url' },
-        { name: 'twitter', title: 'X (Twitter)', type: 'url' },
-        { name: 'viber', title: 'Viber', type: 'string' },
+        {name: 'facebook', title: 'Facebook', type: 'url'},
+        {name: 'linkedin', title: 'LinkedIn', type: 'url'},
+        {name: 'instagram', title: 'Instagram', type: 'url'},
+        {name: 'twitter', title: 'X (Twitter)', type: 'url'},
+        {name: 'viber', title: 'Viber', type: 'string'},
       ],
     }),
     defineField({
@@ -154,7 +153,7 @@ export default defineType({
           name: 'photo',
           title: 'Photo',
           type: 'image',
-          options: { hotspot: true },
+          options: {hotspot: true},
         },
       ],
     }),
@@ -246,8 +245,16 @@ export default defineType({
             list: ['Closed', '8:00 AM - 12:00 PM', '9:00 AM - 1:00 PM', '10:00 AM - 3:00 PM'],
           },
         },
-        { name: 'sunday', title: 'Sunday', type: 'string', options: { list: ['Closed'] } },
+        {name: 'sunday', title: 'Sunday', type: 'string', options: {list: ['Closed']}},
       ],
+    }),
+
+    defineField({
+      name: 'isNewMember',
+      title: 'New Member',
+      type: 'boolean',
+      description: 'Mark this member as new',
+      initialValue: false,
     }),
 
     defineField({
@@ -263,8 +270,8 @@ export default defineType({
       type: 'string',
       options: {
         list: [
-          { title: 'Active', value: 'active' },
-          { title: 'Inactive', value: 'inactive' },
+          {title: 'Active', value: 'active'},
+          {title: 'Inactive', value: 'inactive'},
         ],
       },
       initialValue: 'active',

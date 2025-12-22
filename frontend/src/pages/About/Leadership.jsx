@@ -1,6 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { Users, Award, Badge } from 'lucide-react';
+import { 
+  Users, 
+  Facebook, 
+  Twitter, 
+  Instagram, 
+  Linkedin 
+} from 'lucide-react';
 import Navbar from '../../components/layout/Navbar';
 import Footer from '../../components/layout/Footer';
 import TopBar from '../../components/layout/TopBar';
@@ -27,8 +33,36 @@ const itemVariants = {
   }
 };
 
+// Helper Component for Social Icons
+const SocialIcon = ({ href, Icon, delay }) => {
+  // If no href, we render a 'span' (non-clickable) instead of an 'a' tag
+  const isPlaceholder = !href || href.trim() === '';
+
+  const commonClasses = `w-9 h-9 rounded-full flex items-center justify-center shadow-lg 
+    transform -translate-x-16 group-hover:translate-x-0 transition-all duration-300 ease-out ${delay}`;
+
+  if (isPlaceholder) {
+    return (
+      <div className={`${commonClasses} bg-white text-slate-300 cursor-not-allowed`}>
+        <Icon size={18} />
+      </div>
+    );
+  }
+
+  return (
+    <a 
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className={`${commonClasses} bg-white text-slate-700 hover:bg-blue-600 hover:text-white`}
+    >
+      <Icon size={18} />
+    </a>
+  );
+};
+
 export default function Leadership() {
-  const [board, setBoard] = useState({ title: 'Executive Board', description: '', members: [] });
+  const [board, setBoard] = useState({ title: '', description: '', members: [] });
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -40,7 +74,8 @@ export default function Leadership() {
         role,
         bio,
         image,
-        order
+        order,
+        socials
       }
     }`;
 
@@ -57,8 +92,7 @@ export default function Leadership() {
       <TopBar />
       <Navbar />
 
-      {/* Leadership Grid */}
-      <div className="py-14 bg-white  mb-20">
+      <div className="py-20 bg-white mb-20">
         <div className="container mx-auto px-6">
           <motion.div 
             initial="hidden"
@@ -67,62 +101,77 @@ export default function Leadership() {
             variants={containerVariants}
             className="text-center mb-16"
           >
-            <h2 className="text-4xl font-bold text-slate-900 mb-4">{board?.title || 'Executive Board'}</h2>
+            <h2 className="text-4xl font-bold text-slate-900 mb-4">{board?.title}</h2>
+            <div className="w-20 h-1 bg-blue-600 mx-auto mb-6"></div>
             <p className="text-slate-500 max-w-2xl mx-auto text-lg">
-              {board?.description || 'Our dedicated team of business leaders guiding PCCI Las Piñas toward success'}
+              {board?.description}
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {loading && (
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-10">
+            {loading ? (
               [...Array(4)].map((_, i) => (
-                <div key={i} className="animate-pulse bg-gray-50 rounded-2xl h-96 border border-gray-100" />
+                <div key={i} className="animate-pulse bg-gray-50 rounded-2xl h-[450px] border border-gray-100" />
               ))
-            )}
-            {!loading && board?.members?.map((leader, index) => (
+            ) : board?.members?.map((leader, index) => (
               <motion.div
                 key={index}
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
                 variants={itemVariants}
-                className="group text-center"
+                className="group"
               >
-                <div className="relative mb-6 overflow-hidden rounded-xl h-72 bg-slate-200">
+                <div className="relative mb-6 overflow-hidden rounded-xl shadow-sm aspect-[4/5] bg-slate-200">
                   {leader?.image ? (
                     <img 
-                      src={urlFor(leader.image).width(600).height(600).url()} 
+                      src={urlFor(leader.image).width(500).height(625).url()} 
                       alt={leader.name}
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                     />
                   ) : (
                     <div className="w-full h-full flex items-center justify-center text-slate-300">
-                      <Users size={40} strokeWidth={1.5} />
+                      <Users size={60} strokeWidth={1} />
                     </div>
                   )}
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
+                  {/* Social Icons Overlay - Only renders if URL exists */}
+                  <div className="absolute top-4 left-4 flex flex-col gap-3 z-10">
+                    <SocialIcon href={leader.socials?.facebook} Icon={Facebook} delay="delay-0" />
+                    <SocialIcon href={leader.socials?.twitter} Icon={Twitter} delay="delay-75" />
+                    <SocialIcon href={leader.socials?.instagram} Icon={Instagram} delay="delay-100" />
+                    <SocialIcon href={leader.socials?.linkedin} Icon={Linkedin} delay="delay-150" />
+                  </div>
+
+                  <div className="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 </div>
                 
-                <h3 className="text-2xl font-bold text-slate-900 mb-1">{leader.name}</h3>
-                <p className="text-blue-600 font-semibold mb-3 uppercase tracking-wide text-sm">{leader.role}</p>
-                {leader.bio && (
-                  <p className="text-slate-500 text-sm leading-relaxed">{leader.bio}</p>
-                )}
+                <div className="text-center px-2 mb-10">
+                  <h3 className="text-xl font-bold text-slate-900 mb-1 leading-tight">
+                    {leader.name}
+                  </h3>
+                  <p className="text-blue-600 font-medium text-sm mb-3 min-h-[40px] flex items-center justify-center">
+                    {leader.role}
+                  </p>
+                  
+                  {leader.bio && (
+                    <p className="text-slate-500 text-sm leading-relaxed border-t pt-3 mt-2">
+                      {leader.bio}
+                    </p>
+                  )}
+                </div>
               </motion.div>
             ))}
-            {!loading && (!board?.members || board.members.length === 0) && (
-              <div className="col-span-4 text-center py-24 bg-white rounded-2xl border border-dashed border-slate-200">
-                <div className="mx-auto w-16 h-16 bg-slate-50 rounded-full flex items-center justify-center mb-4 text-slate-400">
-                  <Users size={24} />
-                </div>
-                <h3 className="text-lg font-medium text-slate-900">No leadership members found</h3>
-                <p className="text-slate-500 mt-1">Add members in Sanity Studio under Leadership Board.</p>
-              </div>
-            )}
           </div>
+
+          {!loading && board?.members?.length === 0 && (
+            <div className="text-center py-24 bg-slate-50 rounded-2xl border-2 border-dashed border-slate-200">
+              <Users size={48} className="mx-auto text-slate-300 mb-4" />
+              <h3 className="text-lg font-medium text-slate-900">No leadership members found</h3>
+            </div>
+          )}
         </div>
       </div>
-
 
       <Footer />
     </div>

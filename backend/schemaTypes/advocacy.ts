@@ -140,12 +140,14 @@ export default defineType({
               },
               validation: Rule => Rule.required()
             }),
+            // Inside the programs array fields
             defineField({
               name: 'icon',
-              title: 'Icon Name',
-              type: 'string',
-              description: 'Lucide icon name (e.g., Waves, FileCheck, Ban)',
-              validation: Rule => Rule.required()
+              title: 'Program Icon (Image)',
+              type: 'image', // Changed from 'string'
+              options: {
+                hotspot: true
+              },
             }),
             defineField({
               name: 'image',

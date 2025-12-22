@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Briefcase,
   TrendingUp,
@@ -13,60 +13,40 @@ import {
 import TopBar from "../../components/layout/TopBar";
 import Navbar from "../../components/layout/Navbar";
 import Footer from "../../components/layout/Footer";
+import { client } from "../../sanityClient";
+import imageUrlBuilder from "@sanity/image-url";
 
-const services = [
-  {
-    name: "Enterprise Development & Skills Upgrading",
-    detail:
-      "Elevating local competitiveness through professional training, advisory services, and one-on-one mentorship programs for SMEs.",
-    icon: Briefcase,
-    category: "Development",
-  },
-  {
-    name: "Investment Promotion & Referrals",
-    detail:
-      "Organizing outbound and inbound trade missions, collateral development, and business referral services to strengthen local investment.",
-    icon: TrendingUp,
-    category: "Growth",
-  },
-  {
-    name: "Trade Promotion & Matchmaking",
-    detail:
-      "Physical and virtual trade fairs, B2B matchmaking, and e-commerce platform implementation for wider market access.",
-    icon: Globe,
-    category: "Trade",
-  },
-  {
-    name: "Information & Communication (IEC)",
-    detail:
-      "Providing industry forums, conferences, and publications while managing a robust members' database and digital platform engagement.",
-    icon: Info,
-    category: "Advocacy",
-  },
-  {
-    name: "Corporate Social Responsibility (CSR)",
-    detail:
-      "Empowering specific sectors and local communities through dedicated social initiatives and community development endeavors.",
-    icon: HeartHandshake,
-    category: "Community",
-  },
-  {
-    name: "Other Auxiliary Services",
-    detail:
-      "Business research, industry studies, awards and recognition, dispute resolution, and intellectual property registration assistance.",
-    icon: PlusCircle,
-    category: "Support",
-  },
-];
-
-const assurances = [
-  "Official representation with local and national government units",
-  "Access to PCCI National and Regional trade networks",
-  "Standardized business advisory and mentorship playbooks",
-  "Diplomatic handling of business disputes and policy advocacy",
-];
+const builder = imageUrlBuilder(client);
+const urlFor = (source) => builder.image(source);
 
 export default function Services() {
+  const [page, setPage] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const query = `*[_type == "servicesPage" && _id == "servicesPage"][0]{
+      header,
+      assurances,
+      approachBox,
+      processImage{asset->, alt},
+      footerBanner,
+      services[]{
+        name,
+        detail,
+        category,
+        icon{asset->, alt}
+      }
+    }`;
+
+    client
+      .fetch(query)
+      .then((data) => {
+        setPage(data);
+        setLoading(false);
+      })
+      .catch(() => setLoading(false));
+  }, []);
+
   return (
     <div className="bg-[#fcfcfc] min-h-screen text-slate-900">
       <TopBar />
@@ -100,14 +80,14 @@ export default function Services() {
           <div className="flex items-center gap-3 mb-4">
             <div className="bg-yellow-500 w-1.5 h-8"></div>
             <span className="uppercase tracking-widest text-xs md:text-sm font-bold text-yellow-500">
-              PCCI-Las Piñas Services
+              {page?.header?.badgeText }
             </span>
           </div>
           <h1 className="text-3xl md:text-5xl font-bold tracking-tight mb-4">
-            Services & Projects
+            {page?.header?.title}
           </h1>
           <p className="text-base md:text-xl text-slate-200 font-light max-w-3xl">
-            PCCI-Las Piñas drives business growth and competitiveness.
+            {page?.header?.description}
           </p>
         </div>
       </header>
@@ -115,15 +95,19 @@ export default function Services() {
       <div className="max-w-6xl mx-auto px-6 py-8 md:py-12">
         {/* 2. SERVICES CATALOG GRID */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-          {services.map((service) => {
-            const Icon = service.icon;
+          {(page?.services || []).map((service) => {
+            const iconUrl = service.icon?.asset?.url || null;
             return (
               <div
                 key={service.name}
                 className="group bg-white border border-gray-200 p-6 md:p-8 hover:shadow-lg transition-all flex flex-col items-start"
               >
                 <div className="mb-6 p-3 bg-slate-50 text-[#155333] border border-gray-100 group-hover:bg-[#155333] group-hover:text-white transition-colors duration-300">
-                  <Icon size={24} strokeWidth={1.5} />
+                  {iconUrl ? (
+                    <img src={iconUrl} alt={service.icon?.alt || service.name} className="w-6 h-6 object-contain" />
+                  ) : (
+                    <Briefcase size={24} strokeWidth={1.5} />
+                  )}
                 </div>
 
                 <p className="text-[10px] font-bold text-yellow-600 uppercase tracking-[0.2em] mb-2">
@@ -150,15 +134,13 @@ export default function Services() {
 
             <h2 className="text-xl md:text-2xl font-bold mb-6 flex items-center gap-3">
               <FileText className="text-yellow-500" />
-              Institutional Mandate
+              {page?.approachBox?.title}
             </h2>
             <p className="text-green-100/80 text-sm md:text-base leading-relaxed mb-8">
-              Our service delivery is anchored on the Chamber's commitment to
-              creating a conducive environment for business expansion through
-              formal mentorship and strategic promotion.
+              {page?.approachBox?.description}
             </p>
             <ul className="space-y-4">
-              {assurances.map((item) => (
+              {(page?.assurances || []).map((item) => (
                 <li
                   key={item}
                   className="flex items-start gap-3 text-xs md:text-sm"
@@ -172,11 +154,19 @@ export default function Services() {
 
           {/* Process Box (Image) */}
           <div className="bg-white border border-gray-200 h-[250px] md:h-[400px] overflow-hidden order-1 lg:order-2">
-            <img
-              src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d"
-              alt="PCCI Process"
-              className="w-full h-full object-cover"
-            />
+            {(() => {
+              const hasProcessImage = Boolean(page?.processImage?.asset);
+              if (!hasProcessImage) return null;
+              const processImgSrc = urlFor(page.processImage).width(1200).url();
+              const processAlt = page?.processImage?.alt;
+              return (
+                <img
+                  src={processImgSrc}
+                  alt={processAlt}
+                  className="w-full h-full object-cover"
+                />
+              );
+            })()}
           </div>
         </div>
       </div>
@@ -185,11 +175,10 @@ export default function Services() {
       <div className="bg-slate-50 border-t border-gray-200 py-12">
         <div className="max-w-6xl mx-auto px-6 text-center">
           <h4 className="text-base md:text-lg font-bold  text-[#155333] mb-4 md:mb-2 italic">
-            "Building a Dynamic Business Community for a Prosperous Las Piñas."
+            {page?.footerBanner?.quote}
           </h4>
           <p className="text-xs md:text-sm text-slate-500 max-w-2xl mx-auto leading-relaxed">
-            For urgent business assistance or policy concerns, please contact
-            our Technical Secretariat directly through our official channels.
+            {page?.footerBanner?.note }
           </p>
         </div>
       </div>

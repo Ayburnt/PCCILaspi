@@ -63,10 +63,10 @@ export default function Navbar() {
             )}
             <div className="leading-tight">
               <h1 className="text-2xl font-bold text-gray-800 tracking-tight">
-                {settings?.organizationName || "PCCI"}
+                {settings?.organizationName}
               </h1>
               <span className="text-xs font-semibold text-gray-500 tracking-widest uppercase">
-                {settings?.organizationSubtitle || "Las Piñas City"}
+                {settings?.organizationSubtitle}
               </span>
             </div>
           </Link>
@@ -166,6 +166,13 @@ export default function Navbar() {
                     onClick={() => setProgramsOpen(false)}
                   >
                     Services
+                  </Link>
+                  <Link
+                    to="/programs/projects"
+                    className="block px-4 py-2 hover:bg-gray-100"
+                    onClick={() => setProgramsOpen(false)}
+                  >
+                    Projects
                   </Link>
                 </div>
               )}

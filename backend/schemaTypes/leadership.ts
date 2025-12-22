@@ -62,11 +62,23 @@ export const leadershipBoard = defineType({
               options: { hotspot: true },
             }),
             defineField({
+              name: 'socials',
+              title: 'Social Media Links',
+              type: 'object',
+              fields: [
+                { name: 'facebook', title: 'Facebook URL', type: 'url' },
+                { name: 'twitter', title: 'Twitter URL', type: 'url' },
+                { name: 'instagram', title: 'Instagram URL', type: 'url' },
+                { name: 'linkedin', title: 'LinkedIn URL', type: 'url' },
+              ],
+            }),
+            defineField({
               name: 'order',
               title: 'Display Order',
               type: 'number',
               description: 'Lower numbers appear first',
             }),
+            
           ],
           preview: {
             select: { title: 'name', subtitle: 'role', media: 'image' },
