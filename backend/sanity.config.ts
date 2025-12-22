@@ -1,8 +1,8 @@
-import {defineConfig} from 'sanity'
-import {structureTool} from 'sanity/structure'
-import {visionTool} from '@sanity/vision'
-import {colorInput} from '@sanity/color-input'
-import {schemaTypes} from './schemaTypes'
+import { defineConfig } from 'sanity'
+import { structureTool } from 'sanity/structure'
+import { visionTool } from '@sanity/vision'
+import { colorInput } from '@sanity/color-input'
+import { schemaTypes } from './schemaTypes'
 
 export default defineConfig({
   name: 'default',
@@ -16,7 +16,9 @@ export default defineConfig({
         S.list()
           .title('Admin')
           .items([
-            // Content Management Section
+            // =========================
+            // Content Management
+            // =========================
             S.listItem()
               .title('Content Management')
               .child(
@@ -40,25 +42,19 @@ export default defineConfig({
                     S.listItem()
                       .title('Our History')
                       .child(S.document().schemaType('historyPage').documentId('historyPage')),
-                    // backend/sanity.config.ts - Update the advocacy section
-                    S.listItem()
-                      .title('Advocacy Page')
-                      .child(S.document().schemaType('advocacyPage').documentId('advocacyPage')),
-                    S.listItem()
-                      .title('Services Page')
-                      .child(S.document().schemaType('servicesPage').documentId('servicesPage')),
-                    S.listItem()
-                      .title('Programs Page')
-                      .child(S.document().schemaType('programsPage').documentId('programsPage')),
                     S.listItem()
                       .title('Leadership Board')
                       .child(
-                        S.document().schemaType('leadershipBoard').documentId('leadershipBoard'),
+                        S.document()
+                          .schemaType('leadershipBoard')
+                          .documentId('leadershipBoard'),
                       ),
                     S.listItem()
                       .title('How to Become a Member')
                       .child(
-                        S.document().schemaType('membershipInfo').documentId('membershipInfo'),
+                        S.document()
+                          .schemaType('membershipInfo')
+                          .documentId('membershipInfo'),
                       ),
                     S.listItem()
                       .title('Why Join Us')
@@ -67,32 +63,75 @@ export default defineConfig({
                       .title('Join Page')
                       .child(S.document().schemaType('joinPage').documentId('joinPage')),
                     S.listItem()
-                      .title("Company Gallery")
+                      .title('Company Gallery')
                       .child(
                         S.document()
-                          .schemaType("gallery")
-                          .documentId("companyGallery")
+                          .schemaType('gallery')
+                          .documentId('companyGallery'),
                       ),
                   ])
               ),
 
             S.divider(),
 
+            // =========================
+            // Programs Section (NEW)
+            // =========================
+            S.listItem()
+              .title('Programs Management')
+              .child(
+                S.list()
+                  .title('Programs')
+                  .items([
+                    S.listItem()
+                      .title('Programs Page')
+                      .child(
+                        S.document()
+                          .schemaType('programsPage')
+                          .documentId('programsPage'),
+                      ),
+                    S.listItem()
+                      .title('Services Page')
+                      .child(
+                        S.document()
+                          .schemaType('servicesPage')
+                          .documentId('servicesPage'),
+                      ),
+                    S.listItem()
+                      .title('Advocacy Page')
+                      .child(
+                        S.document()
+                          .schemaType('advocacyPage')
+                          .documentId('advocacyPage'),
+                      ),
+                    S.listItem()
+                      .title('Projects Page')
+                      .child(
+                        S.document()
+                          .schemaType('projectsPage')
+                          .documentId('projectsPage'),
+                      ),
+                  ])
+              ),
+
             S.divider(),
 
+            // =========================
+            // Other Sections
+            // =========================
             S.documentTypeListItem('news').title('News Management'),
             S.documentTypeListItem('event').title('Events Management'),
 
-            // --- NEW PARTNERSHIP ENTRY ---
-            S.documentTypeListItem('partner').title('Partners & Sponsors'), // <--- ADDED HERE
-            // -----------------------------
+            S.divider(),
+
+            S.documentTypeListItem('partner').title('Partners & Sponsors'),
 
             S.divider(),
 
-            // Members Section
             S.documentTypeListItem('member').title('Members Directory'),
           ]),
     }),
+
     visionTool(),
   ],
   schema: {

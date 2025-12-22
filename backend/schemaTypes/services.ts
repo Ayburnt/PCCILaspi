@@ -24,6 +24,13 @@ export default defineType({
           validation: (Rule) => Rule.required(),
         }),
         defineField({
+          name: 'highlightedText',
+          title: 'Highlighted Text (Accent Color)',
+          type: 'string',
+          initialValue: 'Economic Growth',
+          description: 'This text appears in yellow/accent color on a new line',
+        }),
+        defineField({
           name: 'description',
           title: 'Description',
           type: 'text',

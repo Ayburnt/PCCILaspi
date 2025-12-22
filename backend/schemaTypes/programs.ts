@@ -227,8 +227,13 @@ export default defineType({
     }),
   ],
   preview: {
-    prepare() {
-      return { title: 'Programs Page Content' }
+    select: {
+      title: 'header.title',
+    },
+    prepare(selection) {
+      return {
+        title: selection.title || 'Programs Page',
+      }
     },
   },
 })
