@@ -34,7 +34,6 @@ const HomePage = () => {
       <Partnership/>
       <FeaturedMember />
       <AboutSection />
-      <Partnership />
       <Gallery />
 
 
