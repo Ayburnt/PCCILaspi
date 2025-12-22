@@ -170,6 +170,18 @@ export default function EventPost() {
               </p>
             </div>
           )}
+
+          {/* Registration / Event Link Button */}
+          <div className="flex justify-left pt-8">
+            <a
+              href="https://event.sari-sari.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block bg-green-700 hover:bg-green-800 text-white font-bold py-4 px-10 rounded-md transition-all duration-300 shadow-lg hover:shadow-green-200"
+            >
+              Register at Sari-Sari
+            </a>
+          </div>
         </div>
       </article>
 

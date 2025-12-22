@@ -50,18 +50,38 @@ const impactSignals = [
   },
   {
     label: "LGU Resolutions",
-    value: "",
+    value: "12",
     detail: "Advocacy papers submitted",
   },
   {
-    label: "Network Reach",
-    value: "",
-    detail: "Affiliated with PCCI National & NCR",
+    label: "Partner Organizations",
+    value: "25+",
+    detail: "Strategic network alliances",
   },
   {
-    label: "Trade Volume",
-    value: "",
-    detail: "Facilitated through chamber trade fairs",
+    label: "Waterways Cleared",
+    value: "08",
+    detail: "Malayang Daloy initiative sites",
+  },
+  {
+    label: "Mentors/Mentees",
+    value: "120",
+    detail: "Total program participants",
+  },
+  {
+    label: "Start-ups Supported",
+    value: "45",
+    detail: "Negosyo program beneficiaries",
+  },
+  {
+    label: "Seminars & Trainings",
+    value: "32",
+    detail: "Capacity building sessions",
+  },
+  {
+    label: "Complaints Assisted",
+    value: "85%",
+    detail: "Resolution rate for business hurdles",
   },
 ];
 
@@ -157,9 +177,7 @@ export default function Programs() {
                     </p>
                   </div>
                 </div>
-                <button className="mt-4 md:mt-auto inline-flex items-center gap-2 text-[10px] md:text-xs font-bold uppercase tracking-widest text-[#155333] hover:text-yellow-600">
-                  Request Information <ChevronRight size={14} />
-                </button>
+                
               </div>
             );
           })}

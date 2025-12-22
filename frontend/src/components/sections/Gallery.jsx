@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { client, urlFor } from '../../sanityClient'; 
+import { client, urlFor } from '../../sanityClient';
 
 // Swiper imports
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -35,16 +35,15 @@ const Gallery = () => {
   return (
     <section className="bg-gray-50 py-16 overflow-hidden">
       <div className="max-w-7xl mx-auto px-4">
-        
+
         {/* Header Section - Now fully dynamic */}
         <div className="flex flex-col md:flex-row justify-between items-center mb-12">
           <div className="text-center md:text-left">
-            <h2 className="text-5xl font-extrabold text-gray-900 tracking-tight">
+            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 tracking-tight">
               {galleryData.title || "Our Gallery"}
             </h2>
-            <div className="h-1.5 w-20 bg-blue-600 mt-4 rounded-full mx-auto md:mx-0"></div>
           </div>
-          
+
           {/* Connected to 'subtitle' field from Sanity */}
           {galleryData.subtitle && (
             <p className="text-gray-500 max-w-md mt-6 md:mt-0 text-center md:text-right italic leading-relaxed">
@@ -54,7 +53,7 @@ const Gallery = () => {
         </div>
 
         {/* Slider Wrapper */}
-        <div className="relative px-4 md:px-10"> 
+        <div className="relative px-4 md:px-10">
           <Swiper
             modules={[Navigation, Pagination, Autoplay, EffectCoverflow]}
             effect={'coverflow'}
@@ -81,7 +80,7 @@ const Gallery = () => {
             {galleryData.images.map((item, index) => (
               <SwiperSlide key={item._key || index} className="transition-all duration-500">
                 <div className="relative group rounded-3xl overflow-hidden shadow-2xl bg-white aspect-[4/5] md:aspect-[16/10]">
-                  
+
                   {/* Image with proper Alt text from Sanity */}
                   {item.asset && (
                     <img

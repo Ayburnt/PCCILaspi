@@ -15,6 +15,7 @@ import { client, urlFor } from "../../sanityClient";
 import Navbar from "../../components/layout/Navbar";
 import Footer from "../../components/layout/Footer";
 import TopBar from "../../components/layout/TopBar";
+import NewMember from "./NewMember";
 
 function slugifyCompany(str = "") {
   return str
@@ -217,7 +218,7 @@ export default function MembersDirectory() {
       <Navbar />
 
       {/* Hero Section */}
-      <div className="bg-slate-900 text-white py-20 relative overflow-hidden">
+      <div className="bg-slate-900 text-white py-16 relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-r from-slate-900 to-green-900 opacity-90"></div>
         <div className="max-w-7xl mx-auto px-4 text-center relative z-10">
           <h1 className="text-4xl md:text-5xl font-bold mb-4 tracking-tight">
@@ -231,7 +232,7 @@ export default function MembersDirectory() {
       </div>
 
       {/* Search and Filter */}
-      <div className="max-w-7xl mx-auto px-4 -mt-8 mb-12 relative z-20">
+      <div className="max-w-7xl mx-auto px-2 -mt-8 mb-2 relative z-20">
         <div className="bg-white rounded-lg shadow-xl p-6 border border-slate-100">
           <div className="grid md:grid-cols-2 gap-4">
             <div className="relative group">
@@ -266,19 +267,9 @@ export default function MembersDirectory() {
               </select>
             </div>
           </div>
-
-          <div className="mt-4 flex justify-between items-center text-sm text-slate-500 border-t border-slate-100 pt-4">
-            <span>Directory Listing</span>
-            <span>
-              Showing{" "}
-              <span className="font-semibold text-slate-900">
-                {filteredMembers.length}
-              </span>{" "}
-              result{filteredMembers.length !== 1 ? "s" : ""}
-            </span>
-          </div>
         </div>
       </div>
+
 
       {/* Loading */}
       {loading && (
@@ -301,6 +292,8 @@ export default function MembersDirectory() {
           </div>
         </div>
       )}
+
+      <NewMember />
 
       {/* Members Grid */}
       {!loading && !error && (
@@ -340,14 +333,13 @@ export default function MembersDirectory() {
                   <div className="p-6 pb-2">
                     <div className="flex justify-between items-start mb-4">
                       {member.logo ? (
-                      <div className="h-14 w-14 rounded-lg overflow-hidden border border-slate-200 flex-shrink-0 bg-white flex items-center justify-center">
-  <img
-    src={urlFor(member.logo).url()}
-    alt={`${member.company} logo`}
-    className="max-w-full max-h-full object-contain"
-  />
-</div>
-
+                        <div className="h-14 w-14 rounded-lg overflow-hidden border border-slate-200 flex-shrink-0 bg-white flex items-center justify-center">
+                          <img
+                            src={urlFor(member.logo).url()}
+                            alt={`${member.company} logo`}
+                            className="max-w-full max-h-full object-contain"
+                          />
+                        </div>
                       ) : (
                         <div
                           className={`h-12 w-12 rounded-lg flex items-center justify-center border transition-colors duration-300 ${

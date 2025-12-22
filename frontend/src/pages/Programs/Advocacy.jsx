@@ -2,14 +2,6 @@
 import React, { useState, useEffect } from "react";
 import {
   Building2,
-  Waves,
-  FileCheck,
-  Ban,
-  Smartphone,
-  Users,
-  CarFront,
-  GraduationCap,
-  ChevronRight,
   Printer,
   Download,
   Target,
@@ -22,18 +14,6 @@ import Navbar from "../../components/layout/Navbar";
 import Footer from "../../components/layout/Footer";
 import sanityClient from "../../sanityClient";
 import { Link } from "react-router-dom";
-
-// Icon mapping
-const iconMap = {
-  Waves,
-  FileCheck,
-  Ban,
-  Smartphone,
-  Users,
-  CarFront,
-  GraduationCap,
-  Building2,
-};
 
 // Image URL builder
 const builder = imageUrlBuilder(sanityClient);
@@ -87,7 +67,13 @@ export default function AdvocacyPage() {
           order,
           localTitle,
           engTitle,
-          icon,
+          icon {
+            asset-> {
+              _id,
+              url
+            },
+            alt
+          },
           image,
           content,
           isActive,
@@ -267,8 +253,8 @@ export default function AdvocacyPage() {
           </div>
 
           {activePrograms.map((item, index) => {
-            const Icon = iconMap[item.icon] || Building2;
             const imageUrl = item.image ? urlFor(item.image).width(800).url() : null;
+            const iconImageUrl = item.icon?.asset?.url ? item.icon.asset.url : null;
             
             return (
               <div
@@ -280,10 +266,18 @@ export default function AdvocacyPage() {
                   <div className="absolute top-0 left-0 w-1 h-full bg-[#064e3b] transform origin-top scale-y-0 group-hover:scale-y-100 transition-transform duration-300"></div>
                   <div>
                     <div className="flex justify-between items-start mb-6">
-                      <div className="p-3 bg-white rounded shadow-sm text-[#064e3b]">
-                        <Icon size={32} strokeWidth={1.5} />
+                      <div className="p-2 bg-white rounded shadow-sm">
+                        {iconImageUrl ? (
+                          <img 
+                            src={iconImageUrl} 
+                            alt={item.icon?.alt || item.engTitle}
+                            className="w-10 h-10 object-contain"
+                          />
+                        ) : (
+                          <Building2 size={32} strokeWidth={1.5} className="text-[#064e3b]" />
+                        )}
                       </div>
-                      <span className="text-4xl font-black text-slate-200 select-none">
+                      <span className="text-4xl font-black text-slate-300 select-none">
                         0{item.order}
                       </span>
                     </div>

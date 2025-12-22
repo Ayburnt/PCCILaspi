@@ -9,6 +9,7 @@ import EventsFeed from '../components/sections/EventsFeed';
 import NewsFeed from '../components/sections/NewsFeed';
 import PromoPopup from '../components/sections/PromoPopup';
 import Partnership from '../components/sections/Partnership';
+import FeaturedMember from '../components/sections/FeaturedMember';
 import Gallery from '../components/sections/Gallery';
 
 const scrollVariants = {
@@ -29,6 +30,9 @@ const HomePage = () => {
 
       <Hero />
 
+      <AboutSection /> 
+      <Partnership/>
+      <FeaturedMember />
       <AboutSection />
       <Partnership />
       <Gallery />
