@@ -57,9 +57,6 @@ export default defineConfig({
 
             S.divider(),
 
-            // Programs Section
-            S.documentTypeListItem('advocacyPage').title('Advocacy Programs'),
-
             S.divider(),
 
             S.documentTypeListItem('news').title('News Management'),

@@ -51,7 +51,7 @@ const impactSignals = [
   {
     label: "LGU Resolutions",
     value: "",
-    detail: "Advocacy papers submitted in 2024",
+    detail: "Advocacy papers submitted",
   },
   {
     label: "Network Reach",

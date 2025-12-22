@@ -186,7 +186,7 @@ export default function AdvocacyPage() {
             />
           </div>
         ) : (
-          <div className="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
+          <div className="absolute inset-0 opacity-30 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
         )}
         <div className="relative max-w-6xl mx-auto px-6 py-24 md:py-24 flex flex-col items-start justify-center">
           <div className="flex items-center gap-2 mb-4 bg-white/10 px-4 py-1.5 rounded-full border border-white/20 backdrop-blur-sm">
