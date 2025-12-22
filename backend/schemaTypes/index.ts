@@ -12,6 +12,7 @@ import history from './history'
 import partner from './partner'
 import advocacyPage from './advocacy'
 import joinPage from './joinPage'
+import galleryImage from './galleryImage'
 
 export const schemaTypes = [
     siteSettings,
@@ -27,4 +28,5 @@ export const schemaTypes = [
     member,
     membershipInfo,
     whyJoinUs,
+    galleryImage,
 ]

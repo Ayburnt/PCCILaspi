@@ -52,6 +52,13 @@ export default defineConfig({
                     S.listItem()
                       .title('Join Page')
                       .child(S.document().schemaType('joinPage').documentId('joinPage')),
+                    S.listItem()
+                      .title("Company Gallery")
+                      .child(
+                        S.document()
+                          .schemaType("gallery")
+                          .documentId("companyGallery")
+                      ),
                   ])
               ),
 
