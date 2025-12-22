@@ -128,7 +128,7 @@ export default defineType({
               name: 'icon',
               title: 'Icon Name',
               type: 'string',
-              description: 'Lucide icon name (e.g., Users, Scale, Globe, Building2)',
+              description: 'Icon (e.g., Users, Scale, Globe, Building2)',
               validation: (Rule) => Rule.required(),
               options: {
                 list: [

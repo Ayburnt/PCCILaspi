@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Briefcase,
   Landmark,
@@ -6,113 +6,79 @@ import {
   ShieldCheck,
   Award,
   ChevronRight,
+  ArrowRight,
+  TrendingUp,
 } from "lucide-react";
 import TopBar from "../../components/layout/TopBar";
 import Navbar from "../../components/layout/Navbar";
 import Footer from "../../components/layout/Footer";
+import { client } from "../../sanityClient";
 
-const programTracks = [
-  {
-    title: "SME Development & Mentorship",
-    description:
-      "Technical assistance and 'Go Negosyo' style mentorship for Las Piñas micro-entrepreneurs to scale operations and improve market reach.",
-    icon: Briefcase,
-    badge: "Public-Private Initiative",
-  },
-  {
-    title: "Advocacy & Policy Roundtable",
-    description:
-      "Representing member interests in LGU legislative hearings, focusing on business-friendly ordinances and local tax reforms.",
-    icon: Landmark,
-    badge: "Official Representation",
-  },
-  {
-    title: "Regulatory Compliance Clinic",
-    description:
-      "Assistance with business permit renewals, DTI/SEC compliance, and understanding new national government mandates.",
-    icon: ShieldCheck,
-    badge: "Technical Assistance",
-  },
-  {
-    title: "Trade & Networking Exchange",
-    description:
-      "B2B matching events and trade fairs connecting local suppliers with larger supply chains across the NCR.",
-    icon: Users,
-    badge: "Member Exclusive",
-  },
-];
-
-const impactSignals = [
-  {
-    label: "Active Members",
-    value: "",
-    detail: "Businesses represented in Las Piñas",
-  },
-  {
-    label: "LGU Resolutions",
-    value: "12",
-    detail: "Advocacy papers submitted",
-  },
-  {
-    label: "Partner Organizations",
-    value: "25+",
-    detail: "Strategic network alliances",
-  },
-  {
-    label: "Waterways Cleared",
-    value: "08",
-    detail: "Malayang Daloy initiative sites",
-  },
-  {
-    label: "Mentors/Mentees",
-    value: "120",
-    detail: "Total program participants",
-  },
-  {
-    label: "Start-ups Supported",
-    value: "45",
-    detail: "Negosyo program beneficiaries",
-  },
-  {
-    label: "Seminars & Trainings",
-    value: "32",
-    detail: "Capacity building sessions",
-  },
-  {
-    label: "Complaints Assisted",
-    value: "85%",
-    detail: "Resolution rate for business hurdles",
-  },
-];
-
-const journey = [
-  {
-    title: "Consultation",
-    text: "Member businesses present specific constraints or regulatory hurdles to the Secretariat.",
-  },
-  {
-    title: "Strategic Planning",
-    text: "Our board committees align requests with current LGU policies and Chamber resources.",
-  },
-  {
-    title: "Mobilization",
-    text: "Execution of seminars, trade missions, or direct representation with government agencies.",
-  },
-  {
-    title: "Evaluation",
-    text: "Review of outcomes to ensure long-term business sustainability for our members.",
-  },
-];
+const iconMap = {
+  Briefcase,
+  Landmark,
+  Users,
+  ShieldCheck,
+  Award,
+  ChevronRight,
+};
 
 export default function Programs() {
+  const [content, setContent] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const query = `*[_type == "programsPage"][0]{
+      header{badgeText,title,description},
+      programTracks[]{title,description,badge,icon},
+      performance{sectionLabel,heading,note,stats[]{label,value,detail}},
+      roadmap{title,description,steps[]{title,text}},
+      callToAction{title,description,primaryText,primaryLink,secondaryText,secondaryLink}
+    }`;
+
+    client
+      .fetch(query)
+      .then((data) => setContent(data))
+      .catch((err) => {
+        console.error("Failed to fetch programs content:", err);
+        setContent(null);
+      })
+      .finally(() => setLoading(false));
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-slate-50">
+        <div className="w-16 h-16 border-4 border-slate-200 border-t-[#155333] rounded-full animate-spin"></div>
+      </div>
+    );
+  }
+
+  if (!content) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-slate-50 text-slate-700">
+        <p>
+          Unable to load Programs content. Please check Sanity data or network.
+        </p>
+      </div>
+    );
+  }
+
+  const header = content.header || {};
+  const programTracks = content.programTracks || [];
+  const performance = content.performance || {};
+  const stats = performance.stats || [];
+  const roadmap = content.roadmap || {};
+  const steps = roadmap.steps || [];
+  const callToAction = content.callToAction || {};
+
   return (
-    <div className="bg-[#fcfcfc] min-h-screen text-slate-900">
+    <div className="bg-[#f8fafc] min-h-screen text-slate-900 font-sans selection:bg-[#155333] selection:text-white">
       <TopBar />
       <Navbar />
 
-      {/* HEADER SECTION: Formal Government/Corporate Style */}
+      {/* HEADER SECTION (UNCHANGED AS REQUESTED) */}
       <header className="bg-[#1a4031] text-white pt-16 pb-20 relative overflow-hidden">
-        {/* Background Pattern for Texture */}
         <div className="absolute inset-0 opacity-10 pointer-events-none">
           <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
             <defs>
@@ -138,32 +104,34 @@ export default function Programs() {
           <div className="flex items-center gap-3 mb-4">
             <div className="bg-yellow-500 w-1.5 h-8"></div>
             <span className="uppercase tracking-widest text-xs md:text-sm font-bold text-yellow-500">
-              Official Programs
+              {header.badgeText}
             </span>
           </div>
           <h1 className="text-3xl md:text-5xl font-bold tracking-tight mb-4">
-            Advancing the Interests of Las Piñas City
+            {header.title}
           </h1>
           <p className="text-base md:text-xl text-slate-200 font-light max-w-3xl">
-            Supports a competitive, sustainable, and responsible business
-            community.
+            {header.description}
           </p>
         </div>
       </header>
 
+      {/* MAIN CONTENT CONTAINER */}
       <div className="max-w-6xl mx-auto px-6 pb-20">
         {/* 2. PROGRAM TRACKS */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-gray-200 mt-[-1rem] md:mt-8 shadow-2xl border border-gray-200 relative z-20">
-          {programTracks.map((track) => {
-            const Icon = track.icon;
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-gray-200 mt-[-1rem] md:mt-8 shadow-xl border border-gray-200 relative z-20">
+          {programTracks.map((track, index) => {
+            const Icon = iconMap[track.icon] || Briefcase;
             return (
               <div
-                key={track.title}
+                key={track.title || index}
                 className="bg-white p-6 md:p-8 flex flex-col gap-4 group hover:bg-slate-50 transition-colors"
               >
-                <div className="inline-flex items-center text-[9px] md:text-[10px] font-bold uppercase tracking-widest text-yellow-600 border border-yellow-200 px-2 py-1 w-fit bg-yellow-50">
-                  {track.badge}
-                </div>
+                {track.badge && (
+                  <div className="inline-flex items-center text-[9px] md:text-[10px] font-bold uppercase tracking-widest text-yellow-600 border border-yellow-200 px-2 py-1 w-fit bg-yellow-50">
+                    {track.badge}
+                  </div>
+                )}
                 <div className="flex flex-col sm:flex-row items-start gap-4 md:gap-5">
                   <div className="p-3 bg-slate-100 text-[#155333] group-hover:bg-[#155333] group-hover:text-white transition-colors shrink-0">
                     <Icon size={24} />
@@ -177,82 +145,118 @@ export default function Programs() {
                     </p>
                   </div>
                 </div>
-                
               </div>
             );
           })}
         </div>
 
         {/* 3 & 4. PERFORMANCE & ROADMAP SECTION */}
-        <div className="mt-16 md:mt-24 grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-          {/* Performance Data */}
-          <div className="lg:col-span-5 bg-white border-t-4 border-[#155333] p-6 md:p-8 shadow-md order-2 lg:order-1">
-            <p className="uppercase text-[10px] font-bold tracking-[0.2em] text-[#155333] mb-2">
-              Chamber Performance
-            </p>
-            <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-slate-900 mb-6">
-              Strategic Impact Data
-            </h2>
-
-            <div className="grid grid-cols-1 gap-6">
-              {impactSignals.map((item) => (
-                <div
-                  key={item.label}
-                  className="flex items-center justify-between border-b border-slate-100 pb-4"
-                >
-                  <div className="pr-4">
-                    <p className="text-[10px] md:text-xs font-bold text-slate-500 uppercase tracking-wider">
-                      {item.label}
-                    </p>
-                    <p className="text-xs text-slate-600 italic">
-                      {item.detail}
-                    </p>
-                  </div>
-                  <div className="text-xl md:text-2xl font-bold text-[#155333] whitespace-nowrap">
-                    {item.value}
-                  </div>
+        <div className="mt-20 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+          {/* Performance Data Dashboard */}
+          <div className="lg:col-span-5 order-2 lg:order-1">
+            <div className="bg-white rounded-xl shadow-lg border border-slate-100 overflow-hidden sticky top-24">
+              <div className="bg-[#155333] p-6 text-white flex justify-between items-center">
+                <div>
+                  <p className="uppercase text-[10px] font-bold tracking-[0.2em] text-yellow-400 opacity-90 mb-1">
+                    {performance.sectionLabel}
+                  </p>
+                  <h2 className="text-2xl font-bold tracking-tight">
+                    {performance.heading}
+                  </h2>
                 </div>
-              ))}
-            </div>
+                <TrendingUp className="text-white opacity-20" size={40} />
+              </div>
 
-            <div className="mt-8 p-4 bg-slate-50 border-l-4 border-slate-300">
-              <p className="text-[10px] md:text-xs text-slate-500 leading-relaxed">
-                * Figures based on the 2024 Annual Secretary’s Report. Verified
-                by the PCCI-NCR Membership Committee.
-              </p>
+              <div className="p-6 md:p-8">
+                <div className="space-y-6">
+                  {stats.map((item, idx) => (
+                    <div
+                      key={item.label || idx}
+                      className="flex items-end justify-between border-b border-dashed border-slate-200 pb-4 last:border-0"
+                    >
+                      <div className="pr-4">
+                        <p className="text-xs font-bold text-slate-500 uppercase tracking-widest mb-1">
+                          {item.label}
+                        </p>
+                        {item.detail && (
+                          <p className="text-xs text-slate-400 font-medium">
+                            {item.detail}
+                          </p>
+                        )}
+                      </div>
+                      <div className="text-2xl font-extrabold text-[#155333] tabular-nums tracking-tight">
+                        {item.value}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {performance.note && (
+                  <div className="mt-8 bg-amber-50 border-l-4 border-amber-400 p-4 rounded-r-md">
+                    <div className="flex gap-3">
+                      <div className="shrink-0 mt-0.5">
+                        <div className="w-4 h-4 rounded-full bg-amber-200 flex items-center justify-center">
+                          <span className="text-amber-700 text-[10px] font-bold">
+                            i
+                          </span>
+                        </div>
+                      </div>
+                      <p className="text-xs text-amber-900 leading-relaxed font-medium">
+                        {performance.note}
+                      </p>
+                    </div>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
 
           {/* Implementation Roadmap */}
           <div className="lg:col-span-7 order-1 lg:order-2">
-            <div className="mb-8">
-              <h3 className="text-2xl md:text-3xl font-bold tracking-tight text-slate-900">
-                Service Implementation Roadmap
+            <div className="mb-10 pl-2">
+              <h3 className="text-3xl font-bold tracking-tight text-slate-900">
+                {roadmap.title}
               </h3>
-              <div className="h-1 w-20 bg-yellow-500 mt-2"></div>
-              <p className="mt-4 text-sm md:text-base text-slate-600 leading-relaxed">
-                PCCI-Las Piñas adheres to a disciplined delivery framework to
-                ensure every program provides tangible value to the local
-                business community.
-              </p>
+              <div className="h-1.5 w-24 bg-gradient-to-r from-yellow-500 to-yellow-200 mt-3 rounded-full"></div>
+              {roadmap.description && (
+                <p className="mt-5 text-base text-slate-600 leading-relaxed max-w-2xl">
+                  {roadmap.description}
+                </p>
+              )}
             </div>
 
-            <div className="space-y-4">
-              {journey.map((step, idx) => (
+            <div className="relative space-y-2">
+              {/* Vertical Connector Line (Optional visual guide) */}
+              <div className="absolute left-[27px] top-6 bottom-6 w-0.5 bg-slate-200 hidden md:block"></div>
+
+              {steps.map((step, idx) => (
                 <div
-                  key={step.title}
-                  className="flex gap-4 md:gap-6 p-5 md:p-6 bg-white border border-gray-100 hover:border-gray-300 transition-all shadow-sm"
+                  key={step.title || idx}
+                  className="group relative flex flex-col md:flex-row gap-6 p-6 bg-white border border-transparent hover:border-slate-200 rounded-xl transition-all hover:shadow-lg"
                 >
-                  <div className="text-2xl md:text-3xl font-bold text-slate-200 italic shrink-0">
-                    0{idx + 1}
+                  {/* Step Number Bubble */}
+                  <div className="hidden md:flex shrink-0 w-14 h-14 bg-slate-100 rounded-full border-4 border-white shadow-sm items-center justify-center text-xl font-bold text-[#155333] z-10 group-hover:bg-[#155333] group-hover:text-yellow-400 transition-colors duration-300">
+                    {idx + 1}
                   </div>
-                  <div>
-                    <h4 className="text-base md:text-lg font-bold text-slate-900 uppercase tracking-wide">
-                      {step.title}
-                    </h4>
-                    <p className="mt-1 text-xs md:text-sm text-slate-600 leading-relaxed">
-                      {step.text}
-                    </p>
+
+                  {/* Content */}
+                  <div className="relative w-full">
+                    {/* Large Watermark Number for Mobile/Decor */}
+                    <span className="absolute -top-4 -right-4 text-8xl font-black text-slate-50 opacity-50 select-none pointer-events-none z-0">
+                      {idx + 1}
+                    </span>
+
+                    <div className="relative z-10">
+                      <h4 className="text-lg font-bold text-slate-900 uppercase tracking-wide flex items-center gap-2">
+                        <span className="md:hidden text-[#155333]">
+                          Step {idx + 1}:
+                        </span>{" "}
+                        {step.title}
+                      </h4>
+                      <p className="mt-2 text-sm md:text-base text-slate-600 leading-relaxed">
+                        {step.text}
+                      </p>
+                    </div>
                   </div>
                 </div>
               ))}
@@ -261,25 +265,38 @@ export default function Programs() {
         </div>
       </div>
 
-      {/* 5. CALL TO ACTION */}
-      <div className="bg-[#f1f1f1] py-12 border-t border-gray-200">
-        <div className="max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center md:items-start justify-between gap-8 text-center md:text-left">
-          <div className="max-w-md">
-            <h4 className="text-xl font-bold text-[#155333]">
-              Collaborate with the Chamber
+      {/* 5. CALL TO ACTION - Modern Ribbon */}
+      <div className="bg-slate-900 text-white py-16 relative overflow-hidden">
+        {/* Decorative elements */}
+        <div className="absolute top-0 right-0 w-64 h-64 bg-[#155333] rounded-full mix-blend-multiply filter blur-3xl opacity-20 -translate-y-1/2 translate-x-1/2"></div>
+
+        <div className="max-w-6xl mx-auto px-6 relative z-10 flex flex-col md:flex-row items-center justify-between gap-10">
+          <div className="max-w-2xl text-center md:text-left">
+            <h4 className="text-2xl md:text-3xl font-bold text-white mb-3">
+              {callToAction.title}
             </h4>
-            <p className="text-slate-600 text-sm mt-1">
-              Join our specialized committees or enroll your business in our
-              programs.
+            <p className="text-slate-400 text-sm md:text-base leading-relaxed">
+              {callToAction.description}
             </p>
           </div>
-          <div className="flex flex-col sm:flex-row gap-4 w-full md:w-auto">
-            <button className="w-full md:w-auto px-6 py-3 bg-[#155333] text-white text-[10px] md:text-xs font-bold uppercase tracking-widest hover:bg-slate-800 transition">
-              Contact
-            </button>
-            <button className="w-full md:w-auto px-6 py-3 border border-[#155333] text-[#155333] text-[10px] md:text-xs font-bold uppercase tracking-widest hover:bg-white transition">
-              View FAQ
-            </button>
+
+          <div className="flex flex-col sm:flex-row gap-4 w-full md:w-auto shrink-0">
+            {callToAction.primaryText && (
+              <a
+                href={callToAction.primaryLink || "#"}
+                className="inline-flex items-center justify-center px-8 py-3.5 bg-yellow-500 hover:bg-yellow-400 text-slate-900 text-xs md:text-sm font-bold uppercase tracking-widest rounded-sm transition-colors shadow-lg shadow-yellow-500/20"
+              >
+                {callToAction.primaryText}
+              </a>
+            )}
+            {callToAction.secondaryText && (
+              <a
+                href={callToAction.secondaryLink || "#"}
+                className="inline-flex items-center justify-center px-8 py-3.5 border border-slate-600 hover:border-white text-white text-xs md:text-sm font-bold uppercase tracking-widest rounded-sm hover:bg-white hover:text-slate-900 transition-all"
+              >
+                {callToAction.secondaryText}
+              </a>
+            )}
           </div>
         </div>
       </div>

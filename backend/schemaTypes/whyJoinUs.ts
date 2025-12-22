@@ -306,7 +306,7 @@ export default defineType({
               name: 'icon',
               title: 'Icon Name',
               type: 'string',
-              description: 'Lucide icon name (e.g., Building2, ShieldCheck, Landmark)',
+              description: 'Icon name (e.g., Building2, ShieldCheck, Landmark)',
             },
           ],
         },

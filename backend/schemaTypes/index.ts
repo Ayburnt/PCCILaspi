@@ -14,6 +14,7 @@ import advocacyPage from './advocacy'
 import joinPage from './joinPage'
 import servicesPage from './services'
 import galleryImage from './galleryImage'
+import programsPage from './programs'
 
 export const schemaTypes = [
     siteSettings,
@@ -25,6 +26,7 @@ export const schemaTypes = [
     advocacyPage,
     joinPage,
     servicesPage,
+    programsPage,
     event,
     news,
     member,

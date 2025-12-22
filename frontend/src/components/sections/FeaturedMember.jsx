@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom'; // Added Link import
 import { client, urlFor } from '../../sanityClient'; 
 
 const FeaturedMember = () => {
@@ -32,7 +33,7 @@ const FeaturedMember = () => {
           
           <div className="w-full md:w-auto md:flex-shrink-0 md:border-r md:border-gray-300 mb-8 md:mb-0 md:pr-10 text-center md:text-left z-20 bg-white">
             <span className="text-blue-600 font-bold uppercase tracking-widest text-xs">
-              Our Members
+             Members Directory
             </span>
             <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900 mt-2 leading-tight">
               Featured <br className="hidden md:block" /> <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-600 to-emerald-500">Members</span>
@@ -63,18 +64,20 @@ const FeaturedMember = () => {
                   key={index} 
                   className="flex-shrink-0 px-8 md:px-12"
                 >
-                  {member.logo ? (
-                    <img
-                      src={urlFor(member.logo).height(160).url()}
-                      alt={member.company}
-                      /* Tinanggal ang grayscale, opacity-50, at grayscale hover classes */
-                      className="h-12 md:h-16 w-auto object-contain transition-transform duration-300 hover:scale-105 cursor-pointer"
-                    />
-                  ) : (
-                    <span className="font-bold text-gray-400 text-lg whitespace-nowrap">
-                      {member.company}
-                    </span>
-                  )}
+                  {/* Wrapped content in Link */}
+                  <Link to={`/member/${member.slug}`} className="block">
+                    {member.logo ? (
+                      <img
+                        src={urlFor(member.logo).height(160).url()}
+                        alt={member.company}
+                        className="h-12 md:h-16 w-auto object-contain transition-transform duration-300 hover:scale-110 cursor-pointer"
+                      />
+                    ) : (
+                      <span className="font-bold text-gray-400 text-lg whitespace-nowrap hover:text-blue-600 transition-colors">
+                        {member.company}
+                      </span>
+                    )}
+                  </Link>
                 </div>
               ))}
             </motion.div>

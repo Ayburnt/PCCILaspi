@@ -5,6 +5,7 @@ import JoinPage from "./pages/JoinPage";
 import NewsPost from "./pages/NewsPost";
 import NewsIndex from "./pages/NewsIndex";
 import useDynamicFavicon from "./hooks/useDynamicFavicon";
+import ScrollToTopButton from "./components/layout/ScrollToTopButton";
 
 
 // Membership Pages
@@ -80,6 +81,7 @@ export default function App() {
   return (
     <Router>
       <AnimatedRoutes />
+      <ScrollToTopButton />
     </Router>
   );
 }

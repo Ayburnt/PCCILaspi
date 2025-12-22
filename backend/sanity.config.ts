@@ -48,6 +48,9 @@ export default defineConfig({
                       .title('Services Page')
                       .child(S.document().schemaType('servicesPage').documentId('servicesPage')),
                     S.listItem()
+                      .title('Programs Page')
+                      .child(S.document().schemaType('programsPage').documentId('programsPage')),
+                    S.listItem()
                       .title('Leadership Board')
                       .child(
                         S.document().schemaType('leadershipBoard').documentId('leadershipBoard'),

@@ -27,7 +27,7 @@ const NewMember = () => {
   const displayLogos = isSingle ? newMembers : [...newMembers, ...newMembers, ...newMembers];
 
   return (
-    <section className="w-full bg-white border-b border-gray-200 py-12">
+    <section className="w-full bg-white border-b border-gray-200 py-12 mb-8">
       <div className="container mx-auto px-8 md:px-8">
         <div className="flex flex-row items-center overflow-hidden">
           
