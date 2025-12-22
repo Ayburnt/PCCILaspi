@@ -140,40 +140,44 @@ export default function Programs() {
 
       <main className="max-w-7xl mx-auto px-6 -mt-12 relative z-20 pb-24">
         
-        {/* SECTION 1: PROGRAM TRACKS */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {programTracks.map((track, index) => {
-            const Icon = iconMap[track.icon] || Briefcase;
-            return (
-              <div
-                key={track.title || index}
-                className="group bg-white p-8 rounded-lg shadow-sm border border-slate-200 hover:shadow-xl hover:border-slate-300 transition-all duration-300 relative overflow-hidden flex flex-col justify-between"
-              >
-                <div className="absolute top-0 left-0 w-full h-1 bg-slate-100 group-hover:bg-[#155333] transition-colors duration-300"></div>
+       {/* SECTION 1: PROGRAM TRACKS */}
+<div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+  {programTracks.map((track, index) => {
+    const Icon = iconMap[track.icon] || Briefcase;
+    return (
+      <div
+        key={track.title || index}
+        // Removed group, added permanent shadow-xl and border-slate-300
+        className="bg-white p-8 rounded-lg shadow-xl border border-slate-300 relative overflow-hidden flex flex-col justify-between transition-all duration-300"
+      >
+        {/* Top border: removed group-hover, set to permanent green */}
+        <div className="absolute top-0 left-0 w-full h-1 bg-[#155333]"></div>
 
-                <div>
-                  <div className="flex justify-between items-start mb-6">
-                    <div className="w-12 h-12 bg-slate-50 border border-slate-100 rounded-md flex items-center justify-center text-[#155333] group-hover:bg-[#155333] group-hover:text-white transition-colors duration-300">
-                      <Icon size={24} strokeWidth={1.5} />
-                    </div>
-                    {track.badge && (
-                      <span className="inline-block px-2 py-1 text-[10px] font-bold uppercase tracking-widest text-slate-600 bg-slate-100 rounded-sm">
-                        {track.badge}
-                      </span>
-                    )}
-                  </div>
+        <div>
+          <div className="flex justify-between items-start mb-6">
+            {/* Icon Box: removed group-hover styles, set to permanent green bg and white text */}
+            <div className="w-12 h-12 bg-[#ceffe6] border border-slate-100 rounded-md flex items-center justify-center text-slate-600 transition-colors duration-300">
+              <Icon size={24} strokeWidth={1.5} />
+            </div>
+            {track.badge && (
+              <span className="inline-block px-2 py-1 text-[10px] font-bold uppercase tracking-widest text-slate-600 bg-slate-100 rounded-sm">
+                {track.badge}
+              </span>
+            )}
+          </div>
 
-                  <h3 className="text-xl font-bold text-slate-900 mb-3 group-hover:text-[#155333] transition-colors">
-                    {track.title}
-                  </h3>
-                  <p className="text-slate-600 leading-relaxed text-sm md:text-base">
-                    {track.description}
-                  </p>
-                </div>
-              </div>
-            );
-          })}
+          {/* Title: removed group-hover, set to permanent green */}
+          <h3 className="text-xl font-bold text-[#155333] mb-3 transition-colors">
+            {track.title}
+          </h3>
+          <p className="text-slate-600 leading-relaxed text-sm md:text-base">
+            {track.description}
+          </p>
         </div>
+      </div>
+    );
+  })}
+</div>
 
         {/* SECTION 2 & 3: STRATEGIC IMPACT & ROADMAP */}
         <div className="mt-24 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">

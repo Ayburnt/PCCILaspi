@@ -70,13 +70,8 @@ const HomePage = () => {
 
       <AboutSection /> 
       
-      <Partnership />
-      
       <FeaturedMember />
       
-        <Gallery />
-
-
       {/* Animate on scroll: Events */}
       <motion.div
         initial="hidden"
@@ -98,6 +93,14 @@ const HomePage = () => {
       >
         <NewsFeed />
       </motion.div>
+      <Partnership />
+
+          
+      {/* Project Gallery Section */}
+      <div className="w-full max-w-7xl mx-auto px-6 mb-24">
+        <Gallery />
+      </div>
+
 
       <Footer />
       <PromoPopup />

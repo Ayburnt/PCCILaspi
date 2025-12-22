@@ -40,7 +40,6 @@ export default {
               title: "Alternative Text",
               type: "string",
               description: "Important for SEO and accessibility.",
-              validation: (Rule) => Rule.required(),
             },
           ],
         },

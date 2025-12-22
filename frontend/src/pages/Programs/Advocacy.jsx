@@ -178,17 +178,17 @@ export default function AdvocacyPage() {
           <div className="flex items-center gap-2 mb-4 bg-white/10 px-4 py-1.5 rounded-full border border-white/20 backdrop-blur-sm">
             <Building2 size={16} className="text-yellow-400" />
             <span className="text-xs font-bold uppercase tracking-widest text-white">
-              {heroSection?.badge || 'Chamber Advocacy Series 2025'}
+              {heroSection?.badge}
             </span>
           </div>
           <h1 className="text-4xl md:text-6xl font-serif font-bold tracking-tight leading-tight mb-6">
-            {heroSection?.title || 'Building a Resilient'} <br />
+            {heroSection?.title} <br />
             <span className="text-yellow-400">
-              {heroSection?.highlightedText || 'Business Community'}
+              {heroSection?.highlightedText }
             </span>
           </h1>
           <p className="text-lg md:text-xl text-slate-200 max-w-2xl font-light leading-relaxed">
-            {heroSection?.subtitle || 'PCCI-Las Piñas is dedicated to shaping policies that foster economic growth, sustainability, and innovation in the city.'}
+            {heroSection?.subtitle}
           </p>
         </div>
       </div>
@@ -200,10 +200,10 @@ export default function AdvocacyPage() {
           <div className="flex flex-col md:flex-row gap-8 items-start">
             <div className="md:w-1/3 border-b md:border-b-0 md:border-r border-slate-200 pb-6 md:pb-0 md:pr-8">
               <h2 className="text-2xl font-serif font-bold text-[#064e3b] mb-2">
-                {executiveSummary?.mandateTitle || 'Our Mandate'}
+                {executiveSummary?.mandateTitle }
               </h2>
               <p className="text-sm font-bold text-slate-400 uppercase tracking-widest mb-6">
-                {executiveSummary?.mandateSubtitle || 'Mission Statement'}
+                {executiveSummary?.mandateSubtitle }
               </p>
               <div className="flex flex-col gap-3">
                 {executiveSummary?.agendaPdf?.asset?.url && (
@@ -231,7 +231,7 @@ export default function AdvocacyPage() {
             <div className="md:w-2/3">
               <Quote className="text-yellow-500 mb-4 w-10 h-10 opacity-50" />
               <p className="text-lg text-slate-700 leading-relaxed font-light italic">
-                "{executiveSummary?.quoteText || 'The Philippine Chamber of Commerce and Industry - Las Piñas is committed to advocating for policies that support local businesses. Our agenda is designed to create a more resilient, efficient, and prosperous city for all stakeholders.'}"
+                "{executiveSummary?.quoteText}"
               </p>
               <div className="mt-6 flex items-center gap-4">
                 <div className="h-px bg-slate-300 flex-1"></div>
@@ -351,7 +351,7 @@ export default function AdvocacyPage() {
       <section className="bg-slate-900 text-slate-300 py-16 border-t border-slate-800">
         <div className="max-w-4xl mx-auto px-6 text-center">
           <h2 className="text-3xl text-white font-serif font-bold mb-4">
-            {callToAction?.title || 'Partner with Us for Change'}
+            {callToAction?.title}
           </h2>
           <p className="mb-8 font-light text-lg">
             {callToAction?.description || 'Are you a business owner in Las Piñas? Join our committees and help shape the policies that affect your industry.'}
@@ -361,7 +361,7 @@ export default function AdvocacyPage() {
               to={callToAction?.primaryButtonLink || '/join'}
               className="bg-yellow-500 hover:bg-yellow-400 text-slate-900 px-8 py-3 rounded-sm font-bold uppercase tracking-wider transition-colors"
             >
-              {callToAction?.primaryButtonText || 'Become a Member'}
+              {callToAction?.primaryButtonText}
             </Link>
             <Link
               to={callToAction?.secondaryButtonLink || '/contact'}
