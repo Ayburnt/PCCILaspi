@@ -24,11 +24,28 @@ export default defineType({
           validation: (Rule) => Rule.required(),
         }),
         defineField({
+          name: 'highlightedText',
+          title: 'Highlighted Text (Accent Color)',
+          type: 'string',
+          initialValue: 'Economic Growth',
+          description: 'This text appears in yellow/accent color on a new line',
+        }),
+        defineField({
           name: 'description',
           title: 'Description',
           type: 'text',
           rows: 3,
           initialValue: 'Supports a competitive, sustainable, and responsible business community.',
+        }),
+        defineField({
+          name: 'backgroundImage',
+          title: 'Background Image (Optional)',
+          type: 'image',
+          options: { hotspot: true },
+          description: 'Optional hero background image',
+          fields: [
+            { name: 'alt', type: 'string', title: 'Alternative text' },
+          ],
         }),
       ],
     }),
