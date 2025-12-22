@@ -15,6 +15,7 @@ import joinPage from './joinPage'
 import servicesPage from './services'
 import galleryImage from './galleryImage'
 import programsPage from './programs'
+import projectsPage from './projects'
 
 export const schemaTypes = [
     siteSettings,
@@ -27,6 +28,7 @@ export const schemaTypes = [
     joinPage,
     servicesPage,
     programsPage,
+    projectsPage,
     event,
     news,
     member,

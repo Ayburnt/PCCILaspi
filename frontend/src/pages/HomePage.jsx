@@ -70,7 +70,6 @@ const HomePage = () => {
 
       <AboutSection /> 
       
-      <Partnership />
       
       <FeaturedMember />
       
@@ -98,6 +97,14 @@ const HomePage = () => {
       >
         <NewsFeed />
       </motion.div>
+      <Partnership />
+
+          
+      {/* Project Gallery Section */}
+      <div className="w-full max-w-7xl mx-auto px-6 mb-24">
+        <Gallery />
+      </div>
+
 
       <Footer />
       <PromoPopup />
