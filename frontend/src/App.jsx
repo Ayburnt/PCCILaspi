@@ -28,7 +28,6 @@ import ContactUs from "./pages/About/ContactUs";
 // Programs Pages
 import Programs from './pages/Programs/Programs';
 import Advocacy from './pages/Programs/Advocacy';
-import AdvocacyDetail from './pages/Programs/AdvocacyDetail';
 import Services from './pages/Programs/Services';
 import Project from './pages/Programs/Project';
 
@@ -62,7 +61,6 @@ function AnimatedRoutes() {
       {/* Programs Routes */}
       <Route path="/programs" element={<Programs />} />
       <Route path="/programs/advocacy" element={<Advocacy />} />
-      <Route path="/programs/advocacy/:slug" element={<AdvocacyDetail />} />
       <Route path="/programs/services" element={<Services />} />
       <Route path="/programs/projects" element={<Project/>}/>
 
