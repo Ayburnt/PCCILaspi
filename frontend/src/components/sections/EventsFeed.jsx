@@ -1,43 +1,35 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { client } from '../../sanityClient'; 
 import imageUrlBuilder from '@sanity/image-url'; 
-import { ArrowUpRight, Calendar, MapPin, Users, Clock, Image as ImageIcon } from 'lucide-react';
+import { ArrowUpRight, Calendar, MapPin, Clock, Image as ImageIcon, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
-// Configure the image builder
 const builder = imageUrlBuilder(client);
+function urlFor(source) { return builder.image(source); }
 
-function urlFor(source) {
-  return builder.image(source);
-}
-
-// Helper to format dates professionally (e.g., "Oct 24, 2024")
 const formatDate = (dateString) => {
   if (!dateString) return '';
   return new Date(dateString).toLocaleDateString('en-US', { 
-    month: 'short', 
-    day: 'numeric', 
-    year: 'numeric' 
+    month: 'short', day: 'numeric', year: 'numeric' 
   });
+};
+
+const scrollbarHideStyle = {
+  msOverflowStyle: 'none',
+  scrollbarWidth: 'none',
+  WebkitOverflowScrolling: 'touch',
 };
 
 export default function EventsFeed() {
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
+  const scrollRef = useRef(null);
 
   useEffect(() => {
+    // Fetch up to 12 events to allow for sliding
     const query = `*[_type == "event"] | order(date desc) {
-      title,
-      date,
-      category,
-      slug,
-      description,
-      image,
-      location,
-      time,
-      eventType,
-      price
-    }[0...4]`;
+      title, date, category, slug, description, image, location, time, eventType, price
+    }[0...12]`;
 
     client.fetch(query)
       .then((data) => {
@@ -50,36 +42,56 @@ export default function EventsFeed() {
       });
   }, []);
 
+  const scroll = (direction) => {
+    if (scrollRef.current) {
+      const { scrollLeft, clientWidth } = scrollRef.current;
+      const scrollTo = direction === 'left' ? scrollLeft - clientWidth : scrollLeft + clientWidth;
+      scrollRef.current.scrollTo({ left: scrollTo, behavior: 'smooth' });
+    }
+  };
+
   return (
-    <section id="events" className="py-14 mb-5 bg-white">
+    <section id="events" className="py-12 bg-white overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Header Section */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
             <div>
-                <h2 className="text-3xl md:text-4xl font-bold text-slate-900 tracking-tight">
-                   Events
-                </h2>
+                <h2 className="text-3xl md:text-4xl font-bold text-slate-900 tracking-tight">Events</h2>
                 <p className="mt-4 text-slate-500 max-w-2xl text-lg">
                     Join us at our latest conferences, workshops, and networking sessions.
                 </p>
             </div>
-            <Link 
-                to="/events/upcoming" 
-                className="hidden md:flex items-center gap-2 text-blue-950 font-semibold hover:text-green-700 transition-colors group"
-            >
-                View All Events 
-                <ArrowUpRight className="w-5 h-5 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-transform" />
-            </Link>
+            
+            <div className="flex items-center gap-4">
+                <Link to="/events/upcoming" className="hidden md:flex items-center gap-2 text-blue-950 font-semibold hover:text-green-700 transition-colors group mr-2">
+                    View All Events 
+                    <ArrowUpRight className="w-5 h-5 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-transform" />
+                </Link>
+                
+                {/* Only show arrows if there's excess data (more than 4 items) */}
+                {!loading && events.length > 4 && (
+                    <div className="flex gap-2">
+                        <button onClick={() => scroll('left')} className="p-3 rounded-full border border-slate-200 bg-white hover:bg-slate-50 shadow-sm active:scale-95 transition-all">
+                            <ChevronLeft size={20} className="text-slate-700" />
+                        </button>
+                        <button onClick={() => scroll('right')} className="p-3 rounded-full border border-slate-200 bg-white hover:bg-slate-50 shadow-sm active:scale-95 transition-all">
+                            <ChevronRight size={20} className="text-slate-700" />
+                        </button>
+                    </div>
+                )}
+            </div>
         </div>
 
-        {/* Events Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-          
-          {/* Loading State */}
+        {/* Events Slider Container */}
+        <div 
+          ref={scrollRef}
+          style={scrollbarHideStyle}
+          className="flex gap-8 overflow-x-auto snap-x snap-mandatory pb-8 px-1"
+        >
           {loading && (
              [...Array(4)].map((_, i) => (
-                <div key={i} className="animate-pulse bg-gray-50 rounded-2xl h-96 border border-gray-100" />
+                <div key={i} className="flex-shrink-0 w-[85%] md:w-[calc(50%-16px)] lg:w-[calc(25%-24px)] animate-pulse bg-gray-50 rounded-2xl h-[450px] border border-gray-100" />
              ))
           )}
 
@@ -87,9 +99,9 @@ export default function EventsFeed() {
             <Link 
               to={`/events/${event.slug?.current}`} 
               key={index} 
-              className="group flex flex-col h-full bg-white rounded-2xl overflow-hidden border border-gray-100 hover:shadow-2xl hover:shadow-slate-200/50 hover:-translate-y-1 transition-all duration-300"
+              className="group flex flex-col flex-shrink-0 snap-start bg-white rounded-2xl overflow-hidden border border-gray-100 hover:shadow-2xl hover:shadow-slate-200/50 hover:-translate-y-1 transition-all duration-300
+                w-[85%] md:w-[calc(50%-16px)] lg:w-[calc(25%-24px)]"
             >
-              {/* Image Container */}
               <div className="relative h-56 overflow-hidden bg-slate-100">
                 {event.image ? (
                   <img 
@@ -103,13 +115,12 @@ export default function EventsFeed() {
                   </div>
                 )}
                 
-                {/* Event Type Badge (Upcoming/Past) */}
                 {event.eventType && (
                   <div className="absolute top-4 right-4">
-                    <span className={`text-xs font-bold px-3 py-1.5 rounded-lg border shadow-sm uppercase tracking-wider ${
+                    <span className={`text-[10px] font-bold px-3 py-1.5 rounded-lg border shadow-sm uppercase tracking-wider backdrop-blur-md ${
                       event.eventType === 'upcoming' 
-                        ? 'bg-emerald-500/90 backdrop-blur-md text-white border-emerald-400/20' 
-                        : 'bg-slate-500/90 backdrop-blur-md text-white border-slate-400/20'
+                        ? 'bg-emerald-500/90 text-white border-emerald-400/20' 
+                        : 'bg-slate-500/90 text-white border-slate-400/20'
                     }`}>
                       {event.eventType}
                     </span>
@@ -117,46 +128,37 @@ export default function EventsFeed() {
                 )}
               </div>
 
-              {/* Content Container */}
               <div className="p-6 flex flex-col flex-1">
-                
-                {/* Date & Time Row */}
-                <div className="flex items-center gap-4 text-xs font-medium text-slate-400 mb-3">
+                <div className="flex items-center gap-4 text-[11px] font-medium text-slate-400 mb-3 uppercase tracking-tighter">
                     <div className="flex items-center gap-1.5">
-                      <Calendar size={14} />
+                      <Calendar size={13} />
                       <span>{formatDate(event.date)}</span>
                     </div>
                     {event.time && (
                       <div className="flex items-center gap-1.5">
-                        <Clock size={14} />
+                        <Clock size={13} />
                         <span>{event.time}</span>
                       </div>
                     )}
                 </div>
 
-                <h3 className="text-lg font-bold text-slate-900 mb-3 leading-snug group-hover:text-green-900 transition-colors">
+                <h3 className="text-lg font-bold text-slate-900 mb-3 leading-snug group-hover:text-green-700 transition-colors line-clamp-2">
                   {event.title}
                 </h3>
 
-                {/* Location */}
                 {event.location && (
                   <div className="flex items-center gap-2 text-sm text-slate-500 mb-3">
-                    <MapPin size={16} className="flex-shrink-0" />
+                    <MapPin size={14} className="flex-shrink-0 text-slate-400" />
                     <span className="line-clamp-1">{event.location}</span>
                   </div>
                 )}
 
-                <p className="text-slate-500 text-sm line-clamp-2 mb-4 flex-1">
+                <p className="text-slate-500 text-sm line-clamp-2 mb-6 flex-1">
                     {event.description || "Learn more about this event..."}
                 </p>
 
-               
-
-                {/* Footer Action */}
                 <div className="pt-4 border-t border-slate-100 flex items-center justify-between">
-                   <span className="text-sm font-semibold text-blue-950 group-hover:text-green-700 transition-colors">
-                     View Details
-                   </span>
+                   <span className="text-sm font-semibold text-blue-950 group-hover:text-green-700 transition-colors">View Details</span>
                    <div className="w-8 h-8 rounded-full bg-slate-50 flex items-center justify-center group-hover:bg-green-50 group-hover:text-green-600 transition-colors">
                         <ArrowUpRight size={16} />
                    </div>
@@ -164,22 +166,10 @@ export default function EventsFeed() {
               </div>
             </Link>
           ))}
-
-          {/* Empty State */}
-          {!loading && events.length === 0 && (
-            <div className="col-span-4 text-center py-24 bg-gray-50 rounded-2xl border border-dashed border-slate-200">
-                <div className="mx-auto w-16 h-16 bg-white rounded-full flex items-center justify-center mb-4 text-slate-400">
-                    <Calendar size={24} />
-                </div>
-                <h3 className="text-lg font-medium text-slate-900">No events found</h3>
-                <p className="text-slate-500 mt-1">Check back later for upcoming events.</p>
-            </div>
-          )}
         </div>
         
-        {/* Mobile View All Button (Only visible on small screens) */}
-        <div className="mt-10 md:hidden">
-             <Link to="/events/upcoming" className="flex items-center justify-center w-full bg-white border border-slate-200 text-slate-900 px-6 py-4 rounded-xl font-bold shadow-sm active:scale-95 transition-transform">
+        <div className="mt-4 md:hidden">
+             <Link to="/events/upcoming" className="flex items-center justify-center w-full bg-white border border-slate-200 text-slate-900 px-6 py-4 rounded-xl font-bold shadow-sm">
                 View All Events
             </Link>
         </div>

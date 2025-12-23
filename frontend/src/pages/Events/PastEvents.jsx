@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { MapPin, Users, Search, ChevronRight, CalendarDays, CheckCircle2, FileText } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { MapPin, Search, CalendarDays, CheckCircle2, FileText, Filter } from 'lucide-react';
 import Navbar from '../../components/layout/Navbar';
 import Footer from '../../components/layout/Footer';
 import TopBar from '../../components/layout/TopBar';
@@ -10,6 +11,7 @@ export default function PastEvents() {
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedYear, setSelectedYear] = useState('2024');
+  const [selectedCategory, setSelectedCategory] = useState('All'); // New State
 
   useEffect(() => {
     const fetchEvents = async () => {
@@ -19,6 +21,7 @@ export default function PastEvents() {
           title,
           slug,
           date,
+          description,
           location,
           category,
           attendees,
@@ -45,9 +48,18 @@ export default function PastEvents() {
   }, []);
 
   const years = ['2024', '2023', '2022'];
-  const filteredEvents = events.filter(
-    e => (e.year || '2024') === selectedYear && e.title.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+
+  // Dynamically get unique categories from the fetched data
+  const categories = ['All', ...new Set(events.map(e => e.category).filter(Boolean))];
+
+  // Updated Filter Logic
+  const filteredEvents = events.filter(e => {
+    const matchesYear = (e.year || '2024') === selectedYear;
+    const matchesSearch = e.title.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesCategory = selectedCategory === 'All' || e.category === selectedCategory;
+    
+    return matchesYear && matchesSearch && matchesCategory;
+  });
 
   return (
     <div className="min-h-screen bg-white font-sans text-slate-900">
@@ -60,36 +72,37 @@ export default function PastEvents() {
           <div className="flex flex-col md:flex-row gap-6 items-center justify-between">
             
             {/* Search Input */}
-            <div className="relative w-full md:w-1/3">
+            <div className="relative w-full md:w-1/4">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
               <input
                 type="text"
-                placeholder="Search records by title..."
+                placeholder="Search records..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="w-full pl-10 pr-4 py-2 border border-slate-300 rounded-md text-sm focus:border-emerald-600 focus:ring-1 focus:ring-emerald-600 outline-none transition-all"
               />
             </div>
 
-            {/* Year Selection Tabs */}
-            <div className="flex items-center border-l border-r border-slate-200">
-              <span className="px-4 text-xs font-bold text-slate-500 uppercase tracking-widest">Fiscal Year:</span>
-              <div className="flex gap-1 pr-2">
-                {years.map(year => (
+            {/* Category Sorting */}
+            <div className="flex items-center gap-2 overflow-x-auto pb-2 md:pb-0 no-scrollbar">
+              <Filter size={16} className="text-slate-400 shrink-0" />
+              <div className="flex gap-1">
+                {categories.map(cat => (
                   <button
-                    key={year}
-                    onClick={() => setSelectedYear(year)}
-                    className={`px-4 py-2 text-sm font-semibold transition-colors ${
-                      selectedYear === year
-                        ? 'bg-slate-900 text-white'
-                        : 'text-slate-600 hover:bg-slate-100'
+                    key={cat}
+                    onClick={() => setSelectedCategory(cat)}
+                    className={`px-3 py-1.5 rounded-full text-xs font-bold transition-all whitespace-nowrap border ${
+                      selectedCategory === cat
+                        ? 'bg-emerald-50 border-emerald-600 text-emerald-700'
+                        : 'border-slate-200 text-slate-500 hover:border-slate-400'
                     }`}
                   >
-                    {year}
+                    {cat}
                   </button>
                 ))}
               </div>
             </div>
+
           </div>
         </div>
       </section>
@@ -105,18 +118,18 @@ export default function PastEvents() {
           <div className="text-center py-24 border border-dashed border-slate-300 rounded-md">
             <FileText className="mx-auto h-10 w-10 text-slate-300 mb-4" />
             <h3 className="text-lg font-semibold text-slate-900">No records found</h3>
-            <p className="text-slate-500 text-sm">Adjust your search criteria or select a different year.</p>
+            <p className="text-slate-500 text-sm">Adjust your filters or select a different year.</p>
           </div>
         ) : (
           <div className="grid grid-cols-1 gap-8">
             {filteredEvents.map((event) => (
-              <div
+              <Link
                 key={event._id}
-                className="group bg-white border border-slate-200 overflow-hidden hover:border-emerald-500 transition-colors"
+                to={`/events/${event.slug?.current || event._id}`}
+                className="group block bg-white border border-slate-200 overflow-hidden hover:border-emerald-500 transition-all cursor-pointer no-underline"
               >
                 <div className="flex flex-col md:flex-row">
-                  
-                  {/* Image: Standardized Aspect Ratio */}
+                  {/* Image Section */}
                   <div className="md:w-72 lg:w-80 shrink-0 bg-slate-100 relative">
                     <img
                       src={event.image?.asset?.url || 'https://images.unsplash.com/photo-1515187029135-18ee286d815b?w=800&auto=format&fit=crop'}
@@ -128,7 +141,7 @@ export default function PastEvents() {
                     </div>
                   </div>
 
-                  {/* Content: Structured and Balanced */}
+                  {/* Content Section */}
                   <div className="flex-1 p-6 md:p-8">
                     <div className="flex flex-col h-full">
                       <div className="flex items-center gap-4 text-xs font-bold text-emerald-700 uppercase tracking-widest mb-3">
@@ -146,6 +159,12 @@ export default function PastEvents() {
                       <h3 className="text-2xl font-bold text-slate-900 mb-4 group-hover:text-emerald-700 transition-colors">
                         {event.title}
                       </h3>
+
+                      {event.description && (
+                        <p className="text-sm text-slate-600 leading-relaxed mb-4 line-clamp-3">
+                          {event.description}
+                        </p>
+                      )}
 
                       <div className="flex flex-wrap gap-2 mb-6">
                         {event.highlights?.map((highlight, i) => (
@@ -167,20 +186,18 @@ export default function PastEvents() {
                         <div className="flex items-center gap-6 shrink-0">
                           <div className="text-right">
                             <span className="block text-[10px] font-black text-slate-400 uppercase tracking-tighter">Attendance</span>
-                            <span className="text-sm font-bold text-slate-900">{event.attendees} Verified</span>
+                            <span className="text-sm font-bold text-slate-900">{event.attendees} </span>
                           </div>
-                          <a 
-                            href={`/events/${event.slug?.current || event._id}`}
-                            className="flex items-center gap-2 bg-slate-100 hover:bg-emerald-600 hover:text-white px-4 py-2 text-xs font-bold uppercase tracking-widest transition-all"
-                          >
-                            View Report
-                          </a>
+                          
+                          <div className="flex items-center gap-2 bg-slate-100 group-hover:bg-emerald-600 group-hover:text-white px-4 py-2 text-xs font-bold uppercase tracking-widest transition-all">
+                            View Event
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         )}

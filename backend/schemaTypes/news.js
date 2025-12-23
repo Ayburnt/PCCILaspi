@@ -1,5 +1,5 @@
-import { defineField, defineType } from 'sanity'
-import { DocumentTextIcon } from '@sanity/icons'
+import {defineField, defineType} from 'sanity'
+import {DocumentTextIcon} from '@sanity/icons'
 
 export default defineType({
   name: 'news',
@@ -11,7 +11,7 @@ export default defineType({
       name: 'title',
       title: 'Headline',
       type: 'string',
-      validation: rule => rule.required()
+      validation: (rule) => rule.required(),
     }),
 
     defineField({
@@ -22,15 +22,15 @@ export default defineType({
         source: 'title',
         maxLength: 96,
       },
-      validation: rule => rule.required()
+      validation: (rule) => rule.required(),
     }),
 
     defineField({
       name: 'date',
       title: 'Published Date',
       type: 'date',
-      options: { dateFormat: 'YYYY-MM-DD' },
-      validation: rule => rule.required()
+      options: {dateFormat: 'YYYY-MM-DD'},
+      validation: (rule) => rule.required(),
     }),
 
     defineField({
@@ -39,19 +39,19 @@ export default defineType({
       type: 'string',
       options: {
         list: [
-          { title: 'Press Release', value: 'press-release' },
-          { title: 'News Update', value: 'news-update' },
-          { title: 'Advisory', value: 'advisory' },
+          {title: 'Press Release', value: 'press-release'},
+          {title: 'News Update', value: 'news-update'},
+          {title: 'Advisory', value: 'advisory'},
         ],
       },
-      validation: rule => rule.required()
+      validation: (rule) => rule.required(),
     }),
 
     defineField({
       name: 'image',
       title: 'Cover Image',
       type: 'image',
-      options: { hotspot: true }
+      options: {hotspot: true},
     }),
 
     defineField({
@@ -60,15 +60,57 @@ export default defineType({
       description: 'This appears on the News Grid. Keep it concise (2–3 sentences).',
       type: 'text',
       rows: 3,
-      validation: rule =>
-        rule.max(300).warning('Long text may be cut off in the grid layout.')
+      validation: (rule) => rule.max(300).warning('Long text may be cut off in the grid layout.'),
     }),
 
     defineField({
       name: 'body',
       title: 'Full Article Content',
       type: 'array',
-      of: [{ type: 'block' }] // Rich text
+      of: [
+        {
+          type: 'block',
+          styles: [
+            {title: 'Normal', value: 'normal'},
+            {title: 'H1', value: 'h1'},
+            {title: 'H2', value: 'h2'},
+            {title: 'H3', value: 'h3'},
+            {title: 'Quote', value: 'blockquote'},
+          ],
+          lists: [
+            {title: 'Bullet', value: 'bullet'},
+            {title: 'Numbered', value: 'number'},
+          ],
+          marks: {
+            decorators: [
+              {title: 'Bold', value: 'strong'},
+              {title: 'Italic', value: 'em'},
+              {title: 'Underline', value: 'underline'},
+              {title: 'Code', value: 'code'},
+            ],
+            annotations: [
+              {
+                name: 'link',
+                title: 'Link',
+                type: 'object',
+                fields: [
+                  {
+                    name: 'href',
+                    title: 'URL',
+                    type: 'url',
+                  },
+                ],
+              },
+            ],
+          },
+        },
+
+        // Optional: allow images inside article
+        {
+          type: 'image',
+          options: {hotspot: true},
+        },
+      ],
     }),
   ],
 })

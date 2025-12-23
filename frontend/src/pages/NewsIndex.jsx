@@ -72,9 +72,48 @@ export default function NewsIndex() {
       <div className="max-w-7xl mx-auto px-6 py-8">
         <div className="flex flex-col lg:flex-row gap-12">
           
-          {/* --- MAIN NEWS ARCHIVE (66%) --- */}
-          {/* order-1 ensures this stays on TOP during mobile view */}
-          <div className="w-full lg:w-2/3 order-1 lg:order-1">
+          {/* --- SIDEBAR (33%) - LEFT ON DESKTOP --- */}
+          {/* order-2 on mobile (bottom), lg:order-1 on desktop (left) */}
+          <aside className="w-full lg:w-1/3 order-2 lg:order-1 space-y-8">
+            <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden sticky top-8">
+              <div className="bg-gray-50 border-b border-gray-100 p-4 flex items-center justify-between">
+                <div className="flex items-center gap-2 text-slate-800 font-bold text-sm">
+                  <Share2 size={16} className="text-[#155333]" />
+                  Latest Activity
+                </div>
+                <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Social</span>
+              </div>
+              
+              <div className="p-0">
+                <iframe
+                  src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FPCCIlaspinas&tabs=timeline&width=500&height=800&small_header=true&adapt_container_width=true&hide_cover=false&show_facepile=false"
+                  width="100%"
+                  height="600"
+                  style={{ border: "none", overflow: "hidden" }}
+                  scrolling="no"
+                  frameBorder="0"
+                  allowFullScreen={true}
+                  className="min-h-[600px] w-full"
+                  title="Official Facebook Page"
+                ></iframe>
+              </div>
+              
+              <div className="p-4 border-t border-gray-100 bg-gray-50 text-center">
+                <a 
+                  href="https://www.facebook.com/PCCIlaspinas" 
+                  target="_blank" 
+                  rel="noreferrer"
+                  className="text-xs font-semibold text-[#155333] hover:underline"
+                >
+                  View on Facebook &rarr;
+                </a>
+              </div>
+            </div>
+          </aside>
+
+          {/* --- MAIN NEWS ARCHIVE (66%) - RIGHT ON DESKTOP --- */}
+          {/* order-1 on mobile (top), lg:order-2 on desktop (right) */}
+          <div className="w-full lg:w-2/3 order-1 lg:order-2">
             
             {/* Control Bar */}
             <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4 mb-8 flex flex-col md:flex-row gap-4 items-center justify-between">
@@ -218,45 +257,6 @@ export default function NewsIndex() {
               </div>
             )}
           </div>
-
-          {/* --- SIDEBAR (33%) --- */}
-          {/* order-2 ensures this goes BELOW the news during mobile view */}
-          <aside className="w-full lg:w-1/3 order-2 lg:order-2 space-y-8">
-            <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden sticky top-8">
-              <div className="bg-gray-50 border-b border-gray-100 p-4 flex items-center justify-between">
-                <div className="flex items-center gap-2 text-slate-800 font-bold text-sm">
-                  <Share2 size={16} className="text-[#155333]" />
-                  Latest Activity
-                </div>
-                <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Social</span>
-              </div>
-              
-              <div className="p-0">
-                <iframe
-                  src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FPCCIlaspinas&tabs=timeline&width=500&height=800&small_header=true&adapt_container_width=true&hide_cover=false&show_facepile=false"
-                  width="100%"
-                  height="600"
-                  style={{ border: "none", overflow: "hidden" }}
-                  scrolling="no"
-                  frameBorder="0"
-                  allowFullScreen={true}
-                  className="min-h-[600px] w-full"
-                  title="Official Facebook Page"
-                ></iframe>
-              </div>
-              
-              <div className="p-4 border-t border-gray-100 bg-gray-50 text-center">
-                <a 
-                  href="https://www.facebook.com/PCCIlaspinas" 
-                  target="_blank" 
-                  rel="noreferrer"
-                  className="text-xs font-semibold text-[#155333] hover:underline"
-                >
-                  View on Facebook &rarr;
-                </a>
-              </div>
-            </div>
-          </aside>
 
         </div>
       </div>
