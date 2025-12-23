@@ -55,7 +55,7 @@ const FeaturedMember = () => {
               {featuredMembers.map((member, index) => (
                 <Link 
                   key={index} 
-                  to={`/members-directory/${member.slug}`} 
+                  to={`/member/${member.slug}`} 
                   className="flex-shrink-0 inline-block"
                 >
                   {member.logo ? (

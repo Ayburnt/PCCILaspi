@@ -49,7 +49,7 @@ function AnimatedRoutes() {
 
       {/* Membership Routes */}
       <Route path="/members-directory" element={<MembersDirectory />} />
-      <Route path="/members-directory/:slug" element={<MemberProfile />} />
+      <Route path="/member/:slug" element={<MemberProfile />} />
       <Route path="/how-to-become-member" element={<HowToBecomeMember />} />
       <Route path="/why-join-us" element={<WhyJoinUs />} />
 

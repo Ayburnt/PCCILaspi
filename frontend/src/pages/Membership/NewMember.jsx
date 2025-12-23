@@ -52,7 +52,7 @@ const NewMember = () => {
             >
               {displayLogos.map((member, index) => (
                 <div key={index} className="flex-shrink-0">
-                  <Link to={`/members-directory/${member.slug}`} className="block">
+                  <Link to={`/member/${member.slug}`} className="block">
                     {member.logo ? (
                       <img
                         src={urlFor(member.logo).height(80).url()}

@@ -332,7 +332,7 @@ export default function MembersDirectory() {
 
                       {/* ✅ slug route */}
                       <Link
-                        to={`/members-directory/${memberKey}`}
+                        to={`/member/${memberKey}`}
                         className="text-sm font-semibold text-green-700 hover:text-green-900 flex items-center group/btn"
                       >
                         View Profile
