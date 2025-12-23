@@ -60,13 +60,11 @@ const Partnership = () => {
       <div className="relative z-10 max-w-7xl mx-auto px-6 mb-16 text-center">
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-green-100/50 border border-green-200 text-green-700 text-xs font-bold uppercase tracking-wider mb-4">
           <Handshake size={14} />
-          Our Sponsors & Partners
+          Strategic Partnerships
         </div>
         <h2 className="text-3xl md:text-5xl font-extrabold text-slate-900 mb-6 tracking-tight">
-          Proudly Supported by{" "}
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-600 to-emerald-500">
-            Our Sponsors & Partners
-          </span>
+          Our Sponsors & Partners{" "}
+          
         </h2>
         <p className="text-slate-500 text-lg max-w-2xl mx-auto leading-relaxed">
           We collaborate with our sponsors and partners to drive innovation and
